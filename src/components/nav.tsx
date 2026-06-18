@@ -4,7 +4,7 @@ import { NAV, SITE } from "@/lib/constants";
 
 export function Nav() {
   return (
-    <header className="relative z-10 flex items-start justify-between px-4 py-6 md:px-8 md:py-10">
+    <header className="relative z-10 flex items-center justify-between px-4 py-6 md:px-8 md:py-10">
       <Link href="/" className="font-display text-2xl tracking-[0.2em] md:text-3xl">
         {SITE.name}
       </Link>

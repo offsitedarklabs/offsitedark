@@ -14,7 +14,13 @@ function loadAscii(filename: string): string {
   }
 }
 
-export function AsciiBlock({ file = "hero.txt" }: { file?: string }) {
+export function AsciiBlock({
+  file = "hero.txt",
+  sizeToContent = false,
+}: {
+  file?: string;
+  sizeToContent?: boolean;
+}) {
   const content = loadAscii(file);
-  return <AsciiScaler content={content} />;
+  return <AsciiScaler content={content} sizeToContent={sizeToContent} />;
 }

@@ -5,11 +5,9 @@ import { SITE } from "@/lib/constants";
 
 export default function AboutPage() {
   return (
-    <div className="grid md:grid-cols-[1fr_2fr]">
-      <div className="cell relative flex min-h-[320px] border-l-0 border-t-0 md:min-h-0">
-        <div className="h-full min-h-0 w-full">
-          <AsciiBlock file="manifesto.txt" />
-        </div>
+    <div className="grid items-stretch md:grid-cols-[auto_1fr]">
+      <div className="cell relative w-full border-l-0 border-t-0 md:h-full md:w-fit md:min-h-0">
+        <AsciiBlock file="manifesto.txt" sizeToContent />
       </div>
       <div className="cell border-r-0 border-t-0 p-6 md:p-12 md:pr-20">
         <h1 className="font-display mb-10 text-6xl md:text-8xl">ABOUT</h1>
