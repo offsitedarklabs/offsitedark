@@ -27,6 +27,10 @@ export default function AboutPage() {
             Understanding the machine — its flaws, its defenses, its soul — is the
             first step toward true liberation.
           </p>
+          <p className="border-l-2 border-red pl-6 italic text-white/60">
+            Man is an individual only because of his intangible memory. But memory
+            cannot be defined, yet it defines mankind.
+          </p>
           <p className="font-mono text-sm text-gray">
             @offsitedark · Idea thinktank
           </p>

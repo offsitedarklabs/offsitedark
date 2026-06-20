@@ -49,7 +49,7 @@ export type GrepCategory = (typeof GREP_CATEGORIES)[number];
 export const PROJECTS = [
   {
     slug: "firewall",
-    name: "offsite's firewall",
+    name: "OFFSITE.FIREWALL",
     status: "WIP",
     description:
       "Prebuilt Pi-hole + custom pfSense plug-and-play network security.",
@@ -61,14 +61,14 @@ export const PROJECTS = [
   },
   {
     slug: "world",
-    name: "offsite's world",
+    name: "OFFSITE.WORLD",
     status: "PRIVATE",
     description: "Open source Greynoise.io. Port scanner and security engine.",
     features: ["Port scanning", "Noise classification", "Threat intel API"],
   },
   {
     slug: "ai",
-    name: "offsite's ai",
+    name: "OFFSITE.AI",
     status: "PRIVATE",
     description:
       "Fine-tuned AI models for malware detection and code correction.",
