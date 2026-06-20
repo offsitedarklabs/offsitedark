@@ -20,16 +20,20 @@ export default async function PostPage({
   return (
     <article>
       <div className="grid md:grid-cols-[1fr_3fr]">
-        <div className="cell border-l-0 border-t-0 p-6 md:p-10">
-          <Link
-            href="/research"
-            className="meta hover:text-white"
-          >
-            ← Research
-          </Link>
-          <p className="vertical-label mt-12 text-red">{post.category}</p>
-          <p className="meta mt-8">{formatDate(post.date)}</p>
-          <p className="meta mt-2">{post.readingMinutes} min</p>
+        <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
+          <div className="min-w-0 flex-1">
+            <Link
+              href="/research"
+              className="meta hover:text-white"
+            >
+              ← Research
+            </Link>
+            <p className="meta mt-8">{formatDate(post.date)}</p>
+            <p className="meta mt-2">{post.readingMinutes} min</p>
+          </div>
+          <p className="vertical-label mt-12 shrink-0 pl-2 text-red md:pl-3">
+            {post.category}
+          </p>
         </div>
         <div className="cell border-r-0 border-t-0 p-6 md:p-12 md:pr-16">
           <h1 className="font-display mb-8 text-5xl leading-none md:text-7xl">

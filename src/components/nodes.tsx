@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { HomeCharacter } from "@/components/home-character";
 import { NODES, SITE } from "@/lib/constants";
 
 export function Nodes() {
@@ -20,19 +21,24 @@ export function Nodes() {
           </p>
         </div>
         <div className="cell border-t-0 border-r-0 p-6 md:p-10">
-          <p className="meta mb-4">Nodes</p>
-          <div className="flex flex-col gap-2">
-            {NODES.map((node) => (
-              <Link
-                key={node.label}
-                href={node.href}
-                className="font-mono text-sm hover:text-red"
-              >
-                → {node.label}
-              </Link>
-            ))}
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="min-w-0">
+              <p className="meta mb-4">Nodes</p>
+              <div className="flex flex-col gap-2">
+                {NODES.map((node) => (
+                  <Link
+                    key={node.label}
+                    href={node.href}
+                    className="font-mono text-sm hover:text-red"
+                  >
+                    → {node.label}
+                  </Link>
+                ))}
+              </div>
+              <p className="meta mt-8">OUTPUT 317 · SEED: 3396188657</p>
+            </div>
+            <HomeCharacter />
           </div>
-          <p className="meta mt-8">OUTPUT 317 · SEED: 3396188657</p>
         </div>
       </div>
     </footer>
