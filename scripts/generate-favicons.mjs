@@ -7,7 +7,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const svg = readFileSync(join(root, "public", "favicon.svg"));
 
-await sharp(svg).resize(32, 32).toFile(join(root, "public", "favicon.ico"));
-await sharp(svg).resize(180, 180).png().toFile(join(root, "public", "apple-touch-icon.png"));
+const sizes = [
+  { size: 16, file: "favicon-16x16.png" },
+  { size: 32, file: "favicon.ico" },
+  { size: 180, file: "apple-touch-icon.png" },
+];
 
-console.log("Generated public/favicon.ico and public/apple-touch-icon.png");
+for (const { size, file } of sizes) {
+  const out = join(root, "public", file);
+  const pipeline = sharp(svg).resize(size, size);
+  if (file.endsWith(".ico")) {
+    await pipeline.toFile(out);
+  } else {
+    await pipeline.png().toFile(out);
+  }
+}
+
+console.log("Generated public/favicon.ico, favicon-16x16.png, and apple-touch-icon.png");

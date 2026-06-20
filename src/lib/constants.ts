@@ -12,6 +12,7 @@ export const SITE = {
 export const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "Research", href: "/research" },
   { label: "News", href: "/news" },
+  { label: "Greps", href: "/greps" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Git", href: "https://github.com/offsitedark", external: true },
@@ -33,6 +34,17 @@ export const CATEGORIES = [
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
+
+export const GREP_CATEGORIES = [
+  "recent-upload",
+  "cyber-llm",
+  "pentest",
+  "code-security",
+  "oss-powerhouse",
+  "malware-ml",
+] as const;
+
+export type GrepCategory = (typeof GREP_CATEGORIES)[number];
 
 export const PROJECTS = [
   {

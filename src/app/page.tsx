@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { AsciiBlock } from "@/components/ascii-block";
@@ -17,20 +16,7 @@ export default function HomePage() {
       {/* brutalist hero grid */}
       <div className="grid items-stretch border-b border-red md:grid-cols-[1.2fr_1fr]">
         {/* left — oversized title block */}
-        <div className="cell relative border-l-0 border-t-0 p-6 pt-2 md:p-10 md:pl-8">
-          <figure
-            className="absolute top-6 right-6 z-10 shrink-0 border border-red bg-black shadow-[6px_6px_0_0_var(--red)] md:top-10 md:right-10 md:shadow-[8px_8px_0_0_var(--red)]"
-            aria-hidden
-          >
-            <Image
-              src="/images/character.png"
-              alt=""
-              width={400}
-              height={400}
-              priority
-              className="block h-[clamp(8.5rem,32vw,13rem)] w-[clamp(8.5rem,32vw,13rem)] object-cover object-top contrast-[1.15] md:h-[16rem] md:w-[16rem] lg:h-[18rem] lg:w-[18rem]"
-            />
-          </figure>
+        <div className="cell border-l-0 border-t-0 p-6 pt-2 md:p-10 md:pl-8">
           <p className="meta mb-8 flex gap-6">
             <span>Think</span>
             <span>Of</span>
@@ -59,7 +45,7 @@ export default function HomePage() {
         {/* right — ascii fills cell */}
         <div className="cell relative flex min-h-[320px] h-full border-r-0 border-t-0 md:min-h-0">
           <p className="vertical-label absolute left-2 top-6 z-10 text-red md:left-4">
-            Signal
+            The net is vast and infinite...
           </p>
           <div className="h-full min-h-0 w-full pl-10 md:pl-14">
             <AsciiBlock />
