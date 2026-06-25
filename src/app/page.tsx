@@ -16,30 +16,41 @@ export default function HomePage() {
       {/* brutalist hero grid */}
       <div className="grid items-stretch border-b border-red md:grid-cols-[1.2fr_1fr]">
         {/* left — oversized title block */}
-        <div className="cell border-l-0 border-t-0 p-6 pt-2 md:p-10 md:pl-8">
-          <p className="meta mb-8 flex gap-6">
-            <span>Think</span>
-            <span>Of</span>
-            <span>Yourself</span>
-          </p>
-          <div className="relative w-full overflow-visible">
-            <h1 className="min-w-0 font-display text-[clamp(4rem,15vw,11rem)] leading-[0.85] tracking-tight text-white">
-              OFFSITE
-              <br />
-              DARK
-            </h1>
+        <div className="cell relative overflow-hidden border-l-0 border-t-0 p-6 pt-2 md:p-10 md:pl-8">
+          <div
+            className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "url('/images/ddac0c7dc3e43217f48aeae9a967eb9d.gif')",
+            }}
+            aria-hidden
+          />
+          <div className="pointer-events-none absolute inset-0 bg-black/80" aria-hidden />
+          <div className="relative z-10">
+            <p className="meta mb-8 flex gap-6">
+              <span>Think</span>
+              <span>Of</span>
+              <span>Yourself</span>
+            </p>
+            <div className="relative w-full overflow-visible">
+              <h1 className="min-w-0 font-display text-[clamp(4rem,15vw,11rem)] leading-[0.85] tracking-tight text-white">
+                OFFSITE
+                <br />
+                DARK
+              </h1>
+            </div>
+            <p className="mt-8 max-w-lg text-justify font-serif text-xl leading-relaxed text-white/70 md:max-w-xl md:text-2xl">
+              Open source security research lab. Malware analysis, offensive tooling,
+              and the relentless pursuit of understanding the machine.
+            </p>
+            <p className="meta mt-10 text-xl md:text-2xl">
+              あなただけが重要です | Только ты важен
+            </p>
+            <p className="mt-16 ml-auto max-w-sm text-right font-serif text-sm italic leading-relaxed text-white/55 md:max-w-md md:text-base">
+              The physical body exists at a less evolved plane only to verify one&apos;s
+              existence in the universe
+            </p>
           </div>
-          <p className="mt-8 max-w-lg text-justify font-serif text-xl leading-relaxed text-white/70 md:max-w-xl md:text-2xl">
-            Open source security research lab. Malware analysis, offensive tooling,
-            and the relentless pursuit of understanding the machine.
-          </p>
-          <p className="meta mt-10 text-xl md:text-2xl">
-            あなただけが重要です | Только ты важен
-          </p>
-          <p className="mt-16 ml-auto max-w-sm text-right font-serif text-sm italic leading-relaxed text-white/55 md:max-w-md md:text-base">
-            The physical body exists at a less evolved plane only to verify one&apos;s
-            existence in the universe
-          </p>
         </div>
 
         {/* right — ascii fills cell */}
@@ -127,10 +138,21 @@ export default function HomePage() {
             </p>
           </SectionBlock>
 
-          <p className="border-t border-red px-6 py-6 text-justify font-lain text-xl leading-relaxed text-white/70 md:px-10 md:text-2xl">
-            What isn&apos;t remembered never happened; memory is merely a record, you
-            just need to rewrite that record.
-          </p>
+          <div className="relative overflow-hidden border-t border-red px-6 py-6 md:px-10">
+            <div
+              className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage:
+                  "url('/images/edbbea173d79c1725a20e0c8a29e63c4.gif')",
+              }}
+              aria-hidden
+            />
+            <div className="pointer-events-none absolute inset-0 bg-black/55" aria-hidden />
+            <p className="relative z-10 text-justify font-lain text-xl leading-relaxed text-white/70 md:text-2xl">
+              What isn&apos;t remembered never happened; memory is merely a record, you
+              just need to rewrite that record.
+            </p>
+          </div>
 
           <div className="border-t border-red px-6 py-8 md:px-10">
             <p className="meta mb-6">Projects</p>
