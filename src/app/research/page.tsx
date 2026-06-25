@@ -25,10 +25,10 @@ export default async function ResearchPage({
         </h1>
       </div>
 
-      <div className="grid md:grid-cols-[200px_1fr]">
-        <aside className="cell border-l-0 border-t-0 p-6">
-          <p className="vertical-label text-red">Directory</p>
-          <nav className="mt-8 flex flex-row flex-wrap gap-2 md:mt-0 md:flex-col md:gap-1">
+      <div className="grid md:grid-cols-[220px_1fr]">
+        <aside className="cell flex items-start gap-4 border-l-0 border-t-0 p-6">
+          <p className="vertical-label shrink-0 text-red">Directory</p>
+          <nav className="min-w-0 flex-1 flex flex-col gap-1">
             <Link
               href="/research"
               className={`font-mono text-xs uppercase ${!active ? "text-red" : "text-gray hover:text-white"}`}
