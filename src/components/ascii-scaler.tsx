@@ -338,9 +338,11 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
   const measureRef = useRef<HTMLPreElement>(null);
   const rafRef = useRef<number | null>(null);
   const metricsRef = useRef<CharMetrics | null>(null);
+  const skipResizeTransitionRef = useRef(true);
 
   const [layout, setLayout] = useState<Layout | null>(null);
   const [animateResize, setAnimateResize] = useState(false);
+  const [resizeTransition, setResizeTransition] = useState(false);
   const [isNarrow, setIsNarrow] = useState(
     () => typeof window !== "undefined" && isNarrowViewport(),
   );
@@ -412,6 +414,8 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
 
   useLayoutEffect(() => {
     metricsRef.current = null;
+    setResizeTransition(false);
+    skipResizeTransitionRef.current = true;
 
     const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setAnimateResize(!motionMq.matches);
@@ -425,11 +429,13 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
     setIsNarrow(narrowMq.matches);
     const onNarrowChange = (e: MediaQueryListEvent) => {
       setIsNarrow(e.matches);
+      setResizeTransition(true);
       scheduleRefit();
     };
     narrowMq.addEventListener("change", onNarrowChange);
 
-    scheduleRefit();
+    // Measure synchronously so the first paint uses the correct font size.
+    refit();
 
     const container = containerRef.current;
     if (!container) {
@@ -443,26 +449,37 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
         ? container.parentElement
         : container;
 
-    const ro = new ResizeObserver(() => scheduleRefit());
+    const onResize = () => {
+      if (skipResizeTransitionRef.current) {
+        skipResizeTransitionRef.current = false;
+        scheduleRefit();
+        return;
+      }
+      setResizeTransition(true);
+      scheduleRefit();
+    };
+
+    const ro = new ResizeObserver(onResize);
     ro.observe(resizeTarget);
 
-    window.addEventListener("resize", scheduleRefit);
+    window.addEventListener("resize", onResize);
 
     void document.fonts.ready.then(() => {
       metricsRef.current = null;
-      scheduleRefit();
+      setResizeTransition(false);
+      refit();
     });
 
     return () => {
       ro.disconnect();
-      window.removeEventListener("resize", scheduleRefit);
+      window.removeEventListener("resize", onResize);
       motionMq.removeEventListener("change", onMotionChange);
       narrowMq.removeEventListener("change", onNarrowChange);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [scheduleRefit, content, sizeToContent]);
+  }, [refit, scheduleRefit, content, sizeToContent]);
 
   const narrowContain = sizeToContent && isNarrow;
 
@@ -495,7 +512,11 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
         style={{
           fontSize: layout ? `${layout.fontSize}px` : `${REF_FONT_SIZE}px`,
           lineHeight: 1,
-          transition: animateResize ? "font-size 0.15s ease-out" : undefined,
+          opacity: layout ? 1 : 0,
+          transition:
+            resizeTransition && animateResize
+              ? "font-size 0.15s ease-out"
+              : undefined,
         }}
       >
         {layout?.text ?? fallbackText}

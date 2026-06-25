@@ -104,17 +104,32 @@ body::before {
 }
 
 .prose-lab {
-  max-width: 65ch;
+  max-width: 70ch;
+  margin-left: clamp(0.75rem, 2.5vw, 2rem);
+  margin-right: auto;
   font-family: var(--font-instrument-serif), georgia, serif;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.8;
   color: rgb(255 255 255 / 0.92);
 }
 
 @media (min-width: 768px) {
   .prose-lab {
-    font-size: 1.125rem;
+    font-size: 1.2rem;
     line-height: 1.85;
+    margin-left: clamp(1rem, 3vw, 2.5rem);
+  }
+}
+
+.article-excerpt {
+  max-width: 70ch;
+  margin-left: clamp(0.75rem, 2.5vw, 2rem);
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .article-excerpt {
+    margin-left: clamp(1rem, 3vw, 2.5rem);
   }
 }
 
@@ -222,6 +237,89 @@ body::before {
   padding: 1rem;
   overflow-x: auto;
   margin: 1.5rem 0;
+}
+
+.ledger-controls {
+  background: rgb(0 0 0 / 0.35);
+}
+
+.ledger-search {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--red);
+  color: var(--white);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 0.85rem;
+  text-transform: uppercase;
+}
+
+.ledger-search::placeholder {
+  color: var(--gray);
+  opacity: 1;
+}
+
+.ledger-search:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--red);
+}
+
+.ledger-filter-chip {
+  border: 1px solid var(--red);
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.65rem;
+  text-transform: uppercase;
+  transition: background 0.12s, color 0.12s;
+}
+
+.ledger-filter-chip:hover {
+  color: var(--white);
+}
+
+.ledger-filter-chip-active {
+  background: var(--red);
+  color: var(--white);
+}
+
+.ledger-group-header {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  gap: 0.75rem;
+  border: none;
+  border-bottom: 1px solid var(--red);
+  background: rgb(173 0 19 / 0.06);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.85rem 1rem 0.85rem 1rem;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+@media (min-width: 768px) {
+  .ledger-group-header {
+    padding-right: 2rem;
+  }
+}
+
+.ledger-group-header:hover {
+  background: rgb(173 0 19 / 0.14);
+}
+
+.ledger-group-chevron {
+  color: var(--red);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 1rem;
+  line-height: 1;
+  width: 1rem;
+  flex-shrink: 0;
 }
 
 .entry-row {

@@ -83,7 +83,7 @@ export default async function GrepPostPage({
             {post.category}
           </p>
         </div>
-        <div className="cell border-r-0 border-t-0 p-6 md:p-12 md:pr-16">
+        <div className="cell border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
           <p className="meta mb-6 text-white/40">
             Community upload on Hugging Face — indexed for inquiry, not
             endorsement.
@@ -91,7 +91,7 @@ export default async function GrepPostPage({
           <h1 className="font-display mb-8 text-5xl leading-none md:text-7xl">
             {post.title}
           </h1>
-          <p className="mb-10 max-w-prose font-serif text-lg italic text-white/60">
+          <p className="article-excerpt mb-10 font-serif text-lg italic text-white/60">
             {post.excerpt}
           </p>
           <Markdown content={post.content} />
