@@ -383,6 +383,33 @@ button.entry-row.entry-row-active .meta {
   animation: not-found-glitch 14s ease-in-out infinite;
 }
 
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.hero-cursor-wrap {
+  font-size: inherit;
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.38em;
+  height: 0;
+  margin-left: 0.05em;
+  vertical-align: baseline;
+  border: none;
+  border-bottom: max(5px, 0.11em) solid rgb(255 255 255);
+  animation: blink 2s step-end infinite;
+}
+
 @keyframes not-found-glitch {
   0%,
   88%,
@@ -414,6 +441,10 @@ button.entry-row.entry-row-active .meta {
   }
 
   .not-found-code {
+    animation: none;
+  }
+
+  .cursor-blink {
     animation: none;
   }
 }

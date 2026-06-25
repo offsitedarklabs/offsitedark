@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { HomeCharacter } from "@/components/home-character";
+import { OutputSeedMeta } from "@/components/output-seed-meta";
 import { NODES, SITE } from "@/lib/constants";
 
 export function Nodes() {
@@ -44,7 +45,7 @@ export function Nodes() {
                   </Link>
                 ))}
               </div>
-              <p className="meta mt-8">OUTPUT 317 · SEED: 3396188657</p>
+              <OutputSeedMeta />
             </div>
             <HomeCharacter />
           </div>

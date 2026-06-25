@@ -50,6 +50,7 @@ export const PROJECTS = [
   {
     slug: "firewall",
     name: "OFFSITE.FIREWALL",
+    gif: "/images/95ff616d1a85c7f76f2691bdf1f3aba5.gif",
     status: "WIP",
     description:
       "Prebuilt Pi-hole + custom pfSense plug-and-play network security.",
@@ -62,6 +63,7 @@ export const PROJECTS = [
   {
     slug: "world",
     name: "OFFSITE.WORLD",
+    gif: "/images/36aa541bc9d68937b39fd16ef3e75e31_720w1.gif",
     status: "PRIVATE",
     description: "Open source Greynoise.io. Port scanner and security engine.",
     features: ["Port scanning", "Noise classification", "Threat intel API"],
@@ -69,6 +71,7 @@ export const PROJECTS = [
   {
     slug: "ai",
     name: "OFFSITE.AI",
+    gif: "/images/a4f596911806a18ad72700c05c876773.gif",
     status: "PRIVATE",
     description:
       "Fine-tuned AI models for malware detection and code correction.",
