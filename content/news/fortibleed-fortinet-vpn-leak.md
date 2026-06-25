@@ -4,7 +4,7 @@ slug: "fortibleed-fortinet-vpn-leak"
 date: 2026-06-17
 type: news
 category: news
-tags: [fortinet, vpn, breach, credentials]
+tags: [fortinet, vpn, breach, credentials, info-disclosure]
 excerpt: "FortiBleed data leak exposes Fortinet VPN credentials for approximately 73,000 devices."
 source: "Hacker News"
 sourceUrl: "https://www.bleepingcomputer.com/news/security/fortibleed-leak-exposes-fortinet-vpn-credentials-for-73-000-devices/"
