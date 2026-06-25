@@ -13,7 +13,7 @@ draft: false
 
 ## Summary
 
-A modified Mirai botnet variant has re-entered active scanning campaigns, targeting IoT and embedded devices exposed on **TCP/23 (telnet)** with an expanded credential dictionary and **domain generation algorithm (DGA)** command-and-control infrastructure. The strain diverges from stock Mirai in its C2 resilience model — static hardcoded IPs have been replaced with daily-rotating DGA domains, complicating sinkhole and blocklist strategies.
+A modified Mirai botnet variant has re-entered active scanning campaigns, targeting IoT and embedded devices exposed on TCP/23 (telnet) with an expanded credential dictionary and domain generation algorithm (DGA) command-and-control infrastructure. The strain diverges from stock Mirai in its C2 resilience model — static hardcoded IPs have been replaced with daily-rotating DGA domains, complicating sinkhole and blocklist strategies.
 
 IoT botnets remain the cheapest distributed compute available to attackers. This variant's credential refresh suggests operators are mining breach compilations and vendor default-password databases released in Q1–Q2 2026.
 
@@ -21,17 +21,17 @@ IoT botnets remain the cheapest distributed compute available to attackers. This
 
 ### Infection Chain
 
-1. **Scan phase** — compromised bots and scanner nodes probe random IPv4 ranges on port 23.
-2. **Brute-force** — dictionary attack against telnet login prompts; success rate concentrates on cameras, DVRs, routers, and industrial gateways still shipping telnet-enabled firmware.
-3. **Dropper delivery** — architecture-specific ELF binaries (`mips`, `arm`, `arm7`, `m68k`, `sh4`) fetched via wget/curl embedded in shell one-liners.
-4. **Persistence** — process name masquerading (`/bin/busybox`, `[kworker]`), watchdog process respawn, and crontab entries on Linux-based firmware.
-5. **C2 registration** — bot resolves DGA domain, registers with controller, receives attack command queue.
+1. Scan phase — compromised bots and scanner nodes probe random IPv4 ranges on port 23.
+2. Brute-force — dictionary attack against telnet login prompts; success rate concentrates on cameras, DVRs, routers, and industrial gateways still shipping telnet-enabled firmware.
+3. Dropper delivery — architecture-specific ELF binaries (`mips`, `arm`, `arm7`, `m68k`, `sh4`) fetched via wget/curl embedded in shell one-liners.
+4. Persistence — process name masquerading (`/bin/busybox`, `[kworker]`), watchdog process respawn, and crontab entries on Linux-based firmware.
+5. C2 registration — bot resolves DGA domain, registers with controller, receives attack command queue.
 
 ### DGA Characteristics
 
-Observed DGA seeds produce **4–6 character second-level domains** under rotating TLDs including `.top`, `.xyz`, `.icu`, and `.cc`. Domain generation uses date-seeded PRNG — predictable if seed algorithm is recovered from binary.
+Observed DGA seeds produce 4–6 character second-level domains under rotating TLDs including `.top`, `.xyz`, `.icu`, and `.cc`. Domain generation uses date-seeded PRNG — predictable if seed algorithm is recovered from binary.
 
-**Example pattern (illustrative, rotate daily):**
+Example pattern (illustrative, rotate daily):
 
 ```
 [a-z]{4,6}.(top|xyz|icu)
@@ -61,19 +61,19 @@ Hash samples vary by build — submit unknown ELF binaries from edge devices to 
 
 ## Impact
 
-**Residential:** Compromised routers and cameras become DDoS cannon fodder and residential proxy nodes.
+Residential: Compromised routers and cameras become DDoS cannon fodder and residential proxy nodes.
 
-**Enterprise:** OT gateways with telnet enabled for legacy maintenance become lateral movement bridges between IT and OT segments.
+Enterprise: OT gateways with telnet enabled for legacy maintenance become lateral movement bridges between IT and OT segments.
 
-**Service providers:** Upstream bandwidth consumption during attack windows; reputation damage if customer CPE participates in outbound floods.
+Service providers: Upstream bandwidth consumption during attack windows; reputation damage if customer CPE participates in outbound floods.
 
 ## Mitigation
 
-1. **Disable telnet everywhere** — SSH with key auth only; many vendors still expose telnet on factory defaults.
-2. **Block outbound DGA TLD patterns** at recursive DNS and firewall egress.
-3. **Segment IoT/OT** — no telnet reachable from internet; no IoT VLAN with route to corporate AD.
-4. **Monitor TCP/23** — any inbound telnet attempt on non-OT networks is an anomaly.
-5. **Firmware audit** — replace end-of-life devices that cannot disable telnet.
+1. Disable telnet everywhere — SSH with key auth only; many vendors still expose telnet on factory defaults.
+2. Block outbound DGA TLD patterns at recursive DNS and firewall egress.
+3. Segment IoT/OT — no telnet reachable from internet; no IoT VLAN with route to corporate AD.
+4. Monitor TCP/23 — any inbound telnet attempt on non-OT networks is an anomaly.
+5. Firmware audit — replace end-of-life devices that cannot disable telnet.
 
 ## Timeline
 

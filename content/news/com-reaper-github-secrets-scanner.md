@@ -13,9 +13,9 @@ draft: false
 
 ## Summary
 
-Church of Malware git received three new repositories on **June 19, 2026** from founder **ek0ms savi0r**. **REAPER** is a Go-based **GitHub hidden secret scanner and exploiter**. Companion releases include **GATEkeeper** (network request/response/console capture) and **noauth_finder** (unauthenticated web interface discovery). All three repos updated within hours on June 19.
+Church of Malware git received three new repositories on June 19, 2026 from founder ek0ms savi0r. REAPER is a Go-based GitHub hidden secret scanner and exploiter. Companion releases include GATEkeeper (network request/response/console capture) and noauth_finder (unauthenticated web interface discovery). All three repos updated within hours on June 19.
 
-REAPER targets exposed credentials in public and private GitHub repositories — tooling positioned for authorized red team, bug bounty, and defensive audit workflows. **Unauthorized use is illegal.**
+REAPER targets exposed credentials in public and private GitHub repositories — tooling positioned for authorized red team, bug bounty, and defensive audit workflows. Unauthorized use is illegal.
 
 ## REAPER — Technical Overview
 
@@ -23,11 +23,11 @@ REAPER targets exposed credentials in public and private GitHub repositories —
 
 REAPER automates discovery of secrets embedded in GitHub repositories beyond surface-level `git grep`:
 
-- **Commit history mining** — scans all commits, not just HEAD
-- **Deleted file recovery** — secrets in removed files often persist in git objects
-- **Fork divergence** — compares fork histories for leaked keys in abandoned branches
-- **Gist correlation** — links repository authors to associated gists
-- **Organization enumeration** — scales across org member repos
+- Commit history mining — scans all commits, not just HEAD
+- Deleted file recovery — secrets in removed files often persist in git objects
+- Fork divergence — compares fork histories for leaked keys in abandoned branches
+- Gist correlation — links repository authors to associated gists
+- Organization enumeration — scales across org member repos
 
 ### Architecture
 
@@ -40,7 +40,7 @@ REAPER automates discovery of secrets embedded in GitHub repositories beyond sur
 
 ### Differentiation from TruffleHog / Gitleaks
 
-REAPER emphasizes **exploitation validation** and **GitHub-specific attack paths** (fork PR secret leaks, issue attachment mining, wiki history) rather than passive pattern matching alone. The "exploiter" designation indicates active credential verification — distinguishing it from pure SAST secret scanners.
+REAPER emphasizes exploitation validation and GitHub-specific attack paths (fork PR secret leaks, issue attachment mining, wiki history) rather than passive pattern matching alone. The "exploiter" designation indicates active credential verification — distinguishing it from pure SAST secret scanners.
 
 ## Companion Tools
 
@@ -57,7 +57,7 @@ Use case: debugging C2 traffic during authorized engagements or malware analysis
 
 ### noauth_finder
 
-Scans for **unauthenticated administrative interfaces** on:
+Scans for unauthenticated administrative interfaces on:
 
 - Local network ranges
 - Internet-wide target lists
@@ -68,9 +68,9 @@ Discovers exposed panels (Jenkins, Docker, Kibana, router admin) without credent
 
 ### Defensive Use
 
-- **CI/CD audit** — run against org repos before attackers do
-- **Bounty recon** — authorized scope secret hunting
-- **Incident response** — rapid credential exposure assessment after breach
+- CI/CD audit — run against org repos before attackers do
+- Bounty recon — authorized scope secret hunting
+- Incident response — rapid credential exposure assessment after breach
 
 ### Offensive Use (Authorized Only)
 
@@ -79,13 +79,13 @@ Discovers exposed panels (Jenkins, Docker, Kibana, router admin) without credent
 
 ### Legal Boundary
 
-Using REAPER against repositories without explicit authorization violates CFAA (US), Computer Misuse Act (UK), and equivalent statutes globally. Tools hosted on Church of Malware git follow offensive security community norms — **authorization is non-negotiable**.
+Using REAPER against repositories without explicit authorization violates CFAA (US), Computer Misuse Act (UK), and equivalent statutes globally. Tools hosted on Church of Malware git follow offensive security community norms — authorization is non-negotiable.
 
 ## Church of Malware Context
 
-Church of Malware (`churchofmalware.org`) operates as an offensive security community sanctuary hosting tools, scripture (articles), and git repositories outside mainstream platforms. The **Community Codex Edition 01 (Summer 2026)** remains active.
+Church of Malware (`churchofmalware.org`) operates as an offensive security community sanctuary hosting tools, scripture (articles), and git repositories outside mainstream platforms. The Community Codex Edition 01 (Summer 2026) remains active.
 
-**ek0ms savi0r**'s June 19 triple release suggests a coordinated tooling drop — REAPER for secret access, GATEkeeper for traffic analysis, noauth_finder for surface discovery form a reconnaissance toolchain.
+ek0ms savi0r's June 19 triple release suggests a coordinated tooling drop — REAPER for secret access, GATEkeeper for traffic analysis, noauth_finder for surface discovery form a reconnaissance toolchain.
 
 ## Repository Links
 
@@ -99,11 +99,11 @@ Church of Malware (`churchofmalware.org`) operates as an offensive security comm
 
 If REAPER can find your secrets, attackers will too:
 
-1. **Rotate exposed keys** — assume all historical commits are compromised.
-2. **BFG Repo-Cleaner / git filter-repo** — purge secrets from history (rotation still required).
-3. **GitHub secret scanning** — enable push protection and alert routing.
-4. **Prevent fork leaks** — restrict fork permissions on sensitive repos.
-5. **Pre-commit hooks** — gitleaks/trufflehog in developer workflow.
+1. Rotate exposed keys — assume all historical commits are compromised.
+2. BFG Repo-Cleaner / git filter-repo — purge secrets from history (rotation still required).
+3. GitHub secret scanning — enable push protection and alert routing.
+4. Prevent fork leaks — restrict fork permissions on sensitive repos.
+5. Pre-commit hooks — gitleaks/trufflehog in developer workflow.
 
 ## Timeline
 

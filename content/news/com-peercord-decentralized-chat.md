@@ -13,9 +13,9 @@ draft: false
 
 ## Summary
 
-Clergy member **mastercodeon** published **Peercord** to Church of Malware git on **June 17, 2026**. Peercord is a **JavaScript-based decentralized social media platform** positioned as a **Discord alternative** with peer-to-peer architecture — no central server required for message relay between participants.
+Clergy member mastercodeon published Peercord to Church of Malware git on June 17, 2026. Peercord is a JavaScript-based decentralized social media platform positioned as a Discord alternative with peer-to-peer architecture — no central server required for message relay between participants.
 
-Peercord joins other **censorship-resistant tooling** hosted on Church of Malware git outside mainstream platforms, alongside prior community releases in malware research, offensive tooling, and infrastructure.
+Peercord joins other censorship-resistant tooling hosted on Church of Malware git outside mainstream platforms, alongside prior community releases in malware research, offensive tooling, and infrastructure.
 
 ## Architecture
 
@@ -30,10 +30,10 @@ Peercord joins other **censorship-resistant tooling** hosted on Church of Malwar
 
 ### Technical Stack
 
-- **Language:** JavaScript (Node.js / browser-compatible components)
-- **Transport:** WebRTC data channels and/or libp2p-style peer discovery (implementation-specific — see repository)
-- **Identity:** Cryptographic keypairs — no email registration requirement
-- **Persistence:** Local-first message storage with optional distributed backup
+- Language: JavaScript (Node.js / browser-compatible components)
+- Transport: WebRTC data channels and/or libp2p-style peer discovery (implementation-specific — see repository)
+- Identity: Cryptographic keypairs — no email registration requirement
+- Persistence: Local-first message storage with optional distributed backup
 
 ### P2P Model
 
@@ -44,15 +44,15 @@ Unlike Discord's hub-and-spoke model (all traffic through Discord Inc. servers),
 3. Room state synchronized across peer mesh.
 4. No corporate entity holds conversation plaintext.
 
-**Tradeoff:** P2P chat sacrifices moderation scalability and legal compliance tooling that centralized platforms provide — by design for this community's use case.
+Tradeoff: P2P chat sacrifices moderation scalability and legal compliance tooling that centralized platforms provide — by design for this community's use case.
 
 ## Use Cases
 
 ### Offensive Security Community
 
-- **Operational channels** resistant to platform bans
-- **Tooling coordination** without Telegram/Discord deplatforming risk
-- **Research collaboration** with reduced third-party data exposure
+- Operational channels resistant to platform bans
+- Tooling coordination without Telegram/Discord deplatforming risk
+- Research collaboration with reduced third-party data exposure
 
 ### General P2P
 
@@ -102,8 +102,8 @@ Peercord may eventually replace or supplement Discord/Telegram for internal comm
 
 ## Repository
 
-- **Peercord:** `git.churchofmalware.org/mastercodeon/Peercord`
-- **Author:** mastercodeon (Church of Malware clergy)
+- Peercord: `git.churchofmalware.org/mastercodeon/Peercord`
+- Author: mastercodeon (Church of Malware clergy)
 
 ## Timeline
 

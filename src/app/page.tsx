@@ -3,13 +3,15 @@ import Link from "next/link";
 import { AsciiBlock } from "@/components/ascii-block";
 import { EntryRow } from "@/components/entry-row";
 import { SectionBlock } from "@/components/section-block";
-import { SlashMark } from "@/components/slash-mark";
+import { SiteSearch } from "@/components/site-search";
 import { getLatestNews, getLatestResearch } from "@/lib/content";
 import { PROJECTS } from "@/lib/constants";
+import { buildSearchIndex } from "@/lib/build-search-index";
 
 export default function HomePage() {
   const research = getLatestResearch(4);
   const news = getLatestNews(4);
+  const searchIndex = buildSearchIndex();
 
   return (
     <div>
@@ -36,6 +38,10 @@ export default function HomePage() {
             Open source security research lab. Malware analysis, offensive tooling,
             and the relentless pursuit of understanding the machine.
           </p>
+          <SiteSearch
+            items={searchIndex}
+            className="mt-8 max-w-lg md:max-w-xl"
+          />
           <p className="meta mt-10 text-xl md:text-2xl">
             あなただけが重要です | Только ты важен
           </p>
@@ -146,7 +152,7 @@ export default function HomePage() {
 
           <div className="border-t border-red px-6 py-8 md:px-10">
             <p className="meta mb-6 text-base md:text-lg">Projects</p>
-            <div className="grid gap-px bg-red md:grid-cols-3">
+            <div className="red-grid-3">
               {PROJECTS.map((p) => (
                 <Link
                   key={p.slug}

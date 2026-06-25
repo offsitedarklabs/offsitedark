@@ -1,0 +1,663 @@
+{
+  "source": "https://www.kali.org/tools/",
+  "fetchedAt": "2026-06-25T19:19:28.007Z",
+  "curated": true,
+  "curatedFrom": 355,
+  "toolCount": 89,
+  "categories": [
+    {
+      "letter": "0",
+      "tools": [
+        {
+          "slug": "0trace",
+          "name": "0trace",
+          "url": "https://www.kali.org/tools/0trace/",
+          "description": "Traceroute via existing TCP connections. Identifies hop path using established sessions."
+        }
+      ]
+    },
+    {
+      "letter": "A",
+      "tools": [
+        {
+          "slug": "aircrack-ng",
+          "name": "aircrack-ng",
+          "url": "https://www.kali.org/tools/aircrack-ng/",
+          "description": "802.11 WEP/WPA cracking suite. Monitor mode, packet injection, handshake capture."
+        },
+        {
+          "slug": "armitage",
+          "name": "armitage",
+          "url": "https://www.kali.org/tools/armitage/",
+          "description": "Metasploit GUI. Team server for collaborative red team operations."
+        },
+        {
+          "slug": "arp-scan",
+          "name": "arp-scan",
+          "url": "https://www.kali.org/tools/arp-scan/",
+          "description": "arp-scan"
+        }
+      ]
+    },
+    {
+      "letter": "B",
+      "tools": [
+        {
+          "slug": "beef-xss",
+          "name": "beef-xss",
+          "url": "https://www.kali.org/tools/beef-xss/",
+          "description": "Browser Exploitation Framework. Hooks browsers via XSS for command/control."
+        },
+        {
+          "slug": "bettercap-ui",
+          "name": "bettercap-ui",
+          "url": "https://www.kali.org/tools/bettercap-ui/",
+          "description": "Kali package: bettercap-ui."
+        },
+        {
+          "slug": "binwalk",
+          "name": "binwalk",
+          "url": "https://www.kali.org/tools/binwalk/",
+          "description": "Firmware analysis. Extracts embedded files and filesystems from binary blobs."
+        },
+        {
+          "slug": "bloodhound",
+          "name": "bloodhound",
+          "url": "https://www.kali.org/tools/bloodhound/",
+          "description": "Active Directory attack path mapper. Ingests LDAP/ACE data into a graph model."
+        },
+        {
+          "slug": "bloodhound.py",
+          "name": "bloodhound.py",
+          "url": "https://www.kali.org/tools/bloodhound.py/",
+          "description": "Python BloodHound ingestor. Collects AD data for SharpHound-compatible graphs."
+        },
+        {
+          "slug": "bulk-extractor",
+          "name": "bulk-extractor",
+          "url": "https://www.kali.org/tools/bulk-extractor/",
+          "description": "bulk_extractor"
+        }
+      ]
+    },
+    {
+      "letter": "C",
+      "tools": [
+        {
+          "slug": "capstone",
+          "name": "capstone",
+          "url": "https://www.kali.org/tools/capstone/",
+          "description": "Kali package: capstone."
+        },
+        {
+          "slug": "cewl",
+          "name": "cewl",
+          "url": "https://www.kali.org/tools/cewl/",
+          "description": "cewl"
+        },
+        {
+          "slug": "chntpw",
+          "name": "chntpw",
+          "url": "https://www.kali.org/tools/chntpw/",
+          "description": "Kali package: chntpw."
+        },
+        {
+          "slug": "cloud-enum",
+          "name": "cloud-enum",
+          "url": "https://www.kali.org/tools/cloud-enum/",
+          "description": "Kali package: cloud-enum."
+        },
+        {
+          "slug": "cowpatty",
+          "name": "cowpatty",
+          "url": "https://www.kali.org/tools/cowpatty/",
+          "description": "genpmk"
+        },
+        {
+          "slug": "crackmapexec",
+          "name": "crackmapexec",
+          "url": "https://www.kali.org/tools/crackmapexec/",
+          "description": "Swiss army knife for AD pentesting. SMB, WinRM, LDAP, MSSQL lateral movement."
+        }
+      ]
+    },
+    {
+      "letter": "D",
+      "tools": [
+        {
+          "slug": "dirb",
+          "name": "dirb",
+          "url": "https://www.kali.org/tools/dirb/",
+          "description": "dirb"
+        },
+        {
+          "slug": "dnsmap",
+          "name": "dnsmap",
+          "url": "https://www.kali.org/tools/dnsmap/",
+          "description": "dnsmap"
+        },
+        {
+          "slug": "dploot",
+          "name": "dploot",
+          "url": "https://www.kali.org/tools/dploot/",
+          "description": "Kali package: dploot."
+        },
+        {
+          "slug": "dsniff",
+          "name": "dsniff",
+          "url": "https://www.kali.org/tools/dsniff/",
+          "description": "Password sniffing suite. arpspoof, dnsspoof, mailsnarf, and file extraction."
+        }
+      ]
+    },
+    {
+      "letter": "E",
+      "tools": [
+        {
+          "slug": "edb-debugger",
+          "name": "edb-debugger",
+          "url": "https://www.kali.org/tools/edb-debugger/",
+          "description": "Screenshots"
+        },
+        {
+          "slug": "ettercap",
+          "name": "ettercap",
+          "url": "https://www.kali.org/tools/ettercap/",
+          "description": "MITM suite. ARP poisoning, sniffing, filtering, and protocol dissection."
+        },
+        {
+          "slug": "evil-winrm-py",
+          "name": "evil-winrm-py",
+          "url": "https://www.kali.org/tools/evil-winrm-py/",
+          "description": "Kali package: evil-winrm-py."
+        },
+        {
+          "slug": "exploitdb",
+          "name": "exploitdb",
+          "url": "https://www.kali.org/tools/exploitdb/",
+          "description": "exploitdb"
+        },
+        {
+          "slug": "eyewitness",
+          "name": "eyewitness",
+          "url": "https://www.kali.org/tools/eyewitness/",
+          "description": "eyewitness"
+        }
+      ]
+    },
+    {
+      "letter": "F",
+      "tools": [
+        {
+          "slug": "fcrackzip",
+          "name": "fcrackzip",
+          "url": "https://www.kali.org/tools/fcrackzip/",
+          "description": "Kali package: fcrackzip."
+        },
+        {
+          "slug": "fping",
+          "name": "fping",
+          "url": "https://www.kali.org/tools/fping/",
+          "description": "Kali package: fping."
+        }
+      ]
+    },
+    {
+      "letter": "G",
+      "tools": [
+        {
+          "slug": "gdb",
+          "name": "gdb",
+          "url": "https://www.kali.org/tools/gdb/",
+          "description": "Kali package: gdb."
+        },
+        {
+          "slug": "gitleaks",
+          "name": "gitleaks",
+          "url": "https://www.kali.org/tools/gitleaks/",
+          "description": "Kali package: gitleaks."
+        },
+        {
+          "slug": "gophish",
+          "name": "gophish",
+          "url": "https://www.kali.org/tools/gophish/",
+          "description": "Kali package: gophish."
+        }
+      ]
+    },
+    {
+      "letter": "H",
+      "tools": [
+        {
+          "slug": "hashcat",
+          "name": "hashcat",
+          "url": "https://www.kali.org/tools/hashcat/",
+          "description": "GPU-accelerated password recovery. Supports hundreds of hash types and attack modes."
+        },
+        {
+          "slug": "hashcat-utils",
+          "name": "hashcat-utils",
+          "url": "https://www.kali.org/tools/hashcat-utils/",
+          "description": "Kali package: hashcat-utils."
+        },
+        {
+          "slug": "hcxtools",
+          "name": "hcxtools",
+          "url": "https://www.kali.org/tools/hcxtools/",
+          "description": "Kali package: hcxtools."
+        },
+        {
+          "slug": "hostapd-wpe",
+          "name": "hostapd-wpe",
+          "url": "https://www.kali.org/tools/hostapd-wpe/",
+          "description": "hostapd-wpe"
+        },
+        {
+          "slug": "httrack",
+          "name": "httrack",
+          "url": "https://www.kali.org/tools/httrack/",
+          "description": "Kali package: httrack."
+        },
+        {
+          "slug": "hydra",
+          "name": "hydra",
+          "url": "https://www.kali.org/tools/hydra/",
+          "description": "Parallelized network login cracker. Supports dozens of protocols and brute-force modes."
+        }
+      ]
+    },
+    {
+      "letter": "I",
+      "tools": [
+        {
+          "slug": "impacket",
+          "name": "impacket",
+          "url": "https://www.kali.org/tools/impacket/",
+          "description": "Python classes for network protocols. SMB, Kerberos, LDAP tooling for AD attacks."
+        },
+        {
+          "slug": "impacket-scripts",
+          "name": "impacket-scripts",
+          "url": "https://www.kali.org/tools/impacket-scripts/",
+          "description": "Impacket example scripts. psexec, secretsdump, getTGT, and dozens more."
+        },
+        {
+          "slug": "iodine",
+          "name": "iodine",
+          "url": "https://www.kali.org/tools/iodine/",
+          "description": "Kali package: iodine."
+        }
+      ]
+    },
+    {
+      "letter": "J",
+      "tools": [
+        {
+          "slug": "jadx",
+          "name": "jadx",
+          "url": "https://www.kali.org/tools/jadx/",
+          "description": "DEX to Java decompiler. Android APK analysis with GUI and CLI."
+        },
+        {
+          "slug": "john",
+          "name": "john",
+          "url": "https://www.kali.org/tools/john/",
+          "description": "Password hash cracker (John the Ripper). Wordlist and rule-based attacks."
+        }
+      ]
+    },
+    {
+      "letter": "K",
+      "tools": [
+        {
+          "slug": "kismet",
+          "name": "kismet",
+          "url": "https://www.kali.org/tools/kismet/",
+          "description": "Screenshots"
+        },
+        {
+          "slug": "krbrelayx",
+          "name": "krbrelayx",
+          "url": "https://www.kali.org/tools/krbrelayx/",
+          "description": "Kali package: krbrelayx."
+        }
+      ]
+    },
+    {
+      "letter": "L",
+      "tools": [
+        {
+          "slug": "ligolo-ng",
+          "name": "ligolo-ng",
+          "url": "https://www.kali.org/tools/ligolo-ng/",
+          "description": "Tunneling without SOCKS. Reverse TCP/TLS pivot through compromised hosts."
+        }
+      ]
+    },
+    {
+      "letter": "M",
+      "tools": [
+        {
+          "slug": "metasploit-framework",
+          "name": "metasploit-framework",
+          "url": "https://www.kali.org/tools/metasploit-framework/",
+          "description": "Exploitation framework. Modules for exploits, payloads, auxiliaries, encoders, post-exploitation, and evasion."
+        },
+        {
+          "slug": "mitmproxy",
+          "name": "mitmproxy",
+          "url": "https://www.kali.org/tools/mitmproxy/",
+          "description": "mitmproxy"
+        }
+      ]
+    },
+    {
+      "letter": "N",
+      "tools": [
+        {
+          "slug": "netcat",
+          "name": "netcat",
+          "url": "https://www.kali.org/tools/netcat/",
+          "description": "Kali package: netcat."
+        },
+        {
+          "slug": "netexec",
+          "name": "netexec",
+          "url": "https://www.kali.org/tools/netexec/",
+          "description": "Successor to CrackMapExec. Network protocol abuse for Windows/AD environments."
+        },
+        {
+          "slug": "netsniff-ng",
+          "name": "netsniff-ng",
+          "url": "https://www.kali.org/tools/netsniff-ng/",
+          "description": "Kali package: netsniff-ng."
+        },
+        {
+          "slug": "nikto",
+          "name": "nikto",
+          "url": "https://www.kali.org/tools/nikto/",
+          "description": "Web server scanner. Tests for outdated software, dangerous files, and misconfigs."
+        },
+        {
+          "slug": "nmap",
+          "name": "nmap",
+          "url": "https://www.kali.org/tools/nmap/",
+          "description": "Network mapper. Host discovery, port scanning, service/version detection, OS fingerprinting, NSE scripting."
+        }
+      ]
+    },
+    {
+      "letter": "O",
+      "tools": [
+        {
+          "slug": "ophcrack",
+          "name": "ophcrack",
+          "url": "https://www.kali.org/tools/ophcrack/",
+          "description": "Screenshots"
+        },
+        {
+          "slug": "osrframework",
+          "name": "osrframework",
+          "url": "https://www.kali.org/tools/osrframework/",
+          "description": "osrframework"
+        }
+      ]
+    },
+    {
+      "letter": "P",
+      "tools": [
+        {
+          "slug": "peass-ng",
+          "name": "peass-ng",
+          "url": "https://www.kali.org/tools/peass-ng/",
+          "description": "Kali package: peass-ng."
+        },
+        {
+          "slug": "pocsuite3",
+          "name": "pocsuite3",
+          "url": "https://www.kali.org/tools/pocsuite3/",
+          "description": "Kali package: pocsuite3."
+        },
+        {
+          "slug": "powershell",
+          "name": "powershell",
+          "url": "https://www.kali.org/tools/powershell/",
+          "description": "PowerShell on Linux (pwsh). Cross-platform scripting for automation and attacks."
+        },
+        {
+          "slug": "powershell-empire",
+          "name": "powershell-empire",
+          "url": "https://www.kali.org/tools/powershell-empire/",
+          "description": "Kali package: powershell-empire."
+        },
+        {
+          "slug": "proxychains-ng",
+          "name": "proxychains-ng",
+          "url": "https://www.kali.org/tools/proxychains-ng/",
+          "description": "Kali package: proxychains-ng."
+        },
+        {
+          "slug": "pspy",
+          "name": "pspy",
+          "url": "https://www.kali.org/tools/pspy/",
+          "description": "Process monitor without root. Observes process execution via /proc scraping."
+        },
+        {
+          "slug": "python-ldapdomaindump",
+          "name": "python-ldapdomaindump",
+          "url": "https://www.kali.org/tools/python-ldapdomaindump/",
+          "description": "Kali package: python-ldapdomaindump."
+        }
+      ]
+    },
+    {
+      "letter": "R",
+      "tools": [
+        {
+          "slug": "radare2",
+          "name": "radare2",
+          "url": "https://www.kali.org/tools/radare2/",
+          "description": "Kali package: radare2."
+        },
+        {
+          "slug": "reaver",
+          "name": "reaver",
+          "url": "https://www.kali.org/tools/reaver/",
+          "description": "wash"
+        },
+        {
+          "slug": "recon-ng",
+          "name": "recon-ng",
+          "url": "https://www.kali.org/tools/recon-ng/",
+          "description": "Modular reconnaissance framework. Marketplace of OSINT modules."
+        },
+        {
+          "slug": "responder",
+          "name": "responder",
+          "url": "https://www.kali.org/tools/responder/",
+          "description": "LLMNR/NBT-NS/mDNS poisoner. Captures NetNTLM hashes on local networks."
+        },
+        {
+          "slug": "routersploit",
+          "name": "routersploit",
+          "url": "https://www.kali.org/tools/routersploit/",
+          "description": "Video"
+        }
+      ]
+    },
+    {
+      "letter": "S",
+      "tools": [
+        {
+          "slug": "samba",
+          "name": "samba",
+          "url": "https://www.kali.org/tools/samba/",
+          "description": "Kali package: samba."
+        },
+        {
+          "slug": "scapy",
+          "name": "scapy",
+          "url": "https://www.kali.org/tools/scapy/",
+          "description": "Packet manipulation library. Craft, send, sniff, and dissect arbitrary protocols."
+        },
+        {
+          "slug": "secure-socket-funneling",
+          "name": "secure-socket-funneling",
+          "url": "https://www.kali.org/tools/secure-socket-funneling/",
+          "description": "Kali package: secure-socket-funneling."
+        },
+        {
+          "slug": "set",
+          "name": "set",
+          "url": "https://www.kali.org/tools/set/",
+          "description": "SET"
+        },
+        {
+          "slug": "sleuthkit",
+          "name": "sleuthkit",
+          "url": "https://www.kali.org/tools/sleuthkit/",
+          "description": "Kali package: sleuthkit."
+        },
+        {
+          "slug": "sliver",
+          "name": "sliver",
+          "url": "https://www.kali.org/tools/sliver/",
+          "description": "Kali package: sliver."
+        },
+        {
+          "slug": "snort",
+          "name": "snort",
+          "url": "https://www.kali.org/tools/snort/",
+          "description": "Network IDS/IPS. Signature-based detection with rule language and preprocessors."
+        },
+        {
+          "slug": "socat",
+          "name": "socat",
+          "url": "https://www.kali.org/tools/socat/",
+          "description": "Kali package: socat."
+        },
+        {
+          "slug": "spiderfoot",
+          "name": "spiderfoot",
+          "url": "https://www.kali.org/tools/spiderfoot/",
+          "description": "Kali package: spiderfoot."
+        },
+        {
+          "slug": "sqlmap",
+          "name": "sqlmap",
+          "url": "https://www.kali.org/tools/sqlmap/",
+          "description": "Automatic SQL injection detection and exploitation. DB fingerprinting, data exfiltration, OS shell."
+        },
+        {
+          "slug": "ssdeep",
+          "name": "ssdeep",
+          "url": "https://www.kali.org/tools/ssdeep/",
+          "description": "Kali package: ssdeep."
+        },
+        {
+          "slug": "steghide",
+          "name": "steghide",
+          "url": "https://www.kali.org/tools/steghide/",
+          "description": "Steganography tool. Embeds/extracts data in JPEG, BMP, WAV, and AU files."
+        },
+        {
+          "slug": "stunnel",
+          "name": "stunnel",
+          "url": "https://www.kali.org/tools/stunnel/",
+          "description": "Kali package: stunnel."
+        }
+      ]
+    },
+    {
+      "letter": "T",
+      "tools": [
+        {
+          "slug": "tcpflow",
+          "name": "tcpflow",
+          "url": "https://www.kali.org/tools/tcpflow/",
+          "description": "Kali package: tcpflow."
+        },
+        {
+          "slug": "testdisk",
+          "name": "testdisk",
+          "url": "https://www.kali.org/tools/testdisk/",
+          "description": "Kali package: testdisk."
+        },
+        {
+          "slug": "testssl.sh",
+          "name": "testssl.sh",
+          "url": "https://www.kali.org/tools/testssl.sh/",
+          "description": "Kali package: testssl.sh."
+        },
+        {
+          "slug": "theharvester",
+          "name": "theharvester",
+          "url": "https://www.kali.org/tools/theharvester/",
+          "description": "OSINT gathering. Emails, subdomains, hosts from public search engines and APIs."
+        }
+      ]
+    },
+    {
+      "letter": "U",
+      "tools": [
+        {
+          "slug": "unicornscan",
+          "name": "unicornscan",
+          "url": "https://www.kali.org/tools/unicornscan/",
+          "description": "Unicornscan"
+        }
+      ]
+    },
+    {
+      "letter": "W",
+      "tools": [
+        {
+          "slug": "wapiti",
+          "name": "wapiti",
+          "url": "https://www.kali.org/tools/wapiti/",
+          "description": "Kali package: wapiti."
+        },
+        {
+          "slug": "whois",
+          "name": "whois",
+          "url": "https://www.kali.org/tools/whois/",
+          "description": "Kali package: whois."
+        },
+        {
+          "slug": "wifipumpkin3",
+          "name": "wifipumpkin3",
+          "url": "https://www.kali.org/tools/wifipumpkin3/",
+          "description": "Kali package: wifipumpkin3."
+        },
+        {
+          "slug": "wireshark",
+          "name": "wireshark",
+          "url": "https://www.kali.org/tools/wireshark/",
+          "description": "Packet capture and protocol dissection. Live capture and PCAP analysis with display filters."
+        }
+      ]
+    },
+    {
+      "letter": "Y",
+      "tools": [
+        {
+          "slug": "yara",
+          "name": "yara",
+          "url": "https://www.kali.org/tools/yara/",
+          "description": "Pattern matching for malware identification. Rules match strings, hex, and conditions."
+        }
+      ]
+    },
+    {
+      "letter": "Z",
+      "tools": [
+        {
+          "slug": "zaproxy",
+          "name": "zaproxy",
+          "url": "https://www.kali.org/tools/zaproxy/",
+          "description": "Screenshots"
+        }
+      ]
+    }
+  ]
+}

@@ -13,18 +13,18 @@ draft: false
 
 ## Summary
 
-**FortiBleed**, a newly reported credential leak, exposed Fortinet VPN login data associated with approximately **73,000 devices**. The disclosure surfaced on Hacker News on June 17, 2026, with BleepingComputer providing primary coverage. The dataset reportedly includes FortiGate SSL-VPN and related Fortinet edge appliance credentials collected through a combination of prior vulnerability exploitation and credential harvesting operations.
+FortiBleed, a newly reported credential leak, exposed Fortinet VPN login data associated with approximately 73,000 devices. The disclosure surfaced on Hacker News on June 17, 2026, with BleepingComputer providing primary coverage. The dataset reportedly includes FortiGate SSL-VPN and related Fortinet edge appliance credentials collected through a combination of prior vulnerability exploitation and credential harvesting operations.
 
-This is not a novel Fortinet CVE — it is a **credential aggregation event** that compounds years of FortiGate SSL-VPN weaknesses (CVE-2018-13379, CVE-2022-40684, CVE-2023-27997, and others) with fresh brute-force and infostealer-sourced data.
+This is not a novel Fortinet CVE — it is a credential aggregation event that compounds years of FortiGate SSL-VPN weaknesses (CVE-2018-13379, CVE-2022-40684, CVE-2023-27997, and others) with fresh brute-force and infostealer-sourced data.
 
 ## Background
 
 Fortinet appliances sit at the perimeter of tens of thousands of enterprises. SSL-VPN portals (`/remote/login`) have been perennial targets:
 
-- **Path traversal** bugs leaking `sslvpn_websession` files with session cookies
-- **Authentication bypass** flaws permitting admin interface access
-- **Default credential** usage on rapid-deployment configs
-- **Credential stuffing** against portals without lockout or MFA
+- Path traversal bugs leaking `sslvpn_websession` files with session cookies
+- Authentication bypass flaws permitting admin interface access
+- Default credential usage on rapid-deployment configs
+- Credential stuffing against portals without lockout or MFA
 
 FortiBleed appears to consolidate harvested credentials into a searchable corpus — similar in distribution model to prior "Collections" leaks but scoped to Fortinet VPN endpoints.
 
@@ -43,14 +43,14 @@ Exact field composition varies by entry — some records include only portal URL
 
 ### Immediate Risk
 
-- **VPN portal credential stuffing** against organizations not yet rotated
-- **Direct VPN access** where MFA is not enforced on SSL-VPN
-- **Lateral movement** — VPN creds often match AD passwords (password reuse)
-- **Ransomware initial access** — VPN is a preferred entry for commodity operators
+- VPN portal credential stuffing against organizations not yet rotated
+- Direct VPN access where MFA is not enforced on SSL-VPN
+- Lateral movement — VPN creds often match AD passwords (password reuse)
+- Ransomware initial access — VPN is a preferred entry for commodity operators
 
 ### Secondary Risk
 
-Leaked device hostnames and IPs enable **targeted scanning** for unpatched Fortinet CVEs on known appliances — attackers skip internet-wide scanning and probe specific victims.
+Leaked device hostnames and IPs enable targeted scanning for unpatched Fortinet CVEs on known appliances — attackers skip internet-wide scanning and probe specific victims.
 
 ## Indicators of Compromise
 
@@ -67,22 +67,22 @@ FortiGate log fields: `type="event"` `subtype="vpn"` `action="tunnel-up"` with a
 
 ### Credential Hygiene (Immediate)
 
-1. **Force password reset** for all SSL-VPN users — assume corpus contains valid creds.
-2. **Rotate VPN pre-shared keys** and IPsec secrets.
-3. **Enforce MFA** on all VPN authentication paths — hardware token or FIDO2, not SMS.
-4. **Audit active sessions** — terminate unknown `sslvpn` sessions via CLI/API.
+1. Force password reset for all SSL-VPN users — assume corpus contains valid creds.
+2. Rotate VPN pre-shared keys and IPsec secrets.
+3. Enforce MFA on all VPN authentication paths — hardware token or FIDO2, not SMS.
+4. Audit active sessions — terminate unknown `sslvpn` sessions via CLI/API.
 
 ### Appliance Hardening
 
-1. **Patch all Fortinet CVEs** — credential rotation without patching leaves re-harvest paths open.
-2. **Restrict VPN portal** to known IP ranges or ZTNA broker — no internet-wide `/remote/login`.
-3. **Disable SSL-VPN** if replaced by IPsec with certificate auth or ZTNA.
-4. **Enable FortiGuard logging** to SIEM with alerting on auth anomalies.
+1. Patch all Fortinet CVEs — credential rotation without patching leaves re-harvest paths open.
+2. Restrict VPN portal to known IP ranges or ZTNA broker — no internet-wide `/remote/login`.
+3. Disable SSL-VPN if replaced by IPsec with certificate auth or ZTNA.
+4. Enable FortiGuard logging to SIEM with alerting on auth anomalies.
 
 ### Identity
 
-1. **Check AD password reuse** — VPN creds in leak may equal domain passwords.
-2. **Invalidate refresh tokens** for M365/Google if VPN was SSO bridge.
+1. Check AD password reuse — VPN creds in leak may equal domain passwords.
+2. Invalidate refresh tokens for M365/Google if VPN was SSO bridge.
 
 ## Timeline
 

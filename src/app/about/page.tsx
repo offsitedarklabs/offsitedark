@@ -35,7 +35,7 @@ export default function AboutPage() {
             @offsitedark · Idea thinktank
           </p>
         </div>
-        <div className="mt-12 grid gap-px bg-red sm:grid-cols-2">
+        <div className="red-grid-2 mt-12">
           <div className="bg-black p-6">
             <p className="meta mb-2">Email</p>
             <a href={`mailto:${SITE.email}`} className="font-mono text-sm">

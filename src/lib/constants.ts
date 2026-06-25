@@ -13,6 +13,7 @@ export const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "Research", href: "/research" },
   { label: "News", href: "/news" },
   { label: "Greps", href: "/greps" },
+  { label: "Tools", href: "/tools" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Git", href: "https://github.com/offsitedark", external: true },

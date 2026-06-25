@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import { EntryRow } from "@/components/entry-row";
 import { SlashMark } from "@/components/slash-mark";
 import { formatDate } from "@/lib/format";
+import {
+  getHashSlugSnapshot,
+  pushHashSlug,
+  replaceHashSlug,
+  subscribeHashSlug,
+} from "@/lib/hash-slug";
 import type { SignalPreview } from "@/lib/post";
 import {
   collectPostsInGroup,
@@ -19,14 +25,6 @@ import {
   VULN_FILTERS,
   type VulnFilter,
 } from "@/lib/vuln-categories";
-
-function resolveSlugFromHash(
-  posts: SignalPreview[],
-  hash: string,
-): string | undefined {
-  const slug = hash.replace(/^#/, "");
-  return slug && posts.some((p) => p.slug === slug) ? slug : undefined;
-}
 
 function LedgerGroupHeader({
   label,
@@ -159,12 +157,35 @@ function LedgerGroups({
   );
 }
 
+function collectGroupKeys(groups: LedgerGroup[]): Record<string, boolean> {
+  const keys: Record<string, boolean> = {};
+  for (const group of groups) {
+    if (group.kind === "month" || group.kind === "year") {
+      keys[group.key] = true;
+    }
+    if (group.kind === "year") {
+      for (const month of group.months) keys[month.key] = true;
+    }
+  }
+  return keys;
+}
+
 export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
-  const [selectedSlug, setSelectedSlug] = useState(posts[0]?.slug ?? "");
   const [searchQuery, setSearchQuery] = useState("");
   const [vulnFilter, setVulnFilter] = useState<VulnFilter>("all");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const skipScrollRef = useRef(true);
+
+  const postSlugs = useMemo(
+    () => new Set(posts.map((post) => post.slug)),
+    [posts],
+  );
+
+  const hashSlug = useSyncExternalStore(
+    (onStoreChange) => subscribeHashSlug(postSlugs, onStoreChange),
+    () => getHashSlugSnapshot(postSlugs),
+    () => "",
+  );
 
   const filteredPosts = useMemo(() => {
     return posts.filter(
@@ -179,53 +200,28 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
     [filteredPosts],
   );
 
-  const previewPosts = filteredPosts;
+  const activeSlug = useMemo(() => {
+    const preferred = hashSlug || posts[0]?.slug || "";
+    if (filteredPosts.some((post) => post.slug === preferred)) return preferred;
+    return filteredPosts[0]?.slug ?? "";
+  }, [filteredPosts, hashSlug, posts]);
+
+  const isFiltering =
+    vulnFilter !== "all" || searchQuery.trim().length > 0;
+
+  const filterExpanded = useMemo(
+    () => collectGroupKeys(ledgerGroups),
+    [ledgerGroups],
+  );
+
+  const displayExpanded = isFiltering ? filterExpanded : expanded;
+
+  const hasActiveFilters = isFiltering;
 
   useEffect(() => {
-    const fromHash = resolveSlugFromHash(posts, window.location.hash);
-    if (fromHash) setSelectedSlug(fromHash);
-  }, [posts]);
-
-  useEffect(() => {
-    const onHashChange = () => {
-      const fromHash = resolveSlugFromHash(posts, window.location.hash);
-      if (fromHash) setSelectedSlug(fromHash);
-    };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, [posts]);
-
-  useEffect(() => {
-    if (!filteredPosts.some((post) => post.slug === selectedSlug)) {
-      const next = filteredPosts[0]?.slug ?? "";
-      if (next && next !== selectedSlug) {
-        setSelectedSlug(next);
-        window.history.replaceState(null, "", `#${next}`);
-      }
-    }
-  }, [filteredPosts, selectedSlug]);
-
-  useEffect(() => {
-    if (!searchQuery.trim() && vulnFilter === "all") return;
-
-    const keysToOpen = new Set<string>();
-    for (const group of ledgerGroups) {
-      if (group.kind === "month" || group.kind === "year") {
-        keysToOpen.add(group.key);
-      }
-      if (group.kind === "year") {
-        for (const month of group.months) keysToOpen.add(month.key);
-      }
-    }
-
-    if (keysToOpen.size === 0) return;
-
-    setExpanded((prev) => {
-      const next = { ...prev };
-      for (const key of keysToOpen) next[key] = true;
-      return next;
-    });
-  }, [searchQuery, vulnFilter, ledgerGroups]);
+    if (!activeSlug || !hashSlug || hashSlug === activeSlug) return;
+    replaceHashSlug(activeSlug);
+  }, [activeSlug, hashSlug]);
 
   useEffect(() => {
     if (skipScrollRef.current) {
@@ -233,20 +229,19 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
       return;
     }
     document
-      .getElementById(selectedSlug)
+      .getElementById(activeSlug)
       ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, [selectedSlug]);
+  }, [activeSlug]);
 
   const selectPost = (slug: string) => {
-    setSelectedSlug(slug);
-    window.history.replaceState(null, "", `#${slug}`);
+    pushHashSlug(slug);
   };
 
   const toggleGroup = (key: string) => {
     setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const hasActiveFilters = vulnFilter !== "all" || searchQuery.trim().length > 0;
+  const activePost = filteredPosts.find((post) => post.slug === activeSlug);
 
   return (
     <div className="grid lg:grid-cols-2">
@@ -296,8 +291,8 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
         {filteredPosts.length > 0 ? (
           <LedgerGroups
             groups={ledgerGroups}
-            expanded={expanded}
-            selectedSlug={selectedSlug}
+            expanded={displayExpanded}
+            selectedSlug={activeSlug}
             onSelect={selectPost}
             onToggle={toggleGroup}
           />
@@ -307,50 +302,42 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
       </div>
 
       <div className="cell border-r-0 border-t-0">
-        {previewPosts.length > 0 ? (
-          previewPosts.map((post) => {
-            const isActive = post.slug === selectedSlug;
-            return (
-              <article
-                key={post.slug}
-                id={post.slug}
-                className={`signal-preview scroll-mt-20 relative border-b border-red py-8 pr-8 pl-10 md:py-12 md:pr-12 md:pl-14${
-                  isActive ? " signal-preview-active" : ""
-                }`}
-                aria-current={isActive ? "true" : undefined}
-              >
-                <p className="vertical-label absolute left-2 top-8 text-red md:left-4 md:top-12">
-                  {post.category}
-                </p>
-                <p className="meta mb-4">
-                  {formatDate(post.date)}
-                  {post.source ? ` · ${post.source}` : ""}
-                </p>
-                <h2 className="font-display mb-4 text-4xl">{post.title}</h2>
-                <p className="signal-preview-excerpt mb-6 max-w-prose font-serif text-lg leading-relaxed">
-                  {post.excerpt}
-                </p>
-                {post.tags.length > 0 && (
-                  <ul className="mb-6 flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="font-mono text-[0.65rem] uppercase tracking-widest text-gray"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Link
-                  href={`/news/${post.slug}`}
-                  className="meta hover:text-white"
-                >
-                  → Read signal
-                </Link>
-              </article>
-            );
-          })
+        {activePost ? (
+          <article
+            id={activePost.slug}
+            className="signal-preview signal-preview-active scroll-mt-20 relative border-b border-red py-8 pr-8 pl-10 md:py-12 md:pr-12 md:pl-14"
+            aria-current="true"
+          >
+            <p className="vertical-label absolute left-2 top-8 text-red md:left-4 md:top-12">
+              {activePost.category}
+            </p>
+            <p className="meta mb-4">
+              {formatDate(activePost.date)}
+              {activePost.source ? ` · ${activePost.source}` : ""}
+            </p>
+            <h2 className="font-display mb-4 text-4xl">{activePost.title}</h2>
+            <p className="signal-preview-excerpt mb-6 max-w-prose font-serif text-lg leading-relaxed">
+              {activePost.excerpt}
+            </p>
+            {activePost.tags.length > 0 && (
+              <ul className="mb-6 flex flex-wrap gap-2">
+                {activePost.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="font-mono text-[0.65rem] uppercase tracking-widest text-gray"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Link
+              href={`/news/${activePost.slug}`}
+              className="ledger-nav-link"
+            >
+              → Read signal
+            </Link>
+          </article>
         ) : (
           <p className="meta p-8 md:p-12">No signals yet.</p>
         )}

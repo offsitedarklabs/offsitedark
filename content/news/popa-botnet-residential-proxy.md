@@ -13,15 +13,15 @@ draft: false
 
 ## Summary
 
-Krebs on Security reported on June 18, 2026 that the **Popa botnet** — infecting unofficial **Android TV streaming boxes** via the **Vo1d** plugin framework — is linked to **NetNut**, a residential proxy service operated by **NASDAQ-listed Alarum Technologies**. Research from **Synthient** and **Qurium** found Popa SDK traffic forwarding through NetNut's proxy pool with **high confidence**.
+Krebs on Security reported on June 18, 2026 that the Popa botnet — infecting unofficial Android TV streaming boxes via the Vo1d plugin framework — is linked to NetNut, a residential proxy service operated by NASDAQ-listed Alarum Technologies. Research from Synthient and Qurium found Popa SDK traffic forwarding through NetNut's proxy pool with high confidence.
 
-Popa maintains **1.5–2.5 million unique IPs daily** across ~**250–300 controller addresses** — one of the largest residential proxy botnets active in 2026.
+Popa maintains 1.5–2.5 million unique IPs daily across ~250–300 controller addresses — one of the largest residential proxy botnets active in 2026.
 
 ## Botnet Architecture
 
 ### Infection Vector
 
-Popa spreads through **piracy streaming applications** on cheap Android TV boxes (MXQ, H96, generic Allwinner/AMLogic devices):
+Popa spreads through piracy streaming applications on cheap Android TV boxes (MXQ, H96, generic Allwinner/AMLogic devices):
 
 | App (reported) | Role |
 |----------------|------|
@@ -60,7 +60,7 @@ Synthient and Qurium correlated:
 - TLS fingerprint and routing path overlap
 - Temporal correlation between Popa enrollment spikes and NetNut capacity expansion
 
-Krebs reporting places this in context of **NASDAQ-listed Alarum Technologies** — parent of NetNut — raising securities and regulatory questions about proxy sourcing transparency.
+Krebs reporting places this in context of NASDAQ-listed Alarum Technologies — parent of NetNut — raising securities and regulatory questions about proxy sourcing transparency.
 
 ### Residential Proxy Abuse
 
@@ -70,16 +70,16 @@ Legitimate residential proxy services sell "real user IP" access for:
 - Web scraping
 - Geo-restricted content testing
 
-**Botnet-sourced proxies** provide the same product without consent — victims' bandwidth and IP reputation weaponized.
+Botnet-sourced proxies provide the same product without consent — victims' bandwidth and IP reputation weaponized.
 
 ## Abuse Cases (Downstream)
 
 Popa-proxied traffic reportedly used for:
 
-- **Ad fraud** — click and impression inflation
-- **Account takeovers** — ATO from residential IPs bypassing geo-velocity checks
-- **AI training data scraping** — large-scale web harvesting appearing as organic users
-- **Credential stuffing** — distributed low-and-slow attacks
+- Ad fraud — click and impression inflation
+- Account takeovers — ATO from residential IPs bypassing geo-velocity checks
+- AI training data scraping — large-scale web harvesting appearing as organic users
+- Credential stuffing — distributed low-and-slow attacks
 
 ## Indicators of Compromise
 
@@ -90,23 +90,23 @@ Popa-proxied traffic reportedly used for:
 | Process | Unknown background service in Vo1d-associated packages |
 | Bandwidth | Consumer ISP complaints about unexplained usage spikes |
 
-**Enterprise:** Popa devices on guest Wi-Fi can egress through corporate NAT — monitor for anomalous residential-device traffic patterns.
+Enterprise: Popa devices on guest Wi-Fi can egress through corporate NAT — monitor for anomalous residential-device traffic patterns.
 
 ## Impact
 
-**Device owners:** Bandwidth theft, legal exposure (traffic originates from their IP), device performance degradation.
+Device owners: Bandwidth theft, legal exposure (traffic originates from their IP), device performance degradation.
 
-**Targets of proxied traffic:** Fraud, scraping, attacks appearing from residential IPs.
+Targets of proxied traffic: Fraud, scraping, attacks appearing from residential IPs.
 
-**Market:** Legitimate proxy industry reputational damage; compliance challenges for customers sourcing proxies.
+Market: Legitimate proxy industry reputational damage; compliance challenges for customers sourcing proxies.
 
 ## Mitigation
 
-1. **Avoid piracy streaming apps** and "fully loaded" TV boxes.
-2. **Block residential proxy SDK domains** at network perimeter — Qurium/Synthient published domain lists.
-3. **Smart TV audit** — review LG webOS and Samsung Tizen app permissions; remove unknown streaming apps.
-4. **Guest network isolation** — IoT and media devices without route to corporate resources.
-5. **Vendor due diligence** — proxy customers should verify IP sourcing compliance from providers.
+1. Avoid piracy streaming apps and "fully loaded" TV boxes.
+2. Block residential proxy SDK domains at network perimeter — Qurium/Synthient published domain lists.
+3. Smart TV audit — review LG webOS and Samsung Tizen app permissions; remove unknown streaming apps.
+4. Guest network isolation — IoT and media devices without route to corporate resources.
+5. Vendor due diligence — proxy customers should verify IP sourcing compliance from providers.
 
 ## Timeline
 

@@ -26,7 +26,7 @@ export default async function GrepPostPage({
       <div className="grid md:grid-cols-[1fr_3fr]">
         <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
-            <Link href="/greps" className="meta hover:text-white">
+            <Link href="/greps" className="back-nav-link back-nav-link--sidebar">
               ← Greps
             </Link>
             <p className="meta mt-8">{formatDate(post.date)}</p>

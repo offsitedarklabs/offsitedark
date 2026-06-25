@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {
   Bebas_Neue,
+  IBM_Plex_Sans,
   Instrument_Serif,
   JetBrains_Mono,
   VT323,
@@ -13,6 +14,11 @@ import { SITE } from "@/lib/constants";
 import "./globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", variable: "--font-bebas", subsets: ["latin"] });
+const ibmPlexSans = IBM_Plex_Sans({
+  weight: ["400", "500"],
+  variable: "--font-prose",
+  subsets: ["latin"],
+});
 const instrumentSerif = Instrument_Serif({
   weight: "400",
   variable: "--font-instrument-serif",
@@ -42,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bebas.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${vt323.variable}`}
+      className={`${bebas.variable} ${ibmPlexSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${vt323.variable}`}
     >
       <body className="flex min-h-screen flex-col">
         <a href="#main" className="skip-link">

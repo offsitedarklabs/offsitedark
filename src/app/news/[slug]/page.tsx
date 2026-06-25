@@ -26,7 +26,7 @@ export default async function NewsPostPage({
       <div className="grid md:grid-cols-[1fr_3fr]">
         <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
-            <Link href="/news" className="meta hover:text-white">
+            <Link href="/news" className="back-nav-link back-nav-link--sidebar">
               ← Signals
             </Link>
             <p className="meta mt-8">{formatDate(post.date)}</p>
@@ -51,11 +51,11 @@ export default async function NewsPostPage({
             {post.category}
           </p>
         </div>
-        <div className="cell border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
-          <h1 className="font-display mb-8 text-5xl leading-none md:text-7xl">
+        <div className="cell border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
+          <h1 className="font-display mb-10 text-5xl leading-none md:text-7xl">
             {post.title}
           </h1>
-          <p className="article-excerpt mb-10 font-serif text-lg italic text-white/60">
+          <p className="article-excerpt mb-12 font-serif text-lg leading-relaxed italic text-white/60 md:text-xl">
             {post.excerpt}
           </p>
           <Markdown content={post.content} />

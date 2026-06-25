@@ -24,7 +24,7 @@ export default async function PostPage({
           <div className="min-w-0 flex-1">
             <Link
               href="/research"
-              className="meta hover:text-white"
+              className="back-nav-link back-nav-link--sidebar"
             >
               ← Research
             </Link>
