@@ -5,6 +5,8 @@ Open source security research lab. Malware analysis, offensive tooling, and the 
 ## AGENTIC SECURITY
 OFFSITE.DARK aims to be a leader in open source offensive security research. We publish malware analysis, reversing techniques, and tooling — supporting unrestricted availability and use for education and defense.
 
+
+## Running it
 ```bash
 npm install
 npm run dev
