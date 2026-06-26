@@ -463,7 +463,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
     overview: [
       "Nuclei is a template-based scanner from ProjectDiscovery. YAML templates define HTTP/DNS/TCP/network requests, matchers (status, regex, DSL), and extractors. Thousands of community templates cover CVEs, misconfigs, and technology fingerprinting.",
       "Execution is fast and parallel (`-c` concurrency, `-rate-limit`). Templates tag by severity, author, and protocol. Workflows chain templates (e.g., detect tech → run targeted CVE checks).",
-      "Integrates with httpx, subfinder, naabu in PD recon pipelines. Custom templates suit internal apps with proprietary endpoints.",
+      "Integrates with httpx, subfinder, naabu in PD recon pipelines—or use SIF as a single-binary alternative with nuclei compiled in. Custom templates suit internal apps with proprietary endpoints.",
       "False positives happen when matchers are too loose; tune with `-tags`, `-severity`, and `-exclude-templates`. `-interactsh-url` enables OOB detection like Burp Collaborator.",
     ],
     useCases: [
@@ -498,7 +498,69 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
       "Patch and reduce exposed services; templates lag zero-days",
       "Honeypot endpoints can trigger false positive cascades",
     ],
-    related: ["nikto", "nmap", "ffuf", "burp-suite"],
+    related: ["nikto", "nmap", "ffuf", "burp-suite", "sif"],
+  },
+
+  sif: {
+    overview: [
+      "SIF (github.com/vmfunc/sif) is a Go recon and exploitation scanner that runs the full external assessment chain from a single static binary. Subdomain enumeration, connect-based port scanning, web crawling, nuclei template execution, framework/CVE detection, JavaScript secret extraction, CORS/XSS/redirect probes, cloud misconfiguration checks, and subdomain takeover detection are all flag-selectable modules—not separate processes wired together.",
+      "Nuclei and Colly are linked as libraries, not invoked via exec.Command, so there is no runtime dependency on external nuclei or crawler binaries. One build ships everything. Port scanning uses connect() rather than raw SYN; rustscan and nmap remain faster for raw port sweeps, but HTTP-heavy modules benefit from a shared connection-pooled client.",
+      "Every scanner shares one HTTP client and a work-stealing worker pool. Global `-proxy`, `-H`/`--header`, `-cookie`, and `-rate-limit` apply across the entire run. Connections are reused across modules—a single-host run reuses one connection for roughly fifty requests instead of opening fifty separate TCP sessions. Slow targets do not block the rest of the queue.",
+      "SIF reads targets from `-u`, `-f`, or stdin (scheme-less hosts default to https). Under `-silent`, banner and log output go to stderr while findings print one normalized line per hit to stdout, so it drops into Unix pipelines: `subfinder -d example.com | sif -silent -crawl -js -nuclei | notify`. `-diff` snapshots findings per target and reports only deltas on re-scan; `-sarif` and `-markdown` export for CI; `-notify` posts to Slack, Discord, Telegram, or generic webhooks using notify-compatible config.",
+    ],
+    useCases: [
+      "Single-command external recon after scope approval (dnslist + ports + headers + framework + nuclei)",
+      "Pipeline glue: feed subfinder/amass hostnames on stdin for probe/crawl/js/nuclei passes",
+      "Continuous monitoring with `-diff` to surface new or removed findings between scheduled runs",
+      "CI/CD security gates with `-sarif` output for GitHub code scanning ingestion",
+      "Broad web vuln sweeps: CORS, open redirect, reflected XSS, JWT weakness, OpenAPI exposure",
+      "Passive subdomain/URL discovery (`-passive`) when zero direct traffic to the target is required",
+    ],
+    commands: [
+      {
+        label: "Broad recon sweep",
+        code: "sif -u https://example.com -dnslist -ports -crawl -js -framework -nuclei",
+      },
+      {
+        label: "Directory fuzzing with auto-calibration",
+        code: "sif -u https://example.com -dirlist medium -ac -mc 200,301,302",
+      },
+      {
+        label: "Web vuln probes + report export",
+        code: "sif -u https://example.com -cors -redirect -xss -sarif out.sarif -md out.md",
+      },
+      {
+        label: "Pipeline from subdomain enum",
+        code: "subfinder -d example.com | sif -silent -probe -crawl -js -nuclei",
+      },
+      {
+        label: "Diff monitoring (second run shows delta only)",
+        code: "sif -u https://example.com -sh -cors -diff",
+      },
+      {
+        label: "Proxy, auth header, and rate cap applied globally",
+        code: 'sif -u https://example.com -headers -proxy socks5://127.0.0.1:1080 -H "Authorization: Bearer tok" -rate-limit 20',
+      },
+      {
+        label: "Run custom YAML modules by tag",
+        code: "sif -u https://example.com -mt owasp-top10",
+      },
+    ],
+    features: [
+      "25+ built-in scan flags: dirlist, dnslist, ports, nuclei, crawl, js, framework, cms, git, cors, xss, redirect, sql, lfi, jwt, openapi, favicon, c3, st, passive, probe, and more",
+      "YAML module system (`-m`, `-mt`, `-am`); user modules in ~/.config/sif/modules/ with nuclei-like HTTP matchers",
+      "Shodan (`-shodan`, SHODAN_API_KEY) and SecurityTrails (`-securitytrails`, SECURITYTRAILS_API_KEY) target expansion",
+      "Dirlist filters: `-mc`/`-fc` status codes, `-fs` body size, `-fw` word count, `-fr` regex, `-w` custom wordlist, `-e` extensions",
+      "Package managers: Homebrew tap, AUR, nixpkgs, Debian/Ubuntu apt (Cloudsmith), release binaries; BSD-3-Clause",
+      "Subcommands: `sif version`, `sif patchnote` (release notes on first run; disable with SIF_NO_PATCHNOTES=1)",
+    ],
+    defense: [
+      "High request volume from combined modules triggers WAF/CDN rate limits and SOC alerts—scope and throttle `-rate-limit`",
+      "Connect port scans are logged as full TCP connections; SYN scans from dedicated tools may be stealthier",
+      "Nuclei template false positives still apply; tune severity and custom modules for production targets",
+      "Webhook notify configs and API keys in env vars should not land in shell history or CI logs",
+    ],
+    related: ["nuclei", "subfinder", "nmap", "ffuf", "nikto", "sqlmap"],
   },
 
   sqlmap: {
@@ -1035,7 +1097,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
     ],
     useCases: [
       "Passive subdomain discovery before active recon",
-      "Building target lists for nuclei/httpx pipelines",
+      "Building target lists for nuclei/httpx pipelines—or pipe directly into SIF for combined probe/crawl/nuclei",
     ],
     commands: [
       {
@@ -1043,7 +1105,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
         code: "subfinder -d example.com -all -o subs.txt",
       },
     ],
-    related: ["amass", "theharvester", "nuclei"],
+    related: ["amass", "theharvester", "nuclei", "sif"],
   },
 
   amass: {

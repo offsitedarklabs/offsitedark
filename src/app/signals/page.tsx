@@ -1,7 +1,7 @@
 import { SignalsLedger } from "@/components/signals-ledger";
 import { getNewsPosts } from "@/lib/content";
 
-export default function NewsPage() {
+export default function SignalsPage() {
   const posts = getNewsPosts();
 
   return (
@@ -38,4 +38,4 @@ export default function NewsPage() {
   );
 }
 
-export const metadata = { title: "News" };
+export const metadata = { title: "Signals" };

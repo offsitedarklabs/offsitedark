@@ -4,14 +4,14 @@ export const SITE = {
   description:
     "Open source security research, malware analysis, and offensive tooling.",
   url: "https://offsitedark.com",
-  email: "info@offsitedark.com",
+  email: "offsitedark@proton.me",
   twitter: "https://x.com/offsitedark",
   github: "https://github.com/offsitedark",
 } as const;
 
 export const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "Research", href: "/research" },
-  { label: "News", href: "/news" },
+  { label: "Signals", href: "/signals" },
   { label: "Greps", href: "/greps" },
   { label: "Tools", href: "/tools" },
   { label: "Projects", href: "/projects" },
@@ -22,7 +22,7 @@ export const NAV: { label: string; href: string; external?: boolean }[] = [
 export const NODES = [
   { label: "GitHub", href: "https://github.com/offsitedark" },
   { label: "X", href: "https://x.com/offsitedark" },
-  { label: "Email", href: "mailto:info@offsitedark.com" },
+  { label: "Email", href: "mailto:offsitedark@proton.me" },
   { label: "RSS", href: "/feed.xml" },
 ];
 

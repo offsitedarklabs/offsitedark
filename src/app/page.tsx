@@ -106,7 +106,7 @@ export default function HomePage() {
               <EntryRow key={post.slug} post={post} />
             ))}
             <Link
-              href="/news"
+              href="/signals"
               className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-red hover:text-white"
             >
               → All signals

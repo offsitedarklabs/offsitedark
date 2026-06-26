@@ -30,7 +30,7 @@ export function buildSearchIndex(): SearchItem[] {
       kind: "news",
       kindLabel: KIND_LABELS.news,
       title: post.title,
-      href: `/news/${post.slug}`,
+      href: `/signals/${post.slug}`,
       excerpt: post.excerpt,
       searchText: joinSearchText(
         post.title,

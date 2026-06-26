@@ -22,7 +22,7 @@ export default function ForumPage() {
             Research
           </Link>
           <Link
-            href="/news"
+            href="/signals"
             className="font-mono text-xs uppercase tracking-widest text-gray hover:text-red"
           >
             Signals

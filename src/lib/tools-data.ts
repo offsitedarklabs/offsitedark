@@ -84,6 +84,13 @@ export const POPULAR_TOOLS: ToolLink[] = [
     tags: ["scanner", "automation"],
   },
   {
+    name: "SIF",
+    href: "https://github.com/vmfunc/sif",
+    description:
+      "Go recon-to-exploit scanner in one static binary. Shared HTTP client, 25+ scan modules, nuclei compiled in. Pipelines from stdin.",
+    tags: ["recon", "scanner", "automation"],
+  },
+  {
     name: "SQLMap",
     href: "https://sqlmap.org/",
     description:

@@ -6,7 +6,7 @@ export async function GET() {
     .map(
       (p) => `<item>
       <title><![CDATA[${p.title}]]></title>
-      <link>${SITE.url}${p.type === "research" ? `/research/${p.slug}` : `/news/${p.slug}`}</link>
+      <link>${SITE.url}${p.type === "research" ? `/research/${p.slug}` : `/signals/${p.slug}`}</link>
       <description><![CDATA[${p.excerpt}]]></description>
       <pubDate>${new Date(p.date).toUTCString()}</pubDate>
     </item>`,

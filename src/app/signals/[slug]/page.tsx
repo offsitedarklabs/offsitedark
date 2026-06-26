@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   return getNewsPosts().map((p) => ({ slug: p.slug }));
 }
 
-export default async function NewsPostPage({
+export default async function SignalsPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -26,7 +26,7 @@ export default async function NewsPostPage({
       <div className="grid md:grid-cols-[1fr_3fr]">
         <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
-            <Link href="/news" className="back-nav-link back-nav-link--sidebar">
+            <Link href="/signals" className="back-nav-link back-nav-link--sidebar">
               ← Signals
             </Link>
             <p className="meta mt-8">{formatDate(post.date)}</p>

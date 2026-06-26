@@ -39,7 +39,7 @@ export function EntryRow({ post, isActive, onSelect }: EntryRowProps) {
   }
 
   const href =
-    post.type === "news" ? `/news/${post.slug}` : `/research/${post.slug}`;
+    post.type === "news" ? `/signals/${post.slug}` : `/research/${post.slug}`;
 
   return (
     <Link href={href} className={rowClass(isActive)}>

@@ -10,7 +10,8 @@ const svg = readFileSync(join(root, "public", "favicon.svg"));
 const sizes = [
   { size: 16, file: "favicon-16x16.png" },
   { size: 32, file: "favicon.ico" },
-  { size: 180, file: "apple-touch-icon.png" },
+  { size: 512, file: "apple-touch-icon.png" },
+  { size: 1024, file: "logo-1024.png" },
 ];
 
 for (const { size, file } of sizes) {
@@ -23,4 +24,6 @@ for (const { size, file } of sizes) {
   }
 }
 
-console.log("Generated public/favicon.ico, favicon-16x16.png, and apple-touch-icon.png");
+console.log(
+  "Generated public/favicon.ico, favicon-16x16.png, apple-touch-icon.png (512x512), and logo-1024.png (1024x1024)",
+);
