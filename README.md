@@ -1,8 +1,9 @@
 # OFFSITE.DARK
 
-Security research lab. Red, black, white. Nous-inspired editorial layout with brutalist grid.
+Open source security research lab. Malware analysis, offensive tooling, and the relentless pursuit of understanding the machine.
 
-## Dev
+## AGENTIC SECURITY
+OFFSITE.DARK aims to be a leader in open source offensive security research. We publish malware analysis, reversing techniques, and tooling — supporting unrestricted availability and use for education and defense.
 
 ```bash
 npm install
