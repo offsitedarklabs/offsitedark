@@ -33,6 +33,7 @@ function parseDir(dirName: "blog" | "news", defaultType: ContentType): Post[] {
         tags: (data.tags as string[]) ?? [],
         excerpt: data.excerpt as string,
         draft: data.draft as boolean | undefined,
+        wip: data.wip as boolean | undefined,
         source: data.source as string | undefined,
         sourceUrl: data.sourceUrl as string | undefined,
         content,

@@ -7,6 +7,7 @@ category: reversing
 tags: [windows, shellcode]
 excerpt: "A survey of shellcode entry techniques on modern Windows x64."
 draft: false
+wip: true
 ---
 
 Modern Windows x64 shellcode must navigate ASLR, DEP, CFG, and EDR userland hooks.
