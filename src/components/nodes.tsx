@@ -26,7 +26,7 @@ export function Nodes() {
               {SITE.tagline}
             </p>
           </div>
-          <p className="vertical-label relative z-10 max-h-[14rem] shrink-0 self-center py-4 pl-2 pr-0 text-[0.7rem] text-white/70 md:pl-3">
+          <p className="vertical-label relative z-10 max-h-[14rem] shrink-0 self-center overflow-hidden py-4 pl-2 pr-0 text-[0.7rem] text-white/70 md:pl-3">
             The other side is overcrowded, the dead will have nowhere to go.
           </p>
         </div>
