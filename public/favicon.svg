@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="OD">
+  <rect width="32" height="32" fill="#ad0013"/>
+  <g fill="#000000">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M1.5 16c0-5.8 3.8-10.5 9-10.5s9 4.7 9 10.5-3.8 10.5-9 10.5-9-4.7-9-10.5zm4.5 0c0 2.6 2 4.5 4.5 4.5s4.5-1.9 4.5-4.5-2-4.5-4.5-4.5-4.5 1.9-4.5 4.5z"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M16.5 5.5h2.8c5.4 0 9.7 4.5 9.7 10.5S24.7 26.5 19.3 26.5h-2.8V5.5zm3.2 4v12.5c2.8 0 5-2.8 5-6.25S22.5 9.5 19.7 9.5V9.5z"
+    />
+  </g>
+</svg>
