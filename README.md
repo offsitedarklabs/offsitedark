@@ -48,8 +48,8 @@ OFFSITE.DARK aims to be a leader in open source offensive security research. We 
 
 ## Running it
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Content
@@ -58,4 +58,4 @@ Add markdown to `content/blog/` (research) or `content/news/` (signals).
 
 ## Deploy
 
-Vercel or Railway — `npm run build` / `npm start`. No env vars required.
+Vercel or Railway — `bun run build` / `bun start`. No env vars required.
