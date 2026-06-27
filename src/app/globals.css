@@ -175,6 +175,7 @@ body::before {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   white-space: nowrap;
+  width: max-content;
   font-family: var(--font-bebas), impact, sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
