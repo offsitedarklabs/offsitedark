@@ -19,7 +19,10 @@ function EntryRowContent({ post }: { post: EntryRowData }) {
     <>
       <span className="meta shrink-0">{formatDate(post.date)}</span>
       <span className="flex-1 font-serif text-lg md:text-xl">{post.title}</span>
-      <span className="meta hidden shrink-0 sm:inline">{post.category}</span>
+      <span className="flex shrink-0 items-baseline gap-3">
+        {post.wip && <span className="meta">WIP</span>}
+        <span className="meta hidden sm:inline">{post.category}</span>
+      </span>
     </>
   );
 }
