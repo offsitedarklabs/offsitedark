@@ -10,6 +10,18 @@
 !.yarn/releases
 !.yarn/versions
 
+# github
+.github
+.github/workflows/vercel-merge.yml
+.github/workflows/vercel-pull-request.yml
+.github/workflows/vercel-deploy.yml
+.github/workflows/vercel-preview.yml
+.github/workflows/vercel-production.yml
+.github/workflows/vercel-staging.yml
+.github/workflows/vercel-development.yml
+.github/workflows/vercel-testing.yml
+.github/workflows/vercel-production.yml
+
 # testing
 /coverage
 
