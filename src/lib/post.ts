@@ -11,6 +11,7 @@ export interface Post {
   tags: string[];
   excerpt: string;
   draft?: boolean;
+  wip?: boolean;
   source?: string;
   sourceUrl?: string;
   content: string;
@@ -19,7 +20,7 @@ export interface Post {
 
 export type EntryRowData = Pick<
   Post,
-  "date" | "title" | "category" | "slug" | "type"
+  "date" | "title" | "category" | "slug" | "type" | "wip"
 >;
 
 export type SignalPreview = Pick<
