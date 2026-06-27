@@ -3,6 +3,14 @@
 # dependencies
 /node_modules
 /.pnp
+
+# this project uses bun (bun.lock is the only committed lockfile);
+# ignore foreign lockfiles so an accidental npm/pnpm/yarn install can't be committed
+package-lock.json
+npm-shrinkwrap.json
+pnpm-lock.yaml
+yarn.lock
+
 .pnp.*
 .yarn/*
 !.yarn/patches
