@@ -18,9 +18,9 @@ export default async function PostPage({
   if (!post || post.type !== "research") notFound();
 
   return (
-    <article>
-      <div className="grid md:grid-cols-[1fr_3fr]">
-        <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
+    <article className="min-w-0 overflow-x-clip">
+      <div className="grid min-w-0 md:grid-cols-[1fr_3fr]">
+        <div className="cell flex min-w-0 items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
             <Link
               href="/research"
@@ -35,10 +35,8 @@ export default async function PostPage({
             {post.category}
           </p>
         </div>
-        <div className="cell border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
-          <h1 className="font-display mb-8 text-5xl leading-none md:text-7xl">
-            {post.title}
-          </h1>
+        <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
+          <h1 className="article-title mb-8">{post.title}</h1>
           <p className="article-excerpt mb-10 font-serif text-lg italic text-white/60">
             {post.excerpt}
           </p>
