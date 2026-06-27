@@ -174,11 +174,10 @@ body::before {
 .vertical-label {
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  white-space: nowrap;
   font-family: var(--font-bebas), impact, sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  max-height: min(12rem, 40vh);
-  overflow: hidden;
 }
 
 .meta {
