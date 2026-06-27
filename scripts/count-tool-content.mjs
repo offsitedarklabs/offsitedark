@@ -12,7 +12,8 @@ const popular = [
   "hashcat", "impacket", "ghidra", "yara", "volatility", "nuclei", "sqlmap",
 ];
 const links = [
-  "church-of-malware", "vx-underground", "sploitus", "shannon", "keygraph",
+  "church-of-malware", "vx-underground", "sploitus", "project-nightcrawler",
+  "kanti-labs", "shannon", "keygraph",
 ];
 const kaliSlugs = kali;
 const registry = new Set([...popular, ...links, "metasploit", ...kaliSlugs]);

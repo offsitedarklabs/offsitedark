@@ -12,9 +12,14 @@ import {
 interface SiteSearchProps {
   items: SearchItem[];
   className?: string;
+  inputId?: string;
 }
 
-export function SiteSearch({ items, className = "" }: SiteSearchProps) {
+export function SiteSearch({
+  items,
+  className = "",
+  inputId = "site-search-input",
+}: SiteSearchProps) {
   const router = useRouter();
   const listId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -86,12 +91,12 @@ export function SiteSearch({ items, className = "" }: SiteSearchProps) {
       className={`site-search${className ? ` ${className}` : ""}`}
       role="search"
     >
-      <label className="sr-only" htmlFor="site-search-input">
+      <label className="sr-only" htmlFor={inputId}>
         Search the site
       </label>
       <input
         ref={inputRef}
-        id="site-search-input"
+        id={inputId}
         type="search"
         value={query}
         onChange={(event) => {

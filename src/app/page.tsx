@@ -40,6 +40,7 @@ export default function HomePage() {
           </p>
           <SiteSearch
             items={searchIndex}
+            inputId="site-search-input"
             className="mt-8 max-w-lg md:max-w-xl"
           />
           <p className="meta mt-10 text-xl md:text-2xl">

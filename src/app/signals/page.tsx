@@ -16,7 +16,8 @@ export default function SignalsPage() {
       <div className="cell border-x-0 px-6 py-4 md:px-10">
         <p className="max-w-3xl font-serif text-base italic leading-relaxed text-white/60 md:text-lg">
           Third-party vulnerability intel indexed from public sources — Sploitus,
-          Church of Malware, vx-underground, Hacker News, and others — for
+          Project Nightcrawler, Church of Malware, vx-underground, Hacker News,
+          and others — for
           security research inquiry. OFFSITE.DARK does not discover or weaponize
           exploits; we index, analyze, attribute sources, and ask whether they
           have research value.

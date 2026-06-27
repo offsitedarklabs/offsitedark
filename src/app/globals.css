@@ -387,6 +387,16 @@ body::before {
   z-index: 20;
 }
 
+.site-search--header .ledger-search {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .site-search--header .ledger-search {
+    font-size: 0.65rem;
+  }
+}
+
 .site-search-results {
   position: absolute;
   top: calc(100% + 0.35rem);

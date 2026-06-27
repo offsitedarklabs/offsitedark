@@ -35,17 +35,18 @@ OFFSITE.DARK indexes this entry from [Cyderes Howler Cell analysis](https://www.
 
 ## The Nightmare-Eclipse Cluster
 
-One researcher, multiple aliases, seven Windows zero-days in roughly ten weeks — all targeting Microsoft Defender or adjacent Windows security components. None went through coordinated disclosure.
+One researcher, multiple aliases, eight Windows zero-days in roughly ten weeks — all targeting Microsoft Defender or adjacent Windows security components. None went through coordinated disclosure.
 
 | Tool | CVE | Patch status |
 |------|-----|--------------|
-| BlueHammer | CVE-2026-33825 | Patched April 2026; CISA KEV |
-| RedSun | CVE-2026-41091 | Patched May 2026 OOB; CISA KEV |
-| UnDefend | CVE-2026-45498 | Patched May 2026 OOB; CISA KEV |
-| YellowKey | CVE-2026-45585 | Patched June 2026 Patch Tuesday |
-| GreenPlasma | CVE-2026-45586 | Patched June 2026 Patch Tuesday |
-| MiniPlasma | CVE-2020-17103 (researcher attribution) | Patched June 2026 Patch Tuesday |
+| [BlueHammer](/signals/bluehammer-defender-lpe-cve-2026-33825) | CVE-2026-33825 | Patched April 2026; CISA KEV |
+| [RedSun](/signals/redsun-defender-lpe-cve-2026-41091) | CVE-2026-41091 | Patched May 2026 OOB; CISA KEV |
+| [UnDefend](/signals/undefend-defender-dos-cve-2026-45498) | CVE-2026-45498 | Patched May 2026 OOB; CISA KEV |
+| [YellowKey](/signals/yellowkey-bitlocker-bypass-cve-2026-45585) | CVE-2026-45585 | Patched June 2026 Patch Tuesday |
+| [GreenPlasma](/signals/greenplasma-ctfmon-lpe-cve-2026-45586) | CVE-2026-45586 | Patched June 2026 Patch Tuesday |
+| [MiniPlasma](/signals/miniplasma-cldflt-lpe-cve-2020-17103) | CVE-2020-17103 (researcher attribution) | Patched June 2026 Patch Tuesday |
 | **RoguePlanet** | **None** | **Unpatched** |
+| [GreatXML](/signals/greatxml-bitlocker-bypass-zero-day) | **None** | **Unpatched** |
 
 Prior tools from this cluster have moved beyond proof-of-concept. Huntress documented real-world intrusion chains using BlueHammer, RedSun, and UnDefend. RoguePlanet extends the same primitive family after Microsoft silently hardened `mpengine!SysIO*` APIs in mid-May 2026, breaking many junction-based paths — including an earlier SMB/.vhd(x) remote execution design the researcher originally built.
 

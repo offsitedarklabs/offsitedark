@@ -21,7 +21,7 @@ export function SectionBlock({
         <p className="meta">{label}</p>
         <OutputSeedMeta className="meta" />
       </div>
-      <h2 className="section-title mb-8 text-white">
+      <h2 className="font-display mb-8 text-5xl leading-none tracking-wide text-white md:text-7xl lg:text-8xl">
         {title}
       </h2>
       <div className="max-w-prose font-serif text-lg leading-relaxed text-white/90 md:text-xl">

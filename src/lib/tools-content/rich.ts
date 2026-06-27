@@ -652,6 +652,47 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
     related: ["church-of-malware", "sploitus", "yara"],
   },
 
+  "kanti-labs": {
+    overview: [
+      "Kanti Labs (kantilabs.xyz) is an AI security research lab building open-weight models, datasets, and public write-ups for offensive web security — especially XSS detection within the Strix agent framework.",
+      "The lab publishes Strix-specialized Qwen3 fine-tunes on Hugging Face (kusonooyasumi org): supervised XSS Strix traces from HackerOne-style data, plus RL-trained 4B proof-of-concepts for autonomous vulnerability hunting sub-agents.",
+      "OFFSITE.DARK cites Kanti Labs as the research-origin source for Greps entries in the Strix XSS model line — same attribution pattern as Hugging Face community uploads indexed for capability benchmarking, not endorsement.",
+      "Treat kantilabs.xyz model cards, Prime Intellect eval environments, and Strix integration docs as research infrastructure for tracking specialized offensive LLM releases — not as endorsement of use outside authorized testing.",
+    ],
+    useCases: [
+      "Indexing Strix XSS agent models after Hugging Face upload",
+      "Cross-referencing SFT vs RL training approaches for web vuln agents",
+      "Benchmarking open-weight XSS reasoning against general cyber LLMs",
+      "Tracking dataset lineage (strix_xss_hackerone) for eval reproducibility",
+    ],
+    defense: [
+      "Monitor for Strix or custom XSS-agent tooling in unauthorized scan traffic",
+      "Assume specialized XSS models lower skill floor for scripted hunting — prioritize WAF, CSP, and output encoding over model blocking",
+    ],
+    related: ["shannon", "sploitus", "keygraph"],
+  },
+
+  "project-nightcrawler": {
+    overview: [
+      "Project Nightcrawler (git.projectnightcrawler.dev) is a self-hosted Gitea instance used to publish and mirror security research repositories when mainstream forges remove PoC code.",
+      "The NightmareEclipse org hosts the MSNightmare / Nightmare-Eclipse Windows exploit cluster — BlueHammer, RedSun, UnDefend, YellowKey, GreenPlasma, MiniPlasma, RoguePlanet, and related BitLocker research (GreatXML). Many repos mirror earlier Church of Malware git uploads.",
+      "OFFSITE.DARK cites Project Nightcrawler as the PoC-origin source for Signals entries in this cluster — same attribution pattern as Sploitus index references or Cyderes Howler Cell analysis.",
+      "Treat domains, RSS feeds, and researcher blogs (blog.projectnightcrawler.dev, deadeclipse666.blogspot.com) as PoC-distribution infrastructure for watchlisting — not as endorsement of use outside authorized research.",
+    ],
+    useCases: [
+      "Indexing primary PoC sources after GitHub/GitLab account terminations",
+      "Tracking Nightmare-Eclipse cluster releases and mirror freshness",
+      "Cross-referencing README author notes with vendor CVE assignments",
+      "Defensive research on published attack chains and detection gaps",
+    ],
+    defense: [
+      "Block or monitor egress to git.projectnightcrawler.dev on production endpoints where policy requires",
+      "Behavioral detection over PoC hashes — cluster tools share junction/oplock/Defender-abuse primitives",
+      "Assume ITW use: Huntress documented BlueHammer, RedSun, and UnDefend in live intrusions",
+    ],
+    related: ["sploitus", "church-of-malware", "ghidra"],
+  },
+
   sploitus: {
     overview: [
       "Sploitus aggregates exploit and tool search across Exploit-DB, GitHub, Metasploit, and other sources into one query interface. Filters by type (PoC, remote, local, DoS), platform, and CVE.",
@@ -665,7 +706,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
       "Discovering Metasploit module names for a given CVE",
       "Research on exploitation technique variants",
     ],
-    related: ["metasploit", "searchsploit", "nuclei"],
+    related: ["metasploit", "searchsploit", "nuclei", "project-nightcrawler"],
   },
 
   shannon: {

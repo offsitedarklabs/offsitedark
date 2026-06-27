@@ -119,6 +119,19 @@ export const EXTERNAL_LINKS: ToolLink[] = [
       "Exploit and tool search engine. Aggregates Exploit-DB, GitHub PoCs, and Metasploit modules into one query interface.",
   },
   {
+    name: "Project Nightcrawler",
+    href: "https://git.projectnightcrawler.dev/",
+    description:
+      "Self-hosted Gitea forge for security research repos and PoC mirrors. Primary distribution point for Nightmare-Eclipse / MSNightmare Windows exploit cluster after GitHub/GitLab takedowns.",
+  },
+  {
+    name: "Kanti Labs",
+    href: "https://kantilabs.xyz/",
+    description:
+      "AI security research lab publishing open-weight offensive web security models, Strix XSS agent fine-tunes, datasets, and write-ups on RL/SFT training for vulnerability hunting.",
+    tags: ["cyber-llm", "pentest"],
+  },
+  {
     name: "Shannon",
     href: "https://github.com/KeygraphHQ/shannon",
     description:
