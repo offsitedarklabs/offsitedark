@@ -65,7 +65,7 @@ export default function HomePage() {
 
       <div className="cell border-x-0 px-6 py-3 md:px-10">
         <p className="font-mono text-[0.65rem] tracking-widest text-gray">
-          Don&apos;t talk to me like I&apos;m a machine, I&apos;m not that.
+          Don&apos;t talk to me like I&apos;m a machine, I&apos;m not that...
         </p>
       </div>
 
