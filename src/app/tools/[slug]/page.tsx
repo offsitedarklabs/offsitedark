@@ -24,9 +24,9 @@ export default async function ToolDetailPage({
   const categoryLabel = getCategoryLabel(tool.category);
 
   return (
-    <article>
-      <div className="grid md:grid-cols-[1fr_3fr]">
-        <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
+    <article className="min-w-0 overflow-x-clip">
+      <div className="grid min-w-0 md:grid-cols-[1fr_3fr]">
+        <div className="cell flex min-w-0 items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
             <Link href="/tools" className="back-nav-link back-nav-link--sidebar">
               ← Tools
@@ -35,11 +35,11 @@ export default async function ToolDetailPage({
               <p className="meta mt-8">Index · {tool.kaliLetter}</p>
             )}
             {tool.tags && tool.tags.length > 0 && (
-              <ul className="mt-8 flex flex-wrap gap-2">
+              <ul className="mt-8 flex min-w-0 flex-wrap gap-2">
                 {tool.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="font-mono text-[0.65rem] uppercase tracking-widest text-gray"
+                    className="max-w-full break-all font-mono text-[0.65rem] uppercase tracking-widest text-gray"
                   >
                     {tag}
                   </li>
@@ -52,12 +52,10 @@ export default async function ToolDetailPage({
           </p>
         </div>
 
-        <div className="cell border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
-          <h1 className="font-display mb-10 text-5xl leading-none text-red md:text-7xl">
-            {tool.name}
-          </h1>
+        <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
+          <h1 className="article-title mb-10 text-red">{tool.name}</h1>
 
-          <div className="prose-lab">
+          <div className="prose-lab min-w-0 max-w-full">
             <ToolDetailSections tool={tool} />
           </div>
 

@@ -22,9 +22,9 @@ export default async function GrepPostPage({
   if (!post) notFound();
 
   return (
-    <article>
-      <div className="grid md:grid-cols-[1fr_3fr]">
-        <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
+    <article className="min-w-0 overflow-x-clip">
+      <div className="grid min-w-0 md:grid-cols-[1fr_3fr]">
+        <div className="cell flex min-w-0 items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
             <Link href="/greps" className="back-nav-link back-nav-link--sidebar">
               ← Greps
@@ -34,7 +34,7 @@ export default async function GrepPostPage({
             <p className="meta mt-8 text-white/50">
               Uploaded by {post.author}
             </p>
-            <dl className="mt-8 space-y-3 font-mono text-[0.65rem] uppercase tracking-widest text-gray">
+            <dl className="mt-8 min-w-0 space-y-3 font-mono text-[0.65rem] uppercase tracking-widest text-gray">
               <div>
                 <dt className="text-white/40">HF Model</dt>
                 <dd className="mt-1 break-all text-white/70">{post.hfModelId}</dd>
@@ -67,11 +67,11 @@ export default async function GrepPostPage({
               )}
             </dl>
             {post.tags.length > 0 && (
-              <ul className="mt-8 flex flex-wrap gap-2">
+              <ul className="mt-8 flex min-w-0 flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="font-mono text-[0.65rem] uppercase tracking-widest text-gray"
+                    className="max-w-full break-all font-mono text-[0.65rem] uppercase tracking-widest text-gray"
                   >
                     {tag}
                   </li>
@@ -83,14 +83,12 @@ export default async function GrepPostPage({
             {post.category}
           </p>
         </div>
-        <div className="cell border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
+        <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-12 md:pl-16 md:pr-12">
           <p className="meta mb-6 text-white/40">
             Community upload on Hugging Face — indexed for inquiry, not
             endorsement.
           </p>
-          <h1 className="font-display mb-8 text-5xl leading-none md:text-7xl">
-            {post.title}
-          </h1>
+          <h1 className="article-title mb-8">{post.title}</h1>
           <p className="article-excerpt mb-10 font-serif text-lg italic text-white/60">
             {post.excerpt}
           </p>
