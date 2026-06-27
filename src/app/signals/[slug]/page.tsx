@@ -22,9 +22,9 @@ export default async function SignalsPostPage({
   if (!post) notFound();
 
   return (
-    <article>
-      <div className="grid md:grid-cols-[1fr_3fr]">
-        <div className="cell flex items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
+    <article className="min-w-0 overflow-x-clip">
+      <div className="grid min-w-0 md:grid-cols-[1fr_3fr]">
+        <div className="cell flex min-w-0 items-start gap-4 border-l-0 border-t-0 p-6 md:p-10">
           <div className="min-w-0 flex-1">
             <Link href="/signals" className="back-nav-link back-nav-link--sidebar">
               ← Signals
@@ -35,11 +35,11 @@ export default async function SignalsPostPage({
               <p className="meta mt-8 text-white/50">{post.source}</p>
             )}
             {post.tags.length > 0 && (
-              <ul className="mt-8 flex flex-wrap gap-2">
+              <ul className="mt-8 flex min-w-0 flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="font-mono text-[0.65rem] uppercase tracking-widest text-gray"
+                    className="max-w-full break-all font-mono text-[0.65rem] uppercase tracking-widest text-gray"
                   >
                     {tag}
                   </li>
@@ -51,10 +51,8 @@ export default async function SignalsPostPage({
             {post.category}
           </p>
         </div>
-        <div className="cell border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
-          <h1 className="font-display mb-10 text-5xl leading-none md:text-7xl">
-            {post.title}
-          </h1>
+        <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
+          <h1 className="article-title mb-10">{post.title}</h1>
           <p className="article-excerpt mb-12 font-serif text-lg leading-relaxed italic text-white/60 md:text-xl">
             {post.excerpt}
           </p>

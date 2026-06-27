@@ -177,6 +177,8 @@ body::before {
   font-family: var(--font-bebas), impact, sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  max-height: min(12rem, 40vh);
+  overflow: hidden;
 }
 
 .meta {
@@ -187,13 +189,32 @@ body::before {
   color: var(--red);
 }
 
+.article-title {
+  font-family: var(--font-bebas), impact, sans-serif;
+  font-size: clamp(1.875rem, 8vw, 3rem);
+  line-height: 0.95;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (min-width: 768px) {
+  .article-title {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+  }
+}
+
 .prose-lab {
   max-width: min(82ch, 100%);
+  min-width: 0;
   font-family: var(--font-prose), "IBM Plex Sans", system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.75;
   color: rgb(255 255 255 / 0.9);
   letter-spacing: 0.015em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow-x: clip;
 }
 
 @media (min-width: 768px) {
@@ -205,6 +226,21 @@ body::before {
 
 .article-excerpt {
   max-width: min(82ch, 100%);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.prose-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.75rem 0 2.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose-table-wrap table {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
 }
 
 .prose-lab h2 {
@@ -287,7 +323,6 @@ body::before {
 .prose-lab table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.75rem 0 2.25rem;
   font-size: 0.9375em;
   line-height: 1.6;
 }
@@ -319,6 +354,11 @@ body::before {
   color: var(--white);
 }
 
+.prose-lab img {
+  max-width: 100%;
+  height: auto;
+}
+
 .prose-lab code {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 0.82em;
@@ -326,6 +366,8 @@ body::before {
   background: rgb(173 0 19 / 0.12);
   padding: 0.12em 0.4em;
   border-radius: 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose-lab pre {
@@ -336,6 +378,7 @@ body::before {
   background: rgb(0 0 0 / 0.35);
   padding: 1.125rem 1.25rem;
   overflow-x: auto;
+  max-width: 100%;
   margin: 1.75rem 0;
 }
 
@@ -613,6 +656,18 @@ button.entry-row.entry-row-active .meta {
   width: calc(100% + var(--ledger-nav-pad-start));
   margin-right: 0;
   padding-right: 0;
+}
+
+@media (max-width: 767px) {
+  .ledger-nav-link,
+  .back-nav-link,
+  .back-nav-link--sidebar {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .ledger-nav-link:hover,
