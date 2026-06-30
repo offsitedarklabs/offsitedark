@@ -186,7 +186,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <p className="cell border-x-0 bg-red px-6 py-4 text-center font-mono text-[0.7rem] uppercase tracking-[0.2em] text-black md:px-10">
+      <p className="connected-banner cell border-x-0 bg-red px-6 py-4 text-center font-mono text-[0.7rem] uppercase tracking-[0.2em] text-black md:px-10">
         no matter where you are, every one is always CONNECTED
       </p>
 
