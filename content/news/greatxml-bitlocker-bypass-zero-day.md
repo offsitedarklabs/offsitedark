@@ -96,7 +96,7 @@ The companion **`Recovery`** directory modifies WinRE reagent configuration so t
 - **Offline data access** on BitLocker-protected devices if an attacker can write to the recovery partition and trigger WinRE in the correct Defender offline-scan context.
 - **Physical-access and post-compromise scenarios** — staging requires recovery-partition modification; triggering without prior offline scan may require admin session per independent testers.
 - **Persistent recovery-partition tampering** — planted artifacts survive OS credential rotation and may re-trigger on future WinRE boots until the recovery image is rebuilt.
-- **Cluster signal** — eighth distinct Windows security surface from the same researcher (Defender LPE ×4, BitLocker bypass ×2, CTF LPE, Cloud Files regression); published immediately after RoguePlanet in the June 2026 release wave.
+- **Cluster signal** — eighth distinct Windows security surface from the same researcher at publication (Defender LPE ×4, BitLocker bypass ×2, CTF LPE, Cloud Files regression); followed in July 2026 by [LegacyHive](/signals/legacyhive-profsvc-hive-load-zero-day) (ProfSvc hive-load primitive).
 
 ## Mitigation
 
