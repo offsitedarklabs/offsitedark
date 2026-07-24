@@ -675,7 +675,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
   "project-nightcrawler": {
     overview: [
       "Project Nightcrawler (git.projectnightcrawler.dev) is a self-hosted Gitea instance used to publish and mirror security research repositories when mainstream forges remove PoC code.",
-      "The NightmareEclipse org hosts the MSNightmare / Nightmare-Eclipse Windows exploit cluster — BlueHammer, RedSun, UnDefend, YellowKey, GreenPlasma, MiniPlasma, RoguePlanet, and related BitLocker research (GreatXML). Many repos mirror earlier Church of Malware git uploads.",
+      "The NightmareEclipse org hosts the MSNightmare / Nightmare-Eclipse Windows exploit cluster — BlueHammer, RedSun, UnDefend, YellowKey, GreenPlasma, MiniPlasma, RoguePlanet, GreatXML (BitLocker/WinRE), and LegacyHive (ProfSvc arbitrary hive load, July 2026). Many repos mirror earlier Church of Malware git uploads.",
       "OFFSITE.DARK cites Project Nightcrawler as the PoC-origin source for Signals entries in this cluster — same attribution pattern as Sploitus index references or Cyderes Howler Cell analysis.",
       "Treat domains, RSS feeds, and researcher blogs (blog.projectnightcrawler.dev, deadeclipse666.blogspot.com) as PoC-distribution infrastructure for watchlisting — not as endorsement of use outside authorized research.",
     ],

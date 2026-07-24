@@ -35,7 +35,7 @@ OFFSITE.DARK indexes this entry from [Cyderes Howler Cell analysis](https://www.
 
 ## The Nightmare-Eclipse Cluster
 
-One researcher, multiple aliases, eight Windows zero-days in roughly ten weeks — all targeting Microsoft Defender or adjacent Windows security components. None went through coordinated disclosure.
+One researcher, multiple aliases, nine Windows security drops since April 2026 — targeting Microsoft Defender, BitLocker/WinRE, CTF, Cloud Files, and (as of July) the User Profile Service. None went through coordinated disclosure.
 
 | Tool | CVE | Patch status |
 |------|-----|--------------|
@@ -47,6 +47,7 @@ One researcher, multiple aliases, eight Windows zero-days in roughly ten weeks �
 | [MiniPlasma](/signals/miniplasma-cldflt-lpe-cve-2020-17103) | CVE-2020-17103 (researcher attribution) | Patched June 2026 Patch Tuesday |
 | **RoguePlanet** | **None** | **Unpatched** |
 | [GreatXML](/signals/greatxml-bitlocker-bypass-zero-day) | **None** | **Unpatched** |
+| [LegacyHive](/signals/legacyhive-profsvc-hive-load-zero-day) | **None** | **Unpatched (July 2026 drop)** |
 
 Prior tools from this cluster have moved beyond proof-of-concept. Huntress documented real-world intrusion chains using BlueHammer, RedSun, and UnDefend. RoguePlanet extends the same primitive family after Microsoft silently hardened `mpengine!SysIO*` APIs in mid-May 2026, breaking many junction-based paths — including an earlier SMB/.vhd(x) remote execution design the researcher originally built.
 
@@ -194,6 +195,8 @@ Filesystem artifact sequence (same process, close timing):
 | 2026-06-10 | RoguePlanet published as MSNightmare on GitHub |
 | 2026-06-10 | Cyderes Howler Cell reproduction on patched Windows 11 Pro |
 | 2026-06-10 | Microsoft statement: investigating validity (via BleepingComputer) |
+| 2026-06-11 | GreatXML BitLocker/WinRE bypass published |
+| 2026-07-14 | LegacyHive ProfSvc hive-load primitive published (ninth cluster tool) |
 
 ## Sources
 
@@ -201,4 +204,6 @@ Filesystem artifact sequence (same process, close timing):
 - [GitHub — MSNightmare/RoguePlanet](https://github.com/MSNightmare/RoguePlanet) (public PoC)
 - [Cyderes — BlueHammer (CVE-2026-33825)](https://www.cyderes.com/howler-cell/bluehammer-windows-defender-zero-day) (cluster context)
 - [Cyderes — RedSun (CVE-2026-41091)](https://www.cyderes.com/howler-cell/redsun-windows-defender-zero-day) (cluster context)
+- [Cyderes — LegacyHive (ProfSvc hive load)](https://www.cyderes.com/howler-cell/legacyhive-windows-user-profile-loading-vulnerability) (ninth cluster tool)
+- [Project Nightcrawler — NightmareEclipse/LegacyHive](https://git.projectnightcrawler.dev/NightmareEclipse/LegacyHive)
 - [BleepingComputer — Microsoft Defender RoguePlanet zero-day](https://www.bleepingcomputer.com/news/microsoft/microsoft-defender-rogueplanet-zero-day-grants-system-privileges/) (vendor response, third-party reproduction)
