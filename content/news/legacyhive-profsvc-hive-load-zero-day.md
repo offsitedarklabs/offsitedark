@@ -48,9 +48,15 @@ LegacyHive continues the Nightmare-Eclipse pattern: publish against Microsoft se
 | [YellowKey](/signals/yellowkey-bitlocker-bypass-cve-2026-45585) | BitLocker / WinRE | CVE-2026-45585 — patched June 2026 |
 | [GreenPlasma](/signals/greenplasma-ctfmon-lpe-cve-2026-45586) | CTFMON | CVE-2026-45586 — patched June 2026 |
 | [MiniPlasma](/signals/miniplasma-cldflt-lpe-cve-2020-17103) | `cldflt.sys` regression | CVE-2020-17103 — patched June 2026 |
-| [RoguePlanet](/signals/rogueplanet-defender-lpe-zero-day) | Defender quarantine race | No CVE — unpatched |
+| [RoguePlanet](/signals/rogueplanet-defender-lpe-zero-day) | Defender quarantine race | No CVE — unpatched original |
 | [GreatXML](/signals/greatxml-bitlocker-bypass-zero-day) | WinRE / Defender Offline | No CVE — unpatched |
 | **LegacyHive** | **ProfSvc hive load** | **No CVE — unpatched (as of 2026-07-31)** |
+| [ShieldBreak](/signals/shieldbreak-defender-patch-bypass-cve-2026-69414) | Defender engine patch bypass | CVE-2026-69414 — engine 1.1.26080.3 (2026-09-03) |
+| [ShieldCrash](/signals/shieldcrash-defender-incomplete-patch-cve-2026-69414) | Incomplete 69414 patch | SYSTEM file read claimed on Sep 2026 engines |
+| [HardBreacher](/signals/hardbreacher-kaspersky-endpoint-lpe) | Kaspersky Endpoint UI | Vendor auto-update claimed |
+| [PrettyPrague](/signals/prettyprague-avast-sandbox-lpe) | Avast sandbox | Gen Digital fix claimed |
+| [GreenSection](/signals/greensection-nvidia-shared-section) | NVIDIA shared section | Investigating |
+| [FalconFlank](/signals/falconflank-crowdstrike-falcon-lpe) | Falcon Office-macro remediation | Workaround |
 
 ## What is the vulnerability?
 

@@ -1,6 +1,6 @@
 import type { SignalPreview } from "@/lib/post";
 
-export const VULN_FILTERS = ["all", "xss", "rce", "dos", "other"] as const;
+export const VULN_FILTERS = ["all", "xss", "rce", "dos", "ai", "other"] as const;
 export type VulnFilter = (typeof VULN_FILTERS)[number];
 
 export const VULN_FILTER_LABELS: Record<VulnFilter, string> = {
@@ -8,6 +8,7 @@ export const VULN_FILTER_LABELS: Record<VulnFilter, string> = {
   xss: "XSS",
   rce: "RCE",
   dos: "DoS",
+  ai: "AI",
   other: "Other",
 };
 
@@ -19,6 +20,14 @@ const TAG_RCE = new Set([
   "deserialization",
 ]);
 const TAG_DOS = new Set(["dos", "ddos", "denial-of-service"]);
+const TAG_AI = new Set([
+  "agents",
+  "agentic",
+  "collusion",
+  "swarm",
+  "lookahead",
+  "llm-agents",
+]);
 const TAG_OTHER = new Set([
   "ssrf",
   "csrf",
@@ -48,6 +57,7 @@ const TEXT_PATTERNS: Record<Exclude<VulnFilter, "all">, RegExp> = {
   xss: /\bxss\b|cross[- ]site scripting/i,
   rce: /\brce\b|remote code execution|code execution/i,
   dos: /\bdos\b|\bddos\b|denial of service|denial-of-service/i,
+  ai: /autonomous ai agent|agent collusion|lookahead part|ai agents? (?:collud|swarm|message board)/i,
   other:
     /\bssrf\b|\bcsrf\b|\bxsrf\b|auth[- ]?bypass|zero[- ]?day|\b0day\b|malware|botnet|stealer|supply[- ]chain|info(?:rmation)?[- ]disclosure|sql injection|\bsqli\b/i,
 };
@@ -63,10 +73,13 @@ export function getPostVulnCategories(post: SignalPreview): VulnFilter[] {
   const normalizedTags = post.tags.map(normalizeTag);
   const searchText = `${post.title} ${post.excerpt}`;
 
+  if (post.category === "ai") categories.add("ai");
+
   for (const tag of normalizedTags) {
     if (TAG_XSS.has(tag)) categories.add("xss");
     if (TAG_RCE.has(tag)) categories.add("rce");
     if (TAG_DOS.has(tag)) categories.add("dos");
+    if (TAG_AI.has(tag)) categories.add("ai");
     if (TAG_OTHER.has(tag)) categories.add("other");
   }
 

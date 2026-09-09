@@ -35,7 +35,7 @@ OFFSITE.DARK indexes this entry from [Cyderes Howler Cell analysis](https://www.
 
 ## The Nightmare-Eclipse Cluster
 
-One researcher, multiple aliases, nine Windows security drops since April 2026 — targeting Microsoft Defender, BitLocker/WinRE, CTF, Cloud Files, and (as of July) the User Profile Service. None went through coordinated disclosure.
+One researcher, multiple aliases, nine Microsoft-surface drops from April–July 2026 — Defender, BitLocker/WinRE, CTF, Cloud Files, User Profile Service — then an August–September expansion into other AV/EDR and GPU user-mode code. None went through coordinated disclosure.
 
 | Tool | CVE | Patch status |
 |------|-----|--------------|
@@ -45,9 +45,15 @@ One researcher, multiple aliases, nine Windows security drops since April 2026 �
 | [YellowKey](/signals/yellowkey-bitlocker-bypass-cve-2026-45585) | CVE-2026-45585 | Patched June 2026 Patch Tuesday |
 | [GreenPlasma](/signals/greenplasma-ctfmon-lpe-cve-2026-45586) | CVE-2026-45586 | Patched June 2026 Patch Tuesday |
 | [MiniPlasma](/signals/miniplasma-cldflt-lpe-cve-2020-17103) | CVE-2020-17103 (researcher attribution) | Patched June 2026 Patch Tuesday |
-| **RoguePlanet** | **None** | **Unpatched** |
+| **RoguePlanet** | **None** | **Unpatched original; later engine attempt CVE-2026-50656** |
 | [GreatXML](/signals/greatxml-bitlocker-bypass-zero-day) | **None** | **Unpatched** |
 | [LegacyHive](/signals/legacyhive-profsvc-hive-load-zero-day) | **None** | **Unpatched (July 2026 drop)** |
+| [ShieldBreak](/signals/shieldbreak-defender-patch-bypass-cve-2026-69414) | CVE-2026-69414 | Engine 1.1.26080.3 (2026-09-03); incomplete per ShieldCrash |
+| [ShieldCrash](/signals/shieldcrash-defender-incomplete-patch-cve-2026-69414) | CVE-2026-69414 (follow-on) | SYSTEM file read claimed on Sep 2026 engines |
+| [HardBreacher](/signals/hardbreacher-kaspersky-endpoint-lpe) | — | Kaspersky auto-update claimed |
+| [PrettyPrague](/signals/prettyprague-avast-sandbox-lpe) | — | Gen Digital fix claimed |
+| [GreenSection](/signals/greensection-nvidia-shared-section) | — | NVIDIA investigating |
+| [FalconFlank](/signals/falconflank-crowdstrike-falcon-lpe) | — | CrowdStrike workaround |
 
 Prior tools from this cluster have moved beyond proof-of-concept. Huntress documented real-world intrusion chains using BlueHammer, RedSun, and UnDefend. RoguePlanet extends the same primitive family after Microsoft silently hardened `mpengine!SysIO*` APIs in mid-May 2026, breaking many junction-based paths — including an earlier SMB/.vhd(x) remote execution design the researcher originally built.
 

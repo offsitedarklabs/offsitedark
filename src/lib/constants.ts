@@ -31,6 +31,7 @@ export const CATEGORIES = [
   "reversing",
   "infra",
   "tools",
+  "ai",
   "news",
 ] as const;
 

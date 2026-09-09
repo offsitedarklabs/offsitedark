@@ -2,15 +2,20 @@ import Link from "next/link";
 
 import { AsciiBlock } from "@/components/ascii-block";
 import { EntryRow } from "@/components/entry-row";
+import { FeaturedSignal } from "@/components/featured-signal";
 import { SectionBlock } from "@/components/section-block";
 import { SiteSearch } from "@/components/site-search";
-import { getLatestNews, getLatestResearch } from "@/lib/content";
 import { PROJECTS } from "@/lib/constants";
+import { getLatestNews, getLatestResearch } from "@/lib/content";
+import { getFeaturedNewsSignal } from "@/lib/featured-signal";
 import { buildSearchIndex } from "@/lib/build-search-index";
 
 export default function HomePage() {
   const research = getLatestResearch(4);
-  const news = getLatestNews(4);
+  const featured = getFeaturedNewsSignal();
+  const news = getLatestNews(5)
+    .filter((post) => post.slug !== featured?.slug)
+    .slice(0, 4);
   const searchIndex = buildSearchIndex();
 
   return (
@@ -69,11 +74,13 @@ export default function HomePage() {
         </p>
       </div>
 
+      {featured && <FeaturedSignal post={featured} />}
+
       {/* pride bar — full bleed red */}
       <div className="bg-red px-4 py-4 md:px-8 md:py-6">
         <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
           <p className="font-display text-[clamp(3rem,12vw,8rem)] leading-none tracking-tight text-black">
-            RESEARCH
+            News &amp; Research
           </p>
           <p className="font-mono leading-tight tracking-wider text-black/70 md:pb-2 md:text-right">
             <span className="block text-sm md:text-base">present day</span>
@@ -102,7 +109,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="px-6 py-8 md:px-10">
-            <p className="meta mb-4 text-base md:text-lg">Signals</p>
+            <p className="meta mb-4 text-base md:text-lg">Latest Signals</p>
             {news.map((post) => (
               <EntryRow key={post.slug} post={post} />
             ))}

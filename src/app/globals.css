@@ -700,6 +700,57 @@ button.entry-row.entry-row-active .meta {
   box-shadow: inset 3px 0 0 var(--red);
 }
 
+.featured-signal-lead,
+.featured-signal-body {
+  --ledger-nav-pad-start: 1.5rem;
+  --ledger-nav-pad-end: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .featured-signal-lead,
+  .featured-signal-body {
+    --ledger-nav-pad-start: 2.5rem;
+    --ledger-nav-pad-end: 2.5rem;
+  }
+}
+
+.featured-signal-lead {
+  box-shadow: inset 4px 0 0 var(--red);
+}
+
+.featured-signal-fade {
+  max-height: 12.5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, #000 38%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 100%);
+}
+
+@media (min-width: 768px) {
+  .featured-signal-fade {
+    max-height: 16.5rem;
+  }
+}
+
+.featured-signal-fade .prose-lab {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  pointer-events: none;
+}
+
+.featured-signal-fade .prose-lab h2,
+.featured-signal-fade .prose-lab h3,
+.featured-signal-fade .prose-lab table,
+.featured-signal-fade .prose-lab .prose-table-wrap,
+.featured-signal-fade .prose-lab pre,
+.featured-signal-fade .prose-lab ul,
+.featured-signal-fade .prose-lab ol {
+  display: none;
+}
+
+.featured-signal-fade .prose-lab p:last-child {
+  margin-bottom: 0;
+}
+
 .ledger-nav-link,
 .back-nav-link {
   display: block;
@@ -1160,6 +1211,12 @@ button.entry-row.entry-row-active .meta {
   .back-nav-link,
   .greps-action-link {
     transition: none;
+  }
+
+  .featured-signal-fade {
+    max-height: none;
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 
   .not-found-code {
