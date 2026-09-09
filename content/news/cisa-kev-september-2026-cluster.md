@@ -50,7 +50,7 @@ OFFSITE.DARK already indexed **CVE-2026-42208** (pre-auth SQLi on the proxy, fix
 1. Internet-exposed: PaperCut admin, SMA1000, Artifactory/Access, Switchvox, Kestra, LiteLLM, Starlette/FastAPI front doors — patch and **assume scan/exploit traffic already happened**.
 2. Endpoints: Chromium-family browsers, including embedded runtimes.
 3. BOD 26-04 shops: document pre-patch compromise checks, not just the version bump.
-4. Cross-check [StyleSmuggler](/signals/stylesmuggler-adobe-commerce-rce-cve-2026-75650) even if it is not in this particular KEV listing — same week, same “edge app RCE” bucket.
+4. Cross-check [StyleSmuggler](/signals/stylesmuggler-adobe-commerce-rce-cve-2026-75650) — KEV as of 2026-09-08 — and the [September 8–9 KEV card](/signals/cisa-kev-september-8-9-2026).
 
 ## Related Signals
 
@@ -58,6 +58,7 @@ OFFSITE.DARK already indexed **CVE-2026-42208** (pre-auth SQLi on the proxy, fix
 - [SonicWall SMA1000](/signals/sonicwall-sma1000-ssrf-rce-cve-2026-83548)
 - [JFrog Artifactory](/signals/jfrog-artifactory-auth-bypass-cve-2026-82329)
 - [StyleSmuggler Magento](/signals/stylesmuggler-adobe-commerce-rce-cve-2026-75650)
+- [CISA KEV September 8–9](/signals/cisa-kev-september-8-9-2026)
 - [LiteLLM proxy SQLi](/signals/litellm-proxy-sqli-cve-2026-42208)
 
 ## Sources
