@@ -39,14 +39,17 @@ export default function HomePage() {
               </span>
             </h1>
           </div>
-          <p className="mt-8 max-w-lg text-justify font-serif text-xl leading-relaxed text-white/70 md:max-w-xl md:text-2xl">
-            Open source security research lab. Malware analysis, offensive tooling,
-            and the relentless pursuit of understanding the machine.
+          <h2 className="mt-8 font-display text-[clamp(1.85rem,3.4vw,2.6rem)] leading-none tracking-[0.04em] text-white">
+            Open source security research lab
+          </h2>
+          <p className="mt-3 max-w-lg text-justify font-serif text-xl leading-relaxed text-white/70 md:max-w-xl md:text-2xl">
+            Malware analysis, offensive tooling, and the relentless pursuit of
+            understanding the machine.
           </p>
           <SiteSearch
             items={searchIndex}
             inputId="site-search-input"
-            className="mt-8 max-w-lg md:max-w-xl"
+            className="site-search--hero mt-8 max-w-xl md:max-w-2xl"
           />
           <p className="meta mt-10 text-xl md:text-2xl">
             あなただけが重要です | Только ты важен

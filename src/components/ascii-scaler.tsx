@@ -333,12 +333,18 @@ function measureCharMetrics(pre: HTMLPreElement): CharMetrics | null {
   };
 }
 
+function sourceShapeKey(grid: string[][]): string {
+  return `${grid.length}x${grid[0]?.length ?? 1}`;
+}
+
 export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLPreElement>(null);
   const rafRef = useRef<number | null>(null);
   const metricsRef = useRef<CharMetrics | null>(null);
   const skipResizeTransitionRef = useRef(true);
+  const sourceGridRef = useRef<string[][]>([[" "]]);
+  const shapeKeyRef = useRef<string | null>(null);
 
   const [layout, setLayout] = useState<Layout | null>(null);
   const [animateResize, setAnimateResize] = useState(false);
@@ -349,6 +355,10 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
 
   const sourceGrid = useMemo(() => parseAsciiGrid(content), [content]);
   const fallbackText = useMemo(() => gridToString(sourceGrid), [sourceGrid]);
+  const shapeKey = sourceShapeKey(sourceGrid);
+
+  sourceGridRef.current = sourceGrid;
+  if (shapeKeyRef.current === null) shapeKeyRef.current = shapeKey;
 
   const refit = useCallback(() => {
     const container = containerRef.current;
@@ -362,6 +372,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
     const metrics = metricsRef.current;
     if (!metrics) return;
 
+    const source = sourceGridRef.current;
     let next: Layout | null;
 
     if (sizeToContent) {
@@ -371,17 +382,17 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
       if (narrow) {
         const cw = parent?.clientWidth ?? container.clientWidth;
         if (cw === 0) return;
-        next = computeLayoutContainWidthBound(cw, metrics, sourceGrid);
+        next = computeLayoutContainWidthBound(cw, metrics, source);
       } else {
         const ch = parent?.clientHeight ?? container.clientHeight;
         if (ch === 0) return;
-        next = computeLayoutContainHeightBound(ch, metrics, sourceGrid);
+        next = computeLayoutContainHeightBound(ch, metrics, source);
       }
     } else {
       const cw = container.clientWidth;
       const ch = container.clientHeight;
       if (cw === 0 || ch === 0) return;
-      next = computeLayoutFill(cw, ch, metrics, sourceGrid);
+      next = computeLayoutFill(cw, ch, metrics, source);
     }
 
     if (!next) return;
@@ -400,7 +411,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
       }
       return next;
     });
-  }, [sourceGrid, sizeToContent]);
+  }, [sizeToContent]);
 
   const scheduleRefit = useCallback(() => {
     if (rafRef.current !== null) {
@@ -411,6 +422,27 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
       refit();
     });
   }, [refit]);
+
+  // Same source geometry: swap resampled glyphs only — never remount observers / refit size.
+  useLayoutEffect(() => {
+    if (shapeKeyRef.current !== shapeKey) {
+      shapeKeyRef.current = shapeKey;
+      scheduleRefit();
+      return;
+    }
+
+    setLayout((prev) => {
+      if (!prev) {
+        scheduleRefit();
+        return prev;
+      }
+      const text = gridToString(
+        resampleGrid(sourceGrid, prev.cols, prev.rows),
+      );
+      if (text === prev.text) return prev;
+      return { ...prev, text };
+    });
+  }, [sourceGrid, shapeKey, scheduleRefit]);
 
   useLayoutEffect(() => {
     metricsRef.current = null;
@@ -479,7 +511,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [refit, scheduleRefit, content, sizeToContent]);
+  }, [refit, scheduleRefit, sizeToContent]);
 
   const narrowContain = sizeToContent && isNarrow;
 

@@ -1,0 +1,250 @@
+{
+  "blinkCount": 9,
+  "wingCount": 3,
+  "order": "index = blink * wingCount + wing",
+  "frames": [
+    {
+      "file": "b0w0.txt",
+      "blink": 0,
+      "wing": 0,
+      "t": 0.0,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b0w1.txt",
+      "blink": 0,
+      "wing": 1,
+      "t": 0.0,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b0w2.txt",
+      "blink": 0,
+      "wing": 2,
+      "t": 0.0,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b1w0.txt",
+      "blink": 1,
+      "wing": 0,
+      "t": 0.125,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b1w1.txt",
+      "blink": 1,
+      "wing": 1,
+      "t": 0.125,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b1w2.txt",
+      "blink": 1,
+      "wing": 2,
+      "t": 0.125,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b2w0.txt",
+      "blink": 2,
+      "wing": 0,
+      "t": 0.25,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b2w1.txt",
+      "blink": 2,
+      "wing": 1,
+      "t": 0.25,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b2w2.txt",
+      "blink": 2,
+      "wing": 2,
+      "t": 0.25,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b3w0.txt",
+      "blink": 3,
+      "wing": 0,
+      "t": 0.375,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b3w1.txt",
+      "blink": 3,
+      "wing": 1,
+      "t": 0.375,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b3w2.txt",
+      "blink": 3,
+      "wing": 2,
+      "t": 0.375,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b4w0.txt",
+      "blink": 4,
+      "wing": 0,
+      "t": 0.5,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b4w1.txt",
+      "blink": 4,
+      "wing": 1,
+      "t": 0.5,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b4w2.txt",
+      "blink": 4,
+      "wing": 2,
+      "t": 0.5,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b5w0.txt",
+      "blink": 5,
+      "wing": 0,
+      "t": 0.625,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b5w1.txt",
+      "blink": 5,
+      "wing": 1,
+      "t": 0.625,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b5w2.txt",
+      "blink": 5,
+      "wing": 2,
+      "t": 0.625,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b6w0.txt",
+      "blink": 6,
+      "wing": 0,
+      "t": 0.75,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b6w1.txt",
+      "blink": 6,
+      "wing": 1,
+      "t": 0.75,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b6w2.txt",
+      "blink": 6,
+      "wing": 2,
+      "t": 0.75,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b7w0.txt",
+      "blink": 7,
+      "wing": 0,
+      "t": 0.875,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b7w1.txt",
+      "blink": 7,
+      "wing": 1,
+      "t": 0.875,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b7w2.txt",
+      "blink": 7,
+      "wing": 2,
+      "t": 0.875,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b8w0.txt",
+      "blink": 8,
+      "wing": 0,
+      "t": 1.0,
+      "body": 0,
+      "splay": 0,
+      "lift": 0
+    },
+    {
+      "file": "b8w1.txt",
+      "blink": 8,
+      "wing": 1,
+      "t": 1.0,
+      "body": 1,
+      "splay": 1,
+      "lift": 1
+    },
+    {
+      "file": "b8w2.txt",
+      "blink": 8,
+      "wing": 2,
+      "t": 1.0,
+      "body": 2,
+      "splay": 1,
+      "lift": 1
+    }
+  ]
+}

@@ -520,6 +520,20 @@ body::before {
   }
 }
 
+.site-search--hero .ledger-search {
+  border-width: 2px;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  padding: 1.05rem 1.15rem;
+}
+
+@media (min-width: 768px) {
+  .site-search--hero .ledger-search {
+    font-size: 1.05rem;
+    padding: 1.2rem 1.35rem;
+  }
+}
+
 .site-search-results {
   position: absolute;
   top: calc(100% + 0.35rem);
