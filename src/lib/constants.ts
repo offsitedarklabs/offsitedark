@@ -39,6 +39,7 @@ export type Category = (typeof CATEGORIES)[number];
 
 export const GREP_CATEGORIES = [
   "recent-upload",
+  "abliterated",
   "cyber-llm",
   "pentest",
   "code-security",

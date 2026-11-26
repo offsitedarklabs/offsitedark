@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { GrepsLedger } from "@/components/greps-ledger";
 import { getGrepPosts } from "@/lib/content";
 
@@ -20,6 +22,14 @@ export default function GrepsPage() {
           OFFSITE.DARK does not upload, release, or endorse these artifacts — we
           track what the community publishes and ask whether it has research
           value.
+        </p>
+        <p className="mt-3">
+          <Link
+            href="/research?category=ai"
+            className="meta hover:text-white"
+          >
+            → Read AI security &amp; abliteration research
+          </Link>
         </p>
       </div>
 

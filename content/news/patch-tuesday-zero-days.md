@@ -19,7 +19,7 @@ Those seven identifiers are GitHub CNA records. None of them is a Microsoft prod
 
 | ID this Signal used | What the record actually is | CNA score |
 |---------------------|-----------------------------|-----------|
-| CVE-2026-32712 | Stored XSS in Open Source Point of Sale, fixed in 3.4.3. Published 7 April 2026 | CVSS 3.1 5.4 |
+| CVE-2026-32712 | Stored XSS in Open Source Point of Sale, fixed in 3.4.3. Published 7 April 2026 | 5.4 |
 | CVE-2026-32718 | Incorrect authorization in Coolify before 4.0.0-beta.466 | 6.5 |
 | CVE-2026-32724 | Use-after-free in PX4 Autopilot before 1.17.0-rc1 | 5.3 |
 | CVE-2026-32701 | Qwik before 1.19.2 | 7.5 |

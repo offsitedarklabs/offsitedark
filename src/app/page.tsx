@@ -44,8 +44,9 @@ export default function HomePage() {
             Open source security research lab
           </h2>
           <p className="mt-3 max-w-lg text-justify font-serif text-xl leading-relaxed text-white/70 md:max-w-xl md:text-2xl">
-            Malware analysis, offensive tooling, and the relentless pursuit of
-            understanding the machine.
+            A public archive of cybersecurity research. Malware analysis,
+            offensive tooling, and the relentless pursuit of understanding the
+            machine.
           </p>
           <SiteSearch
             items={searchIndex}
@@ -133,6 +134,14 @@ export default function HomePage() {
               We publish malware analysis, reversing techniques, and tooling —
               supporting unrestricted availability and use for education and defense.
             </p>
+            <div className="mt-6 flex flex-wrap gap-6">
+              <Link href="/research?category=ai" className="meta hover:text-white">
+                → AI research
+              </Link>
+              <Link href="/greps" className="meta hover:text-white">
+                → Model greps
+              </Link>
+            </div>
           </SectionBlock>
 
           <div className="relative overflow-hidden border-t border-red px-6 py-6 md:px-10">

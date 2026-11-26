@@ -23,8 +23,8 @@ The CVE IDs cited in coverage, CVE-2026-115881 and CVE-2026-115884, were **not p
 
 | Advisory | Score | Scope | Fixed |
 |----------|-------|--------|-------|
-| [GHSA-5m75-xq69-c3c5](https://github.com/embedthis/goahead/security/advisories/GHSA-5m75-xq69-c3c5) | Critical 9.1 | OpenSSL-compatible backend, 3.4.5 through 6.1.0, only when mutual TLS, a CA bundle, issuer checking, and a CRL are all configured. A CRL is loaded and not enforced. mbed TLS builds are not affected. | 6.1.1 |
-| [GHSA-r392-vqwx-3r4g](https://github.com/embedthis/goahead/security/advisories/GHSA-r392-vqwx-3r4g) | High 7.4 | 6.1.0 and earlier linked to LibreSSL 3.2.x or 3.3.2–3.3.6, and only with client certificates required and issuer checking disabled. OpenSSL, BoringSSL, AWS-LC, LibreSSL 4.x, and mbed TLS are not this trigger. | 6.1.1 |
+| [GHSA-5m75-xq69-c3c5](https://github.com/embedthis/goahead/security/advisories/GHSA-5m75-xq69-c3c5) | CVSS 9.1 Critical | OpenSSL-compatible backend, 3.4.5 through 6.1.0, only when mutual TLS, a CA bundle, issuer checking, and a CRL are all configured. A CRL is loaded and not enforced. mbed TLS builds are not affected. | 6.1.1 |
+| [GHSA-r392-vqwx-3r4g](https://github.com/embedthis/goahead/security/advisories/GHSA-r392-vqwx-3r4g) | CVSS 7.4 High | 6.1.0 and earlier linked to LibreSSL 3.2.x or 3.3.2–3.3.6, and only with client certificates required and issuer checking disabled. OpenSSL, BoringSSL, AWS-LC, LibreSSL 4.x, and mbed TLS are not this trigger. | 6.1.1 |
 | [GHSA-fmvx-2xfx-2gq4](https://github.com/embedthis/goahead/security/advisories/GHSA-fmvx-2xfx-2gq4) | Moderate | mbed TLS backend, 4.0.2 through 6.1.0. A 1-byte DH modulus is sent on TLS 1.2 DHE-RSA. TLS 1.3 and ECDHE are unaffected. OpenSSL builds are not affected. The advisory says current OpenSSL, Go, Java, and mainstream browsers refuse the truncated parameters. | 6.1.1 |
 
 SecurityWeek’s score of 5.9 for the third bug is SecurityWeek’s, and it says that one has no CVE. The GitHub label is Moderate.

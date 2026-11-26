@@ -7,6 +7,7 @@ export type GrepFilter = (typeof GREP_FILTERS)[number];
 export const GREP_FILTER_LABELS: Record<GrepFilter, string> = {
   all: "All",
   "recent-upload": "Recent",
+  abliterated: "Abliterated",
   "cyber-llm": "Cyber LLM",
   pentest: "Pentest",
   "code-security": "Code Security",

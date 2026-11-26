@@ -19,7 +19,7 @@ On 10 June that was accurate as “no CVE, no engine fix.” It is not accurate 
 
 ## The fix
 
-[MSRC CVE-2026-50656](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-50656), released 16 June 2026. Microsoft Defender / Malware Protection Engine. CWE-59. Microsoft’s CVSS 3.1 is 7.8 with `AC:L`. NVD’s primary score, record status Modified as of 25 October 2026, is 7.0 with `AC:H`. Microsoft’s secondary score on NVD stays 7.8.
+[MSRC CVE-2026-50656](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-50656), released 16 June 2026. Microsoft Defender / Malware Protection Engine. CWE-59. Microsoft’s CVSS 3.1 7.8 with `AC:L`. NVD’s primary score, record status Modified as of 25 October 2026, is 7.0 with `AC:H`. Microsoft’s secondary score on NVD stays 7.8.
 
 | | |
 |---|---|

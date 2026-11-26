@@ -35,7 +35,7 @@ export default async function ResearchPage({
             >
               / all
             </Link>
-            {["malware", "reversing", "infra", "tools"].map((cat) => (
+            {["malware", "reversing", "infra", "tools", "ai"].map((cat) => (
               <Link
                 key={cat}
                 href={`/research?category=${cat}`}
