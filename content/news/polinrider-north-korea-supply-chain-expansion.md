@@ -112,6 +112,7 @@ Full package/version list maintained at [Socket PolinRider tracking page](https:
 
 ## Related Signals
 
+- [PolinRider Python & Ethereum Calldata Wave (November 2026)](/signals/polinrider-python-ethereum-calldata-loader) — SafeDep's 375-repo `conftest.py` / `utils/` discovery and Apiiro's 7,609-repo census
 - [Mastra NPM scope compromise](/signals/mastra-npm-crypto-stealer) — Lazarus-linked npm typosquat and extension stealer tradecraft (June 2026)
 - [GitHub trojan malware campaign](/signals/github-trojan-malware-campaign) — large-scale GitHub README delivery vector (distinct operation, same trust-abuse pattern)
 

@@ -17,8 +17,12 @@ Signals already cover the [2–4 September cluster](/signals/cisa-kev-september-
 
 This card is the index for that window. It is not 102 advisories. The 20, 24, and 25 November alerts were opened again and the type names below are CISA’s. Earlier rows are the CVE IDs that pass flagged; their full catalog text was not re-opened one by one. BOD **26-04** still requires federal civilian agencies to prioritize KEV items on publicly exposed assets that yield total control, and to check for compromise before trusting the patch.
 
-Dedicated Signals already filed from this same gap:
+Dedicated Signals now filed from this same gap (and updated on 26 November):
 
+- [Drupal Fail2Install, CVE-2026-132165 and SA-CORE-2026-019](/signals/drupal-fail2install-takeover-cve-2026-136716) (KEV 24 November)
+- [Mitel MiCollab zero-day intrusions, CVE-2026-133323+](/signals/mitel-micollab-zero-day-ai-intrusions-cve-2026-133323) (KEV 25 November)
+- [MONAI Label CVE-2026-133968 & N-able MailAssure CVE-2026-134624](/signals/monai-label-mailassure-kev-nov-23-2026) (KEV 23 November)
+- [PAN-OS Fragnesia LPE chained with PHP2Shell, CVE-2026-46300](/signals/pan-os-fragnesia-php2shell-lpe-cve-2026-46300) (KEV 28 October)
 - [Optimizely CVE-2026-132224](/signals/optimizely-web-experimentation-cve-2026-132224) (KEV 24 November)
 - [php2shell, CVE-2026-109618 and CVE-2026-109619](/signals/php2shell-unauth-rce-cve-2026-109618) (KEV 26 October)
 - [SSHole, CVE-2026-123158](/signals/openssh-musl-auth-bypass-cve-2026-123158) (KEV 9 November)
@@ -34,7 +38,7 @@ Dedicated Signals already filed from this same gap:
 | CVE-2023-25915 | Danfoss AK-SM 800A improper input validation |
 | CVE-2025-41450 | Danfoss AK-SM 800A improper authentication |
 | CVE-2026-103406 | HPE Juniper Session Smart Conductor and Router, OS command injection |
-| CVE-2026-133275 | Mitel MiCollab, unrestricted upload of a dangerous file type |
+| CVE-2026-133275 | Mitel MiCollab, unrestricted upload of a dangerous file type — [dedicated Signal](/signals/mitel-micollab-zero-day-ai-intrusions-cve-2026-133323) |
 | CVE-2026-133303 | Mitel MiCollab, XML injection |
 | CVE-2026-133311 | Mitel MiCollab, weak authentication |
 | CVE-2026-133323 | Mitel MiCollab, OS command injection |
@@ -50,8 +54,17 @@ The three Danfoss IDs are 2023 and 2025. They are new to *this* catalog drop, no
 | CVE | CISA’s name |
 |-----|-------------|
 | CVE-2026-131914 | Idunno AntiCsrf, deserialization of untrusted data |
-| CVE-2026-132165 | Drupal core, remote code execution |
+| CVE-2026-132165 | Drupal core, remote code execution — [dedicated Signal](/signals/drupal-fail2install-takeover-cve-2026-136716) |
 | CVE-2026-132224 | Optimizely Web Experimentation — [dedicated Signal](/signals/optimizely-web-experimentation-cve-2026-132224) |
+
+## 23 November — two additions
+
+[The alert](https://www.cisa.gov/news-events/alerts/2026/11/23/cisa-adds-two-known-exploited-vulnerabilities-catalog) (remediation due **26 November 2026**, BOD 26-04 forensic triage; covered in [our dedicated Signal](/signals/monai-label-mailassure-kev-nov-23-2026)):
+
+| CVE | CISA’s name |
+|-----|-------------|
+| CVE-2026-133968 | Project MONAI MONAI Label path traversal (CAIRN autonomous AI-agent zero-day) |
+| CVE-2026-134624 | N-able MailAssure (SpamExperts) SSRF |
 
 ## 20 November — four additions
 
@@ -63,6 +76,22 @@ The three Danfoss IDs are 2023 and 2025. They are new to *this* catalog drop, no
 | CVE-2026-76466 | Cisco Expressway Series, hard-coded credentials |
 | CVE-2026-123890 | VMware vCenter, authentication bypass using an alternate path or channel |
 | CVE-2026-129448 | Apache Roller, deserialization of untrusted data |
+
+## 10–18 November — verified catalog rows
+
+Catalog `2026.11.25` also includes these November additions verified directly against the JSON export:
+
+| Date Added | CVE | Product & Issue | Due Date |
+|------------|-----|-----------------|----------|
+| 2026-11-18 | **CVE-2024-10441** | Synology DiskStation Manager (DSM), improper output encoding (**Known ransomware campaign use**) | 2026-11-21 |
+| 2026-11-18 | **CVE-2026-40217** | BerriAI LiteLLM (see [CVE-2026-42208](/signals/litellm-proxy-sqli-cve-2026-42208)) | 2026-12-02 |
+| 2026-11-18 | **CVE-2026-90817** | Vanderbilt University REDCap code injection | 2026-11-21 |
+| 2026-11-18 | **CVE-2026-90436** | Apache Axis unsafe reflection | 2026-11-21 |
+| 2026-11-17 | **CVE-2026-115731** | Perforce Puppet Enterprise deserialization of untrusted data | 2026-12-01 |
+| 2026-11-13 | **CVE-2026-123039** | Check Point Gaia DynamicCLI world-writable socket LPE (chained with PHP2Shell per `sk1000362`) | 2026-11-16 |
+| 2026-11-13 | **CVE-2026-114713** | UnrealIRCd | 2026-11-16 |
+| 2026-11-10 | **CVE-2026-124194 / -125350 / -20320 / -111793** | Microsoft Office, Google Chromium, Cisco BroadWorks, Openwave Webtop Media Transcoder | 2026-11-24 |
+| 2026-11-10 | **CVE-2026-111560 / -116606** | Barracuda Networks & Barracuda ESG | 2026-11-13 |
 
 ## Earlier in the window, still without their own Signal
 
@@ -94,7 +123,7 @@ Three repos on Project Nightcrawler have no Signal yet. The pages were opened. T
 
 ## What was checked and is not a new story
 
-CVE.now is up. `latest.md` is a newest-first CVE feed, 100 to a page, not a September-to-November archive. The critical JSON feed is KEV, or CVSS at least 9.0 on a tracked product, or EPSS at least 10% with CVSS at least 7.0. Church of Malware’s visible 25 November brief restates the same KEV items. vx-underground loaded and then showed an empty file list. Sploitus still shows [React2Shell](/signals/react2shell-cve-2025-55182), which is already indexed.
+CVE.now is up. `latest.md` is a newest-first CVE feed, 100 to a page, not a September-to-November archive. The critical JSON feed is KEV, or CVSS at least 9.0 on a tracked product, or EPSS at least 10% with CVSS at least 7.0. Church of Malware’s visible 25 November brief restates the same KEV items. vx-underground loaded and then showed an empty file list. Sploitus still shows [React2Shell](/signals/react2shell-cve-2025-55182), which is already indexed, alongside new trending signals for [Chrome CVE-2026-134401](/signals/chrome-variations-sandbox-escape-cve-2026-134401) and [binary-parser CVE-2026-134814](/signals/binary-parser-code-injection-cve-2026-134814). Confirmed **absent** from KEV catalog `2026.11.25` as of 26 November: Drupal `CVE-2026-136716`, GeoServer `CVE-2026-129245 / 120705`, NGINX2Root `CVE-2026-123007`, Hex.pm `CVE-2026-129514`, SEPPMAIL `CVE-2026-130637`, and `llama.cpp` `CVE-2026-137567`.
 
 ## Operator order
 
