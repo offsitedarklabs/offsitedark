@@ -119,6 +119,13 @@ export const EXTERNAL_LINKS: ToolLink[] = [
       "Exploit and tool search engine. Aggregates Exploit-DB, GitHub PoCs, and Metasploit modules into one query interface.",
   },
   {
+    name: "CVE.now",
+    href: "https://cve.now/",
+    description:
+      "Free public CVE feed for agents. Same feed as RSS, Atom, JSON Feed, and MCP. Watch account is @cvedotnow on X.",
+    tags: ["cve", "feed"],
+  },
+  {
     name: "Project Nightcrawler",
     href: "https://git.projectnightcrawler.dev/",
     description:

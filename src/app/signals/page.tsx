@@ -1,5 +1,6 @@
 import { SignalsLedger } from "@/components/signals-ledger";
 import { getNewsPosts } from "@/lib/content";
+import { recordFacets } from "@/lib/record-facets";
 
 export default function SignalsPage() {
   const posts = getNewsPosts();
@@ -16,8 +17,8 @@ export default function SignalsPage() {
       <div className="cell border-x-0 px-6 py-4 md:px-10">
         <p className="max-w-3xl font-serif text-base italic leading-relaxed text-white/60 md:text-lg">
           Third-party vulnerability intel indexed from public sources — Sploitus,
-          Project Nightcrawler, Church of Malware, vx-underground, Hacker News,
-          and others — for
+          CVE.now, Project Nightcrawler, Church of Malware, vx-underground,
+          Hacker News, and others — for
           security research inquiry. OFFSITE.DARK does not discover or weaponize
           exploits; we index, analyze, attribute sources, and ask whether they
           have research value.
@@ -25,14 +26,15 @@ export default function SignalsPage() {
       </div>
 
       <SignalsLedger
-        posts={posts.map(({ slug, title, date, excerpt, source, category, tags }) => ({
-          slug,
-          title,
-          date,
-          excerpt,
-          source,
-          category,
-          tags,
+        posts={posts.map((post) => ({
+          slug: post.slug,
+          title: post.title,
+          date: post.date,
+          excerpt: post.excerpt,
+          source: post.source,
+          category: post.category,
+          tags: post.tags,
+          facets: recordFacets(post),
         }))}
       />
     </div>

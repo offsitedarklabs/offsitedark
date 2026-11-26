@@ -1,4 +1,5 @@
 import type { Category } from "./constants";
+import type { RecordFacets } from "./record-facets";
 
 export type ContentType = "research" | "news";
 
@@ -26,4 +27,6 @@ export type EntryRowData = Pick<
 export type SignalPreview = Pick<
   Post,
   "slug" | "title" | "date" | "excerpt" | "source" | "category" | "tags"
->;
+> & {
+  facets: RecordFacets;
+};

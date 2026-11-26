@@ -1,12 +1,15 @@
 import Link from "next/link";
 
+import { SeverityMark } from "@/components/severity-mark";
 import { formatDate } from "@/lib/format";
+import type { RecordFacets } from "@/lib/record-facets";
 import type { EntryRowData } from "@/lib/post";
 
 type EntryRowProps = {
   post: EntryRowData;
   isActive?: boolean;
   onSelect?: () => void;
+  facets?: RecordFacets;
 };
 
 const rowClass = (isActive?: boolean) =>
@@ -14,20 +17,27 @@ const rowClass = (isActive?: boolean) =>
     isActive ? " entry-row-active" : ""
   }`;
 
-function EntryRowContent({ post }: { post: EntryRowData }) {
+function EntryRowContent({
+  post,
+  facets,
+}: {
+  post: EntryRowData;
+  facets?: RecordFacets;
+}) {
   return (
     <>
       <span className="meta shrink-0">{formatDate(post.date)}</span>
-      <span className="flex-1 font-serif text-lg md:text-xl">{post.title}</span>
-      <span className="flex shrink-0 items-baseline gap-3">
+      <span className="min-w-0 flex-1 font-serif text-lg md:text-xl">{post.title}</span>
+      <span className="flex shrink-0 items-center gap-2">
+        {facets && <SeverityMark facets={facets} compact />}
         {post.wip && <span className="meta">WIP</span>}
-        <span className="meta hidden sm:inline">{post.category}</span>
+        <span className="meta hidden lg:inline">{post.category}</span>
       </span>
     </>
   );
 }
 
-export function EntryRow({ post, isActive, onSelect }: EntryRowProps) {
+export function EntryRow({ post, isActive, onSelect, facets }: EntryRowProps) {
   if (onSelect) {
     return (
       <button
@@ -36,7 +46,7 @@ export function EntryRow({ post, isActive, onSelect }: EntryRowProps) {
         className={rowClass(isActive)}
         aria-current={isActive ? "true" : undefined}
       >
-        <EntryRowContent post={post} />
+        <EntryRowContent post={post} facets={facets} />
       </button>
     );
   }
@@ -46,7 +56,7 @@ export function EntryRow({ post, isActive, onSelect }: EntryRowProps) {
 
   return (
     <Link href={href} className={rowClass(isActive)}>
-      <EntryRowContent post={post} />
+      <EntryRowContent post={post} facets={facets} />
     </Link>
   );
 }

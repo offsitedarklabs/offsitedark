@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AsciiBlock } from "@/components/ascii-block";
 import { EntryRow } from "@/components/entry-row";
 import { FeaturedSignal } from "@/components/featured-signal";
+import { RecordLedger } from "@/components/record-ledger";
 import { SectionBlock } from "@/components/section-block";
 import { SiteSearch } from "@/components/site-search";
 import { PROJECTS } from "@/lib/constants";
@@ -13,9 +14,9 @@ import { buildSearchIndex } from "@/lib/build-search-index";
 export default function HomePage() {
   const research = getLatestResearch(4);
   const featured = getFeaturedNewsSignal();
-  const news = getLatestNews(5)
+  const ledger = getLatestNews(9)
     .filter((post) => post.slug !== featured?.slug)
-    .slice(0, 4);
+    .slice(0, 8);
   const searchIndex = buildSearchIndex();
 
   return (
@@ -78,6 +79,7 @@ export default function HomePage() {
       </div>
 
       {featured && <FeaturedSignal post={featured} />}
+      <RecordLedger posts={ledger} />
 
       {/* pride bar — full bleed red */}
       <div className="bg-red px-4 py-4 md:px-8 md:py-6">
@@ -110,18 +112,6 @@ export default function HomePage() {
             <p className="mt-10 -mr-2 max-w-sm font-serif text-lg italic leading-relaxed text-white/70 md:ml-8 md:text-xl">
               If you&apos;re not remembered, then you never existed
             </p>
-          </div>
-          <div className="px-6 py-8 md:px-10">
-            <p className="meta mb-4 text-base md:text-lg">Latest Signals</p>
-            {news.map((post) => (
-              <EntryRow key={post.slug} post={post} />
-            ))}
-            <Link
-              href="/signals"
-              className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-red hover:text-white"
-            >
-              → All signals
-            </Link>
             <p className="meta mt-8 text-white/40">
               I promise you I&apos;ll always be right here. I&apos;m right next to you,
               forever.

@@ -1,111 +1,50 @@
 ---
-title: "Mastra NPM Scope Compromise Targets Crypto Wallets"
+title: "Mastra npm scope compromise"
 slug: "mastra-npm-crypto-stealer"
 date: 2026-06-17
 type: news
 category: news
-tags: [npm, supply-chain, stealer, lazarus]
-excerpt: "140+ @mastra packages hijacked via dormant maintainer account; typosquat easy-day-js drops cross-platform stealer."
-source: "Hacker News"
-sourceUrl: "https://opensourcemalware.com/blog/mastra-npm-malware"
+tags: [npm, supply-chain, stealer]
+excerpt: "On 17 June 2026 the ehindero account republished 140+ @mastra packages depending on easy-day-js ^1.11.21. The payload release was 1.11.22 and has been removed. Microsoft attributes Sapphire Sleet. The Axios incident they cite is April 2026, not March."
+source: "Microsoft"
+sourceUrl: "https://www.microsoft.com/en-us/security/blog/2026/06/17/postinstall-payload-inside-mastra-npm-supply-chain-compromise/"
 draft: false
 ---
 
-## Summary
+## What it is
 
-Between 01:12–02:36 UTC on June 17, 2026, an attacker republished 140+ packages in the `@mastra` npm scope after compromising a dormant maintainer account (`ehindero`). The `@mastra/core` package alone carries ~918,000 weekly downloads. Each poisoned manifest added a dependency on typosquat package `easy-day-js` — a clean-then-armed clone of `dayjs`.
+On 17 June 2026, between 01:12 and 02:36 UTC, the npm account `ehindero` republished more than 140 packages in the `@mastra` scope. Microsoft’s write-up of that day, updated 19 June, is the record to use. Each poisoned manifest depended on `easy-day-js`. The range was **`^1.11.21`**, not `^1.11.10`.
 
-The payload is a cross-platform stealer targeting browser extension data from 166 crypto-wallet and security extensions, with tradecraft overlapping the March 2026 Axios npm compromise attributed to Lazarus Group (North Korea).
+| Version | When | What it was |
+|---------|------|-------------|
+| 1.11.21 | 07:05 UTC, 16 June | The clean bait. This is the version still on the registry |
+| 1.11.22 | 01:01 UTC, 17 June | The payload release. Removed |
 
-## Attack Timeline
+“Any version of easy-day-js” is stale. A lockfile that resolved 1.11.22 during that window is the one to treat as compromised. A lockfile that resolved 1.11.21, or that never had the dependency, is not that release.
 
-| Time (UTC) | Event |
-|------------|-------|
-| 01:12 | First poisoned `@mastra/*` publish detected |
-| 01:45 | `easy-day-js` typosquat package published |
-| 02:36 | Last observed malicious publish in window |
-| 03:00+ | Community detection; npm security response |
+Microsoft attributes the activity to **Sapphire Sleet** with high confidence, and dates the related Axios npm incident to **April 2026**. The post does not describe a domain-generation algorithm, and it does not put password managers or Zapier in the list of 166 extension identifiers. That list is wallet-extension IDs, hardcoded.
 
-Total window: ~84 minutes — sufficient for CI/CD pipelines on nightly schedules to ingest poisoned versions.
+Mastra said multi-factor authentication was required on the account and that the gap was a token bypass. Guessing “no MFA” from the outside does not match that statement.
 
-## Supply Chain Mechanics
+`@mastra/core` was the high-download package in the set. Weekly-download counts move. Use the registry for the current number rather than a June figure.
 
-### Maintainer Account Takeover
-
-The `ehindero` account showed minimal recent activity — classic dormant maintainer targeting. Attackers likely obtained credentials via:
-
-- Prior breach credential reuse
-- Session token theft from maintainer workstation
-- npm account without MFA (historical accounts)
-
-### Typosquat Dependency Injection
-
-Rather than modifying package source directly, attackers added:
-
-```json
-"dependencies": {
-  "easy-day-js": "^1.11.10"
-}
+```bash
+npm ls @mastra/core easy-day-js
 ```
 
-`easy-day-js` mirrors `dayjs` API surface — `npm install` resolves without obvious failure. The malicious code lives in `setup.cjs` executed via npm lifecycle hooks (`preinstall`/`postinstall`).
+A tree that does not contain `easy-day-js` did not take this dependency. If it does, read the lockfile for 1.11.22.
 
-### Stage One — `setup.cjs`
+## Checked 26 November 2026
 
-1. Fingerprint host OS and architecture.
-2. Download stage-two binary from attacker infrastructure.
-3. Execute with hidden window / nohup persistence.
-4. Register DGA-based fallback C2 if primary fails.
+| Item | Result |
+|------|--------|
+| CVE / KEV / EPSS | None. This is a package compromise, not a CVE |
+| Registry | Only `easy-day-js` 1.11.21 still published |
+| Public project | [mastra-ai/mastra](https://github.com/mastra-ai/mastra) |
 
-### Stage Two — Cross-Platform Backdoor
-
-Capabilities observed:
-
-- Browser history exfiltration
-- Extension data theft from 166 targets including:
-  - Crypto wallets (MetaMask, Phantom, Exodus, etc.)
-  - Password managers (LastPass, Bitwarden, 1Password)
-  - Productivity integrations (Zapier)
-- Persistence via startup folder, crontab, or LaunchAgent
-- DGA C2 for resilient command channel
-
-## Indicators of Compromise
-
-| Indicator | Value |
-|-----------|-------|
-| Package | `easy-day-js` any version |
-| `@mastra/*` | Versions published 2026-06-17 01:12–02:36 UTC |
-| Lockfile | Unexpected `easy-day-js` entry |
-| Process | Node spawning unsigned binary from `/tmp` or `%TEMP%` |
-| Network | HTTPS to fresh domains from build agents |
-
-npm audit and Socket.dev flagged the dependency within hours — internal registries should block `easy-day-js` entirely.
-
-## Impact
-
-Developers: Local workstation compromise — extension vaults and browser sessions stolen.
-
-CI/CD: Build agents running `npm install` without isolation become persistent backdoors in release pipelines.
-
-Crypto sector: Wallet extension targeting indicates financial theft motivation consistent with Lazarus tradecraft.
-
-Downstream consumers: Any application bundling `@mastra` dependencies during the compromise window.
-
-## Mitigation
-
-1. Audit lockfiles — search for `easy-day-js`; remove and regenerate lock.
-2. Pin `@mastra` packages to versions predating 2026-06-17 01:12 UTC.
-3. Rotate all secrets on machines that ran `npm install` during the window — API keys, npm tokens, cloud credentials.
-4. Enable npm MFA on all maintainer accounts; remove dormant publishers from package access lists.
-5. CI hardening — ephemeral build containers, no extension installs on build agents, `npm ci` with verified lockfile only.
-6. Block package at artifact proxy — deny `easy-day-js` and flagged `@mastra` versions.
-
-## Attribution Notes
-
-OpenSourceMalware and community analysts note tradecraft overlap with March 2026 Axios npm compromise — typosquat dependency, `setup.cjs` loader, extension targeting, DGA C2. Lazarus attribution is analyst consensus, not confirmed government attribution.
+Rotate npm tokens that were on a machine which installed a poisoned version, and assume wallet-extension data on that machine was in scope for the 166 identifiers. Microsoft’s post is the list. Do not extend it.
 
 ## Sources
 
-- [OpenSourceMalware — Mastra npm malware](https://opensourcemalware.com/blog/mastra-npm-malware)
-- [Hacker News discussion](https://news.ycombinator.com/)
-- npm security advisory (community-referenced)
+- [Microsoft, 17 June 2026](https://www.microsoft.com/en-us/security/blog/2026/06/17/postinstall-payload-inside-mastra-npm-supply-chain-compromise/)
+- [mastra-ai/mastra](https://github.com/mastra-ai/mastra)

@@ -13,6 +13,8 @@ import {
   subscribeHashSlug,
 } from "@/lib/hash-slug";
 import type { SignalPreview } from "@/lib/post";
+import type { RecordFacets } from "@/lib/record-facets";
+import { SeverityMark } from "@/components/severity-mark";
 import {
   collectPostsInGroup,
   groupSignalsByDate,
@@ -60,10 +62,12 @@ function LedgerPostList({
   posts,
   selectedSlug,
   onSelect,
+  facetsBySlug,
 }: {
   posts: SignalPreview[];
   selectedSlug: string;
   onSelect: (slug: string) => void;
+  facetsBySlug: Map<string, RecordFacets>;
 }) {
   return (
     <>
@@ -73,6 +77,7 @@ function LedgerPostList({
           post={{ ...post, type: "news" as const }}
           isActive={post.slug === selectedSlug}
           onSelect={() => onSelect(post.slug)}
+          facets={facetsBySlug.get(post.slug)}
         />
       ))}
     </>
@@ -85,6 +90,7 @@ function LedgerGroups({
   selectedSlug,
   onSelect,
   onToggle,
+  facetsBySlug,
   depth = 0,
 }: {
   groups: LedgerGroup[];
@@ -92,6 +98,7 @@ function LedgerGroups({
   selectedSlug: string;
   onSelect: (slug: string) => void;
   onToggle: (key: string) => void;
+  facetsBySlug: Map<string, RecordFacets>;
   depth?: number;
 }) {
   return (
@@ -104,6 +111,7 @@ function LedgerGroups({
               posts={group.posts}
               selectedSlug={selectedSlug}
               onSelect={onSelect}
+              facetsBySlug={facetsBySlug}
             />
           );
         }
@@ -124,6 +132,7 @@ function LedgerGroups({
                   posts={group.posts}
                   selectedSlug={selectedSlug}
                   onSelect={onSelect}
+                  facetsBySlug={facetsBySlug}
                 />
               )}
             </div>
@@ -147,6 +156,7 @@ function LedgerGroups({
                 selectedSlug={selectedSlug}
                 onSelect={onSelect}
                 onToggle={onToggle}
+                facetsBySlug={facetsBySlug}
                 depth={depth + 1}
               />
             )}
@@ -178,6 +188,11 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
 
   const postSlugs = useMemo(
     () => new Set(posts.map((post) => post.slug)),
+    [posts],
+  );
+
+  const facetsBySlug = useMemo(
+    () => new Map(posts.map((post) => [post.slug, post.facets])),
     [posts],
   );
 
@@ -293,6 +308,7 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
             selectedSlug={activeSlug}
             onSelect={selectPost}
             onToggle={toggleGroup}
+            facetsBySlug={facetsBySlug}
           />
         ) : (
           <p className="meta px-4 py-8 md:px-8">No signals match filters.</p>
@@ -315,10 +331,15 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
                 <p className="vertical-label absolute left-2 top-8 text-red md:left-4 md:top-12">
                   {post.category}
                 </p>
-                <p className="meta mb-4">
-                  {formatDate(post.date)}
-                  {post.source ? ` · ${post.source}` : ""}
-                </p>
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <p className="meta">
+                    {formatDate(post.date)}
+                    {post.source ? ` · ${post.source}` : ""}
+                  </p>
+                  {facetsBySlug.get(post.slug) && (
+                    <SeverityMark facets={facetsBySlug.get(post.slug)!} />
+                  )}
+                </div>
                 <h2 className="font-display mb-4 text-4xl">{post.title}</h2>
                 <p className="signal-preview-excerpt mb-6 max-w-prose font-serif text-lg leading-relaxed">
                   {post.excerpt}

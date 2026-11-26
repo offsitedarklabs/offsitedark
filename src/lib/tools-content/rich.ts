@@ -693,6 +693,24 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
     related: ["sploitus", "church-of-malware", "ghidra"],
   },
 
+  "cve-now": {
+    overview: [
+      "CVE.now (cve.now) is a free public CVE feed built for agents. The same entries are published as RSS, Atom, JSON Feed, and MCP.",
+      "The feed URL is https://cve.now/feed, with format=atom or format=json, and a critical filter. The JSON API is https://cve.now/api/v1/entries. A markdown snapshot is at https://cve.now/latest.md.",
+      "The companion X account is @cvedotnow (https://x.com/cvedotnow). OFFSITE.DARK treats the feed as a watch source next to CISA KEV and vendor advisories. A row here is a lead, not confirmation of exploitation.",
+    ],
+    useCases: [
+      "Polling new CVE IDs without scraping NVD HTML",
+      "Diffing the critical filter against the Signals index",
+      "Handing an agent the JSON feed or MCP endpoint instead of a browser",
+    ],
+    defense: [
+      "Do not auto-ticket every CVE.now row. Confirm the vendor advisory and CISA KEV before treating it as exploited.",
+      "Pin the feed URL and reject unexpected redirects before an agent consumes it.",
+    ],
+    related: ["sploitus", "project-nightcrawler"],
+  },
+
   sploitus: {
     overview: [
       "Sploitus aggregates exploit and tool search across Exploit-DB, GitHub, Metasploit, and other sources into one query interface. Filters by type (PoC, remote, local, DoS), platform, and CVE.",
@@ -706,7 +724,7 @@ export const RICH_CONTENT: Record<string, ToolEnrichment> = {
       "Discovering Metasploit module names for a given CVE",
       "Research on exploitation technique variants",
     ],
-    related: ["metasploit", "searchsploit", "nuclei", "project-nightcrawler"],
+    related: ["metasploit", "searchsploit", "nuclei", "project-nightcrawler", "cve-now"],
   },
 
   shannon: {

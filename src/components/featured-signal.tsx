@@ -1,13 +1,16 @@
 import Link from "next/link";
 
 import { Markdown } from "@/components/markdown";
+import { SeverityMark } from "@/components/severity-mark";
 import { formatDate } from "@/lib/format";
 import { getSignalPreviewMarkdown } from "@/lib/featured-signal";
+import { recordFacets } from "@/lib/record-facets";
 import type { Post } from "@/lib/post";
 
 export function FeaturedSignal({ post }: { post: Post }) {
   const href = `/signals/${post.slug}`;
   const preview = getSignalPreviewMarkdown(post.content);
+  const facets = recordFacets(post);
 
   return (
     <section aria-labelledby="featured-signal-title" className="featured-signal">
@@ -16,11 +19,14 @@ export function FeaturedSignal({ post }: { post: Post }) {
           <p className="vertical-label absolute left-2 top-6 text-red md:left-4 md:top-10">
             Featured
           </p>
-          <p className="meta mb-6">
-            {formatDate(post.date)}
-            {post.source ? ` · ${post.source}` : ""}
-            {` · ${post.readingMinutes} min`}
-          </p>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <p className="meta">
+              {formatDate(post.date)}
+              {facets.org ? ` · ${facets.org}` : post.source ? ` · ${post.source}` : ""}
+              {` · ${post.readingMinutes} min`}
+            </p>
+            <SeverityMark facets={facets} />
+          </div>
           <h2
             id="featured-signal-title"
             className="font-display text-[clamp(2.25rem,6.2vw,5.25rem)] leading-[0.88] tracking-tight text-white"

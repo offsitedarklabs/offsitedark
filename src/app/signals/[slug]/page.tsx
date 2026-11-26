@@ -2,11 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Markdown } from "@/components/markdown";
+import { MarkKey } from "@/components/mark-key";
+import { SeverityMark } from "@/components/severity-mark";
 import {
   formatDate,
   getNewsPostBySlug,
   getNewsPosts,
 } from "@/lib/content";
+import { recordFacets } from "@/lib/record-facets";
 
 export async function generateStaticParams() {
   return getNewsPosts().map((p) => ({ slug: p.slug }));
@@ -20,6 +23,7 @@ export default async function SignalsPostPage({
   const { slug } = await params;
   const post = getNewsPostBySlug(slug);
   if (!post) notFound();
+  const facets = recordFacets(post);
 
   return (
     <article className="min-w-0 overflow-x-clip">
@@ -46,16 +50,59 @@ export default async function SignalsPostPage({
                 ))}
               </ul>
             )}
+            <MarkKey />
           </div>
           <p className="vertical-label mt-12 shrink-0 pl-2 text-red md:pl-3">
             {post.category}
           </p>
         </div>
         <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
-          <h1 className="article-title mb-10">{post.title}</h1>
-          <p className="article-excerpt mb-12 font-serif text-lg leading-relaxed italic text-white/60 md:text-xl">
+          <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+            <h1 className="article-title min-w-0 flex-1">{post.title}</h1>
+            <SeverityMark facets={facets} />
+          </div>
+          <p className="article-excerpt mb-8 font-serif text-lg leading-relaxed italic text-white/60 md:text-xl">
             {post.excerpt}
           </p>
+          {(facets.cve || facets.score != null || facets.status || facets.org) && (
+          <dl className="record-facts">
+            {facets.cve && (
+              <div>
+                <dt>Record</dt>
+                <dd className="record-facts-id">{facets.cve}</dd>
+              </div>
+            )}
+            {facets.score != null && facets.band && (
+              <div>
+                <dt>Score</dt>
+                <dd className="record-facts-value">
+                  <SeverityMark facets={facets} part="score" />
+                </dd>
+              </div>
+            )}
+            {facets.status && (
+              <div>
+                <dt>Status</dt>
+                <dd className="record-facts-value">
+                  <SeverityMark facets={facets} part="status" />
+                  <span>
+                    {facets.status === "kev"
+                      ? "On the CISA catalog"
+                      : facets.status === "not-kev"
+                        ? "Checked, not listed"
+                        : "Not stated in this record"}
+                  </span>
+                </dd>
+              </div>
+            )}
+            {facets.org && (
+              <div>
+                <dt>Organization</dt>
+                <dd>{facets.org}</dd>
+              </div>
+            )}
+          </dl>
+          )}
           <Markdown content={post.content} />
           {post.sourceUrl && (
             <a
