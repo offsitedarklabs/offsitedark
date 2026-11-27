@@ -1363,42 +1363,9 @@ button.entry-row.entry-row-active .meta {
 .connected-banner {
   position: relative;
   isolation: isolate;
-  /* Oversized type that bursts out of a fixed-height band. Band height does
-     NOT grow with the text; glyphs overflow above/below. z-index stays well
-     below the sticky header. */
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  /* em-based: ~2 lines of text (1.76em) in a 1.15em band -> ~0.3em bursts out
-     above and below. */
-  height: 1.15em;
-  padding-inline: 1rem;
-  overflow: visible;
-  text-align: center;
-  font-size: clamp(2.25rem, 6vw, 5.75rem);
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: -0.05em;
-  text-wrap: balance;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  color: #fff;
-  text-shadow:
-    0.04em 0.04em 0 #000,
-    0 0.06em 0 #000;
   animation:
     connected-glitch 3s ease-in-out infinite,
     connected-flicker 3.5s step-end infinite;
-}
-
-@media (max-width: 639px) {
-  .connected-banner {
-    /* phone portrait: text wraps to ~4 lines (3.5em); band stays ~2.3em */
-    height: 2.3em;
-    padding-inline: 0.75rem;
-  }
 }
 
 .connected-banner::after {
