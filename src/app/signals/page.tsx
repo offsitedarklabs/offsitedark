@@ -1,9 +1,11 @@
 import { SignalsLedger } from "@/components/signals-ledger";
 import { getNewsPosts } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 import { recordFacets } from "@/lib/record-facets";
 
 export default function SignalsPage() {
   const posts = getNewsPosts();
+  const referenceDate = new Date().toISOString().slice(0, 10);
 
   return (
     <div>
@@ -26,6 +28,7 @@ export default function SignalsPage() {
       </div>
 
       <SignalsLedger
+        referenceDate={referenceDate}
         posts={posts.map((post) => ({
           slug: post.slug,
           title: post.title,
@@ -41,4 +44,9 @@ export default function SignalsPage() {
   );
 }
 
-export const metadata = { title: "Signals" };
+export const metadata = buildPageMetadata({
+  title: "Signals",
+  description:
+    "Third-party vulnerability intel and CVE records indexed from public sources for security research inquiry.",
+  path: "/signals",
+});

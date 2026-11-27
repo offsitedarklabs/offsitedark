@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { GrepsLedger } from "@/components/greps-ledger";
 import { getGrepPosts } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export default function GrepsPage() {
   const posts = getGrepPosts();
@@ -68,8 +69,9 @@ export default function GrepsPage() {
   );
 }
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Greps",
   description:
     "Community Hugging Face uploads indexed for security research inquiry.",
-};
+  path: "/greps",
+});

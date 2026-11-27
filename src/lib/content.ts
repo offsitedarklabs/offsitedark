@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 
-import { CATEGORIES, type Category, type GrepCategory } from "./constants";
+import { type Category, type GrepCategory } from "./constants";
 import type { GrepPost } from "./grep";
 import type { ContentType, Post } from "./post";
 
@@ -12,6 +12,17 @@ export type { GrepPost } from "./grep";
 export { formatDate } from "./format";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
+
+function normalizeDate(raw: unknown): string {
+  if (raw instanceof Date && !Number.isNaN(raw.getTime())) {
+    return raw.toISOString().slice(0, 10);
+  }
+  return String(raw ?? "");
+}
+
+function normalizeTags(raw: unknown): string[] {
+  return Array.isArray(raw) ? raw.map((tag) => String(tag)) : [];
+}
 
 function parseDir(dirName: "blog" | "news", defaultType: ContentType): Post[] {
   const dir = path.join(CONTENT_DIR, dirName);
@@ -25,13 +36,13 @@ function parseDir(dirName: "blog" | "news", defaultType: ContentType): Post[] {
         fs.readFileSync(path.join(dir, filename), "utf8"),
       );
       return {
-        title: data.title as string,
+        title: String(data.title ?? ""),
         slug: (data.slug as string) ?? filename.replace(/\.mdx?$/, ""),
-        date: data.date as string,
+        date: normalizeDate(data.date),
         type: (data.type as ContentType) ?? defaultType,
         category: data.category as Category,
-        tags: (data.tags as string[]) ?? [],
-        excerpt: data.excerpt as string,
+        tags: normalizeTags(data.tags),
+        excerpt: String(data.excerpt ?? ""),
         draft: data.draft as boolean | undefined,
         wip: data.wip as boolean | undefined,
         source: data.source as string | undefined,
@@ -58,8 +69,8 @@ export function getNewsPosts() {
   return parseDir("news", "news");
 }
 
-export function getPostBySlug(slug: string) {
-  return getAllPosts().find((p) => p.slug === slug);
+export function getResearchPostBySlug(slug: string) {
+  return getResearchPosts().find((p) => p.slug === slug);
 }
 
 export function getNewsPostBySlug(slug: string) {
@@ -85,17 +96,17 @@ function parseGrepDir(): GrepPost[] {
       const { data, content } = matter(
         fs.readFileSync(path.join(dir, filename), "utf8"),
       );
-      const hfModelId = data.hfModelId as string;
+      const hfModelId = String(data.hfModelId ?? "");
       return {
-        title: data.title as string,
+        title: String(data.title ?? ""),
         slug: (data.slug as string) ?? filename.replace(/\.mdx?$/, ""),
-        date: data.date as string,
+        date: normalizeDate(data.date),
         type: "grep" as const,
         category: data.category as GrepCategory,
-        tags: (data.tags as string[]) ?? [],
-        excerpt: data.excerpt as string,
+        tags: normalizeTags(data.tags),
+        excerpt: String(data.excerpt ?? ""),
         draft: data.draft as boolean | undefined,
-        author: data.author as string,
+        author: String(data.author ?? ""),
         hfModelId,
         hfUrl:
           (data.hfUrl as string) ??
@@ -122,13 +133,4 @@ export function getGrepPosts() {
 
 export function getGrepPostBySlug(slug: string) {
   return getGrepPosts().find((p) => p.slug === slug);
-}
-
-export function getLatestGreps(limit = 5) {
-  return getGrepPosts().slice(0, limit);
-}
-
-export function getAllCategories() {
-  const used = new Set(getAllPosts().map((p) => p.category));
-  return CATEGORIES.filter((c) => used.has(c));
 }

@@ -272,9 +272,13 @@ export function ToolsIndex({
     setCategoryFilter(filter);
     if (sectionId) {
       requestAnimationFrame(() => {
+        const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+          .matches
+          ? "auto"
+          : "smooth";
         document
           .getElementById(sectionId)
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          ?.scrollIntoView({ behavior, block: "start" });
       });
     }
   };
@@ -288,7 +292,7 @@ export function ToolsIndex({
 
   return (
     <>
-      <div className="tools-filter-bar sticky top-0 z-20 bg-black">
+      <div className="tools-filter-bar z-20 bg-black lg:sticky lg:top-[var(--header-h,3rem)]">
         <SlashMark rows={3} className="p-4" />
 
         <div className="ledger-controls px-4 py-4 md:px-8">

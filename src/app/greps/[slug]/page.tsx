@@ -7,6 +7,7 @@ import {
   getGrepPostBySlug,
   getGrepPosts,
 } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateStaticParams() {
   return getGrepPosts().map((p) => ({ slug: p.slug }));
@@ -125,5 +126,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const post = getGrepPostBySlug((await params).slug);
-  return post ? { title: post.title, description: post.excerpt } : {};
+  return post
+    ? buildPageMetadata({
+        title: post.title,
+        description: post.excerpt,
+        path: `/greps/${post.slug}`,
+        type: "article",
+        publishedTime: post.date,
+      })
+    : {};
 }

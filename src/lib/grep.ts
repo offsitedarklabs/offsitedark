@@ -37,8 +37,3 @@ export type GrepPreview = Pick<
   | "likes"
   | "pipelineTag"
 >;
-
-export type GrepEntryRowData = Pick<
-  GrepPost,
-  "date" | "title" | "category" | "slug" | "author"
->;

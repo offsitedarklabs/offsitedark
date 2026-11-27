@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { buildPageMetadata } from "@/lib/metadata";
+
 export default function ForumPage() {
   return (
     <div className="grid min-h-[60vh] md:grid-cols-2">
@@ -14,7 +16,7 @@ export default function ForumPage() {
           Signal not yet established. Threaded boards and ranked posts — incoming.
         </p>
         <p className="meta mt-6">STATUS: POSTGRES + AUTH TBD</p>
-        <div className="mt-10 flex gap-4">
+        <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link
             href="/research"
             className="border border-red px-5 py-3 font-mono text-xs uppercase tracking-widest hover:bg-red"
@@ -23,7 +25,7 @@ export default function ForumPage() {
           </Link>
           <Link
             href="/signals"
-            className="font-mono text-xs uppercase tracking-widest text-gray hover:text-red"
+            className="px-3 py-3 font-mono text-xs uppercase tracking-widest text-gray hover:text-red"
           >
             Signals
           </Link>
@@ -33,4 +35,9 @@ export default function ForumPage() {
   );
 }
 
-export const metadata = { title: "Forum" };
+export const metadata = buildPageMetadata({
+  title: "Forum",
+  description:
+    "OFFSITE.DARK threaded boards and community security research forum — Phase 2 upcoming.",
+  path: "/forum",
+});

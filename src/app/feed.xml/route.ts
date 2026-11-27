@@ -1,26 +1,51 @@
 import { getAllPosts } from "@/lib/content";
 import { SITE } from "@/lib/constants";
 
-export async function GET() {
-  const items = getAllPosts()
-    .map(
-      (p) => `<item>
-      <title><![CDATA[${p.title}]]></title>
-      <link>${SITE.url}${p.type === "research" ? `/research/${p.slug}` : `/signals/${p.slug}`}</link>
-      <description><![CDATA[${p.excerpt}]]></description>
-      <pubDate>${new Date(p.date).toUTCString()}</pubDate>
-    </item>`,
-    )
-    .join("");
+function escapeXml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
 
-  return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?>
+function escapeCdata(value: string): string {
+  return value.replaceAll("]]>", "]]]]><![CDATA[>");
+}
+
+export async function GET() {
+  try {
+    const items = getAllPosts()
+      .map((p) => {
+        const itemUrl = `${SITE.url}${
+          p.type === "research" ? `/research/${p.slug}` : `/signals/${p.slug}`
+        }`;
+        const parsedDate = new Date(p.date);
+        const pubDateTag = Number.isNaN(parsedDate.getTime())
+          ? ""
+          : `\n      <pubDate>${parsedDate.toUTCString()}</pubDate>`;
+
+        return `<item>
+      <title><![CDATA[${escapeCdata(p.title)}]]></title>
+      <link>${escapeXml(itemUrl)}</link>
+      <guid isPermaLink="true">${escapeXml(itemUrl)}</guid>
+      <description><![CDATA[${escapeCdata(p.excerpt)}]]></description>${pubDateTag}
+    </item>`;
+      })
+      .join("");
+
+    return new Response(
+      `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>${SITE.name}</title>
-<link>${SITE.url}</link>
-<description>${SITE.description}</description>
+<title>${escapeXml(SITE.name)}</title>
+<link>${escapeXml(SITE.url)}</link>
+<description>${escapeXml(SITE.description)}</description>
 ${items}
 </channel></rss>`,
-    { headers: { "Content-Type": "application/xml" } },
-  );
+      { headers: { "Content-Type": "application/xml; charset=utf-8" } },
+    );
+  } catch {
+    return new Response("Failed to generate RSS feed.", { status: 500 });
+  }
 }

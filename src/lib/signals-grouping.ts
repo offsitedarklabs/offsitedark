@@ -27,14 +27,39 @@ export type LedgerGroup =
 const MONTH_FORMAT = new Intl.DateTimeFormat("en-US", {
   month: "long",
   year: "numeric",
+  timeZone: "UTC",
 });
+
+function parseYearMonth(dateInput: string | Date): {
+  year: number;
+  month: number;
+} {
+  if (dateInput instanceof Date && !Number.isNaN(dateInput.getTime())) {
+    return {
+      year: dateInput.getUTCFullYear(),
+      month: dateInput.getUTCMonth(),
+    };
+  }
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(dateInput));
+  if (match) {
+    return {
+      year: Number(match[1]),
+      month: Number(match[2]) - 1,
+    };
+  }
+  const parsed = new Date(dateInput);
+  return {
+    year: parsed.getUTCFullYear(),
+    month: parsed.getUTCMonth(),
+  };
+}
 
 function monthKey(year: number, month: number): string {
   return `${year}-${month}`;
 }
 
 function monthLabel(year: number, month: number): string {
-  return MONTH_FORMAT.format(new Date(year, month, 1));
+  return MONTH_FORMAT.format(new Date(Date.UTC(year, month, 1)));
 }
 
 function sortPostsNewestFirst(posts: SignalPreview[]): SignalPreview[] {
@@ -45,36 +70,34 @@ function sortPostsNewestFirst(posts: SignalPreview[]): SignalPreview[] {
 
 export function groupSignalsByDate(
   posts: SignalPreview[],
-  now = new Date(),
+  referenceDate: string | Date = new Date(),
 ): LedgerGroup[] {
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth();
+  const { year: currentYear, month: currentMonth } =
+    parseYearMonth(referenceDate);
   const sorted = sortPostsNewestFirst(posts);
 
   const byMonth = new Map<string, SignalPreview[]>();
+  const monthsByYear = new Map<number, Set<number>>();
   for (const post of sorted) {
-    const d = new Date(post.date);
-    const key = monthKey(d.getFullYear(), d.getMonth());
+    const { year, month } = parseYearMonth(post.date);
+    if (!Number.isFinite(year) || !Number.isFinite(month)) continue;
+    const key = monthKey(year, month);
     const bucket = byMonth.get(key);
     if (bucket) bucket.push(post);
     else byMonth.set(key, [post]);
+
+    const monthSet = monthsByYear.get(year);
+    if (monthSet) monthSet.add(month);
+    else monthsByYear.set(year, new Set([month]));
   }
 
   const groups: LedgerGroup[] = [];
-  const years = [
-    ...new Set(
-      sorted.map((post) => new Date(post.date).getFullYear()),
-    ),
-  ].sort((a, b) => b - a);
+  const years = [...monthsByYear.keys()].sort((a, b) => b - a);
 
   for (const year of years) {
-    const monthIndices = [
-      ...new Set(
-        sorted
-          .filter((post) => new Date(post.date).getFullYear() === year)
-          .map((post) => new Date(post.date).getMonth()),
-      ),
-    ].sort((a, b) => b - a);
+    const monthIndices = [...(monthsByYear.get(year) ?? [])].sort(
+      (a, b) => b - a,
+    );
 
     if (year === currentYear) {
       for (const month of monthIndices) {
@@ -115,13 +138,14 @@ export function groupSignalsByDate(
   return groups;
 }
 
-export function collectGroupKeys(groups: LedgerGroup[]): string[] {
-  const keys: string[] = [];
+export function collectGroupKeys(groups: LedgerGroup[]): Record<string, boolean> {
+  const keys: Record<string, boolean> = {};
   for (const group of groups) {
-    if (group.kind === "month") keys.push(group.key);
+    if (group.kind === "month" || group.kind === "year") {
+      keys[group.key] = true;
+    }
     if (group.kind === "year") {
-      keys.push(group.key);
-      for (const month of group.months) keys.push(month.key);
+      for (const month of group.months) keys[month.key] = true;
     }
   }
   return keys;

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ToolDetailSections } from "@/components/tool-detail-sections";
+import { buildPageMetadata } from "@/lib/metadata";
 import {
   getAllToolSlugs,
   getCategoryLabel,
@@ -82,7 +83,10 @@ export async function generateMetadata({
 }) {
   const tool = getToolBySlug((await params).slug);
   if (!tool) return {};
-  const summary =
-    tool.overview?.[0] ?? tool.description;
-  return { title: tool.name, description: summary };
+  const summary = tool.overview?.[0] ?? tool.description;
+  return buildPageMetadata({
+    title: tool.name,
+    description: summary,
+    path: `/tools/${tool.slug}`,
+  });
 }

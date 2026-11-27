@@ -40,9 +40,16 @@ ConnectWise Cloud Backup appears in the FLASH as a campaign, not as a versioned 
 3. Do not treat the 67,000-person or 1,600-console figures as independently verified here. Quote the FLASH, then the Censys host count, and keep them separate.
 4. There is nothing to “upgrade to.” Restoration guidance, where it exists, is the vendor’s, starting with the ConnectWise instruction in the FLASH.
 
+## Follow-up: European CERT & NCSC alerts (23–26 November 2026)
+
+On **23–26 November 2026**, four European cyber agencies highlighted `ARTEX` alongside peer agentic tools: **CERT-EU** detailed a **22 October** European Commission ARTEX intrusion affecting HR, medical reimbursement, and translation systems (with an EU Academy name/email leak), **CSIRT Italia** (`BL01/261123/CSIRT-ITA`) documented automated compromises using `ARTEX` and `CyberStrikeAI`, the **UK NCSC** warned of a *"marked rise"* in agentic attacks since September, and **Switzerland’s NCSC** (`BACS`, advisory `26-ki-agenten-1-en`) reported that publicly reachable `ARTEX` and `CyberStrikeAI` deployments **nearly doubled since October 2026**. See [Swiss NCSC Confirms First AI-Agent Cyberattacks](/signals/swiss-ncsc-agentic-ai-intrusions-2026).
+
 ## Sources
 
 - [FBI Cyber Branch — 2026-11-13 post](https://x.com/FBICyberBranch/status/2121317398305186287)
 - [FBI IC3 — FLASH-20261113-001 (PDF)](https://www.ic3.gov/CSA/2026/261113.pdf)
 - [Censys — ARTEX: Agentic Asbestos (2026-11-05)](https://censys.com/blog/artex-agentic-asbestos/)
 - [Microsoft Threat Intelligence — what defenders need to know (2026-11-25)](https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/)
+- [CERT-EU — From Penetration Testing to Cyber Threat: Beware of ARTEX](https://cert.europa.eu/blog/from-penetration-testing-to-cyber-threat-beware-of-artex)
+- [UK NCSC — Defending Against Agentic Cyber Attacks (PDF, Nov 2026)](https://www.ncsc.gov.uk/sites/default/files/2026-11/Familiar-weaknesses-exploited-faster-defending-against-agentic-cyber-attacks.pdf)
+- [CSIRT Italia — AI Agents in Automated Compromise Campaigns (`BL01/261123/CSIRT-ITA`)](https://www.acn.gov.it/portale/w/impiego-di-agenti-di-ia-in-campagne-di-compromissione-automatizzate)

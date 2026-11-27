@@ -522,14 +522,15 @@ body::before {
 
 .site-search--hero .ledger-search {
   border-width: 2px;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  padding: 1.05rem 1.15rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1rem;
 }
 
 @media (min-width: 768px) {
   .site-search--hero .ledger-search {
     font-size: 1.05rem;
+    letter-spacing: 0.05em;
     padding: 1.2rem 1.35rem;
   }
 }
@@ -587,7 +588,7 @@ body::before {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   color: var(--gray);
-  font-family: var(--font-source-serif), serif;
+  font-family: var(--font-instrument-serif), georgia, serif;
   font-size: 0.8rem;
   font-style: italic;
   line-height: 1.4;
@@ -606,6 +607,9 @@ body::before {
 }
 
 .ledger-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   border: 1px solid var(--red);
   background: transparent;
   color: var(--gray);
@@ -613,7 +617,7 @@ body::before {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
-  padding: 0.35rem 0.65rem;
+  padding: 0.4rem 0.7rem;
   text-transform: uppercase;
   transition: background 0.12s, color 0.12s;
 }
@@ -840,23 +844,36 @@ button.entry-row.entry-row-active .meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem 0.5rem;
+  gap: 0.5rem 0.9rem;
   margin: 0;
-  padding: 0.7rem 1.5rem 0.85rem;
+  padding: 0.75rem 1.5rem 0.9rem;
   border-top: 1px solid rgb(173 0 19 / 0.45);
 }
 
+.mark-key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
 .mark-key--strip .mark-key-text {
-  margin-right: 0.35rem;
   font-size: 0.78rem;
 }
 
 .mark-key-break {
+  display: none;
   width: 1px;
   align-self: stretch;
   min-height: 0.85rem;
-  margin: 0 0.35rem;
+  margin: 0 0.15rem;
   background: rgb(173 0 19 / 0.55);
+}
+
+@media (min-width: 640px) {
+  .mark-key-break {
+    display: block;
+  }
 }
 
 @media (min-width: 768px) {
@@ -924,10 +941,22 @@ button.entry-row.entry-row-active .meta {
 
 .record-ledger-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem 1rem;
   padding: 1.25rem 1.5rem 0.75rem;
+}
+
+.record-ledger-head .ledger-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  width: auto;
+  margin: 0;
+  padding: 0.5rem 0;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @media (min-width: 768px) {
@@ -1070,8 +1099,8 @@ button.entry-row.entry-row-active .meta {
 }
 
 .signal-preview {
-  --ledger-nav-pad-start: 2.5rem;
-  --ledger-nav-pad-end: 2rem;
+  --ledger-nav-pad-start: 3rem;
+  --ledger-nav-pad-end: 1.5rem;
   background: var(--black);
   transition: background 0.12s, box-shadow 0.12s;
 }
@@ -1189,6 +1218,24 @@ button.entry-row.entry-row-active .meta {
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
+    padding-right: 0;
+  }
+
+  .record-ledger-head .ledger-nav-link {
+    width: auto;
+  }
+
+  .greps-preview-actions {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .greps-action-link:first-child {
+    padding-left: 0;
+  }
+
+  .greps-action-link:last-child {
     padding-right: 0;
   }
 }
@@ -1316,9 +1363,42 @@ button.entry-row.entry-row-active .meta {
 .connected-banner {
   position: relative;
   isolation: isolate;
+  /* Oversized type that bursts out of a fixed-height band. Band height does
+     NOT grow with the text; glyphs overflow above/below. z-index stays well
+     below the sticky header. */
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* em-based: ~2 lines of text (1.76em) in a 1.15em band -> ~0.3em bursts out
+     above and below. */
+  height: 1.15em;
+  padding-inline: 1rem;
+  overflow: visible;
+  text-align: center;
+  font-size: clamp(2.25rem, 6vw, 5.75rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  color: #fff;
+  text-shadow:
+    0.04em 0.04em 0 #000,
+    0 0.06em 0 #000;
   animation:
     connected-glitch 3s ease-in-out infinite,
     connected-flicker 3.5s step-end infinite;
+}
+
+@media (max-width: 639px) {
+  .connected-banner {
+    /* phone portrait: text wraps to ~4 lines (3.5em); band stays ~2.3em */
+    height: 2.3em;
+    padding-inline: 0.75rem;
+  }
 }
 
 .connected-banner::after {
@@ -1626,5 +1706,142 @@ button.entry-row.entry-row-active .meta {
   .connected-banner::after {
     animation: none;
     opacity: 0.5;
+  }
+}
+
+/* ===== sticky site header (see components/nav.tsx + nav-scroll.tsx) =====
+   --header-h = compact bar height (sticky offsets, scroll-padding). nav-scroll
+   overwrites it, and sets --header-full-h / --header-compact-h, with measured
+   pixels; the values below are the no-JS / first-paint fallbacks. */
+:root {
+  --header-h: 3rem;
+  /* Transitions use the destination state's timing: 90ms into compact,
+     a much shorter 40ms back to full size so scrolling up feels instant. */
+  --header-ease-in: 90ms cubic-bezier(0.2, 0, 0, 1);
+  --header-ease-out: 40ms cubic-bezier(0.2, 0, 0, 1);
+  --header-ease: var(--header-ease-out);
+}
+
+html[data-nav-compact] {
+  --header-ease: var(--header-ease-in);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: 6.75rem;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 0.75rem);
+}
+
+.site-header {
+  height: var(--header-full-h, auto);
+  /* Fully opaque: no blur, filter, shadow or alpha, so nothing under the bar is dimmed. */
+  background-color: var(--black);
+  transition:
+    height var(--header-ease),
+    margin-bottom var(--header-ease),
+    padding var(--header-ease);
+}
+
+.site-header-inner,
+.site-header-nav,
+.site-header-logo,
+.site-header .ledger-search,
+.site-header-nav a {
+  transition:
+    gap var(--header-ease),
+    font-size var(--header-ease),
+    line-height var(--header-ease),
+    padding var(--header-ease);
+}
+
+/* Compact: the header keeps its full height in flow (margin-bottom makes up
+   the difference) so the page never shifts when it squishes. */
+html[data-nav-compact] .site-header {
+  height: var(--header-compact-h, auto);
+  margin-bottom: calc(var(--header-full-h, 0px) - var(--header-compact-h, 0px));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  /* crisp 1px solid red edge, no glow spreading onto the content below */
+  box-shadow: 0 1px 0 var(--red);
+}
+
+html[data-nav-compact] .site-header-logo {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+html[data-nav-compact] .site-header .ledger-search {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+html[data-nav-compact] .site-header-nav a {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+@media (max-width: 767px) {
+  /* Compact phone bar: logo + search on row 1, nav links in a tight row below
+     (wraps to at most two short rows) instead of the tall stacked column. */
+  html[data-nav-compact] .site-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  html[data-nav-compact] .site-header-inner {
+    column-gap: 0.75rem;
+    row-gap: 0.125rem;
+  }
+
+  html[data-nav-compact] .site-header-logo {
+    font-size: 1.25rem;
+  }
+
+  html[data-nav-compact] .site-header .site-search--header {
+    order: 2;
+    flex: 1 1 0;
+    width: auto;
+    flex-basis: 0;
+  }
+
+  html[data-nav-compact] .site-header-nav {
+    order: 3;
+    flex: 1 1 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 0;
+    column-gap: 0.875rem;
+  }
+}
+
+/* Used by nav-scroll to measure both states without animating. */
+html.nav-measuring .site-header,
+html.nav-measuring .site-header * {
+  transition: none !important;
+}
+
+html[data-nav-measuring-auto] .site-header {
+  height: auto !important;
+  margin-bottom: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-header,
+  .site-header-inner,
+  .site-header-nav,
+  .site-header-logo,
+  .site-header .ledger-search,
+  .site-header-nav a {
+    transition: none;
   }
 }

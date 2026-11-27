@@ -36,6 +36,23 @@ export const metadata: Metadata = {
   title: { default: SITE.name, template: `%s — ${SITE.name}` },
   description: SITE.description,
   metadataBase: new URL(SITE.url),
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+  openGraph: {
+    siteName: SITE.name,
+    type: "website",
+    title: SITE.name,
+    description: SITE.description,
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: SITE.name,
+    description: SITE.description,
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -50,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${bebas.variable} ${ibmPlexSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${vt323.variable}`}
     >
       <body className="flex min-h-screen flex-col">

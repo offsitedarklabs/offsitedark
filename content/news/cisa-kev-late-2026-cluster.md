@@ -17,15 +17,18 @@ Signals already cover the [2–4 September cluster](/signals/cisa-kev-september-
 
 This card is the index for that window. It is not 102 advisories. The 20, 24, and 25 November alerts were opened again and the type names below are CISA’s. Earlier rows are the CVE IDs that pass flagged; their full catalog text was not re-opened one by one. BOD **26-04** still requires federal civilian agencies to prioritize KEV items on publicly exposed assets that yield total control, and to check for compromise before trusting the patch.
 
-Dedicated Signals now filed from this same gap (and updated on 26 November):
+Dedicated Signals now filed from this same gap (updated through **27 November**):
 
 - [Drupal Fail2Install, CVE-2026-132165 and SA-CORE-2026-019](/signals/drupal-fail2install-takeover-cve-2026-136716) (KEV 24 November)
+- [HPE Juniper Session Smart Conductor RCE, CVE-2026-103406](/signals/juniper-session-smart-conductor-rce-cve-2026-103406) (KEV 25 November)
 - [Mitel MiCollab zero-day intrusions, CVE-2026-133323+](/signals/mitel-micollab-zero-day-ai-intrusions-cve-2026-133323) (KEV 25 November)
 - [MONAI Label CVE-2026-133968 & N-able MailAssure CVE-2026-134624](/signals/monai-label-mailassure-kev-nov-23-2026) (KEV 23 November)
 - [PAN-OS Fragnesia LPE chained with PHP2Shell, CVE-2026-46300](/signals/pan-os-fragnesia-php2shell-lpe-cve-2026-46300) (KEV 28 October)
 - [Optimizely CVE-2026-132224](/signals/optimizely-web-experimentation-cve-2026-132224) (KEV 24 November)
 - [php2shell, CVE-2026-109618 and CVE-2026-109619](/signals/php2shell-unauth-rce-cve-2026-109618) (KEV 26 October)
 - [SSHole, CVE-2026-123158](/signals/openssh-musl-auth-bypass-cve-2026-123158) (KEV 9 November)
+- [Vates Xen Orchestra auth bypass, CVE-2026-133469](/signals/vates-xen-orchestra-auth-bypass-cve-2026-133469) (KEV 25 November)
+- [VMware vCenter CVE-2026-123890 vs VMSA-2026-0011 (CVE-2026-123903)](/signals/vmware-vmsa-2026-0011-vcenter-esx-cve-2026-123903) (KEV 20 November context)
 - [Java4Shell, CVE-2026-114938](/signals/java4shell-openjdk-base64-cve-2026-114938) is the 17 November CISA *alert*. It is not a row in the KEV JSON.
 
 ## 25 November — ten additions
@@ -37,13 +40,13 @@ Dedicated Signals now filed from this same gap (and updated on 26 November):
 | CVE-2023-25914 | Danfoss AK-SM 800A path traversal |
 | CVE-2023-25915 | Danfoss AK-SM 800A improper input validation |
 | CVE-2025-41450 | Danfoss AK-SM 800A improper authentication |
-| CVE-2026-103406 | HPE Juniper Session Smart Conductor and Router, OS command injection |
+| CVE-2026-103406 | HPE Juniper Session Smart Conductor and Router, OS command injection — [dedicated Signal](/signals/juniper-session-smart-conductor-rce-cve-2026-103406) |
 | CVE-2026-133275 | Mitel MiCollab, unrestricted upload of a dangerous file type — [dedicated Signal](/signals/mitel-micollab-zero-day-ai-intrusions-cve-2026-133323) |
 | CVE-2026-133303 | Mitel MiCollab, XML injection |
 | CVE-2026-133311 | Mitel MiCollab, weak authentication |
 | CVE-2026-133323 | Mitel MiCollab, OS command injection |
 | CVE-2026-133324 | Mitel MiCollab, not failing securely |
-| CVE-2026-133469 | Vates Xen Orchestra, improper validation of a specified type of input |
+| CVE-2026-133469 | Vates Xen Orchestra, improper validation of a specified type of input — [dedicated Signal](/signals/vates-xen-orchestra-auth-bypass-cve-2026-133469) |
 
 The three Danfoss IDs are 2023 and 2025. They are new to *this* catalog drop, not new bugs.
 
@@ -74,7 +77,7 @@ The three Danfoss IDs are 2023 and 2025. They are new to *this* catalog drop, no
 |-----|-------------|
 | CVE-2025-42884 | SAP NetWeaver, improper neutralization of special elements in a data query |
 | CVE-2026-76466 | Cisco Expressway Series, hard-coded credentials |
-| CVE-2026-123890 | VMware vCenter, authentication bypass using an alternate path or channel |
+| CVE-2026-123890 | VMware vCenter, authentication bypass using an alternate path or channel (ARMORY CASTLE / `BONESAW` since Sept; contrast with non-KEV `CVE-2026-123903` in [VMSA-2026-0011](/signals/vmware-vmsa-2026-0011-vcenter-esx-cve-2026-123903)) |
 | CVE-2026-129448 | Apache Roller, deserialization of untrusted data |
 
 ## 10–18 November — verified catalog rows
@@ -123,7 +126,7 @@ Three repos on Project Nightcrawler have no Signal yet. The pages were opened. T
 
 ## What was checked and is not a new story
 
-CVE.now is up. `latest.md` is a newest-first CVE feed, 100 to a page, not a September-to-November archive. The critical JSON feed is KEV, or CVSS at least 9.0 on a tracked product, or EPSS at least 10% with CVSS at least 7.0. Church of Malware’s visible 25 November brief restates the same KEV items. vx-underground loaded and then showed an empty file list. Sploitus still shows [React2Shell](/signals/react2shell-cve-2025-55182), which is already indexed, alongside new trending signals for [Chrome CVE-2026-134401](/signals/chrome-variations-sandbox-escape-cve-2026-134401) and [binary-parser CVE-2026-134814](/signals/binary-parser-code-injection-cve-2026-134814). Confirmed **absent** from KEV catalog `2026.11.25` as of 26 November: Drupal `CVE-2026-136716`, GeoServer `CVE-2026-129245 / 120705`, NGINX2Root `CVE-2026-123007`, Hex.pm `CVE-2026-129514`, SEPPMAIL `CVE-2026-130637`, and `llama.cpp` `CVE-2026-137567`.
+CVE.now is up. `latest.md` is a newest-first CVE feed, 100 to a page, not a September-to-November archive. The critical JSON feed is KEV, or CVSS at least 9.0 on a tracked product, or EPSS at least 10% with CVSS at least 7.0. Re-checked **27 November 2026**: CISA KEV remains at catalog `2026.11.25` (1,805 entries, zero additions after 25 November). Church of Malware’s visible 25–26 November stream adds Cacti `4HTTP2SHELL` ([dedicated Signal](/signals/cacti-4http2root-unpatched-sqli-rce-zero-day)), while Sploitus Trending on 27 November indexes already-covered [React2Shell](/signals/react2shell-cve-2025-55182), [Node2Shell](/signals/node2shell-cve-2026-111497), [Chrome CVE-2026-134401](/signals/chrome-variations-sandbox-escape-cve-2026-134401), [binary-parser CVE-2026-134814](/signals/binary-parser-code-injection-cve-2026-134814), an October NGINX map/regex PoC (`CVE-2026-93479`, patched in `1.30.6 / 1.31.7`; noted in [our NGINX update](/signals/nginx2root-http2-heap-overflow-cve-2026-123007)), Linux kernel POSIX timer UAF `CVE-2026-98260`, and a non-CVE Windows `FileLock.sys` LPE PoC. Confirmed **absent** from KEV catalog `2026.11.25` as of 27 November: Cacti `4HTTP2ROOT`, Mitel OpenScape `MISA-2026-0013` (`CVE-2026-137724 / -137721 / -137723`), RealVNC `CVE-2026-137738`, Broadcom `VMSA-2026-0011` (`CVE-2026-123903` et al.), Jenkins `CVE-2026-136835`, Webmin `CVE-2026-137715`, W3 Total Cache `CVE-2026-119071 / -135616`, Sneeit/CRMPerks (`CVE-2026-106125 / -115867`), Drupal `CVE-2026-136716`, GeoServer `CVE-2026-129245 / 120705`, NGINX2Root `CVE-2026-123007`, Hex.pm `CVE-2026-129514`, SEPPMAIL `CVE-2026-130637`, and `llama.cpp` `CVE-2026-137567`.
 
 ## Operator order
 

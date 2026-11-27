@@ -11,7 +11,7 @@ hfModelId: OBLITERATUS/Qwen3.8-27B-OBLITERATED
 hfUrl: https://huggingface.co/OBLITERATUS/Qwen3.8-27B-OBLITERATED
 source: Hugging Face
 downloads: 632256
-likes: 1749
+likes: 1757
 pipelineTag: text-generation
 baseModel: Qwen/Qwen3.8-27B
 draft: false
@@ -19,7 +19,7 @@ draft: false
 
 ## What Is This?
 
-An abliterated **Qwen3.8-27B** from the **OBLITERATUS** organisation (created 2026-08-19, last modified 2026-08-24, Apache-2.0). Safetensors (about 54 GB, 29 shards) plus GGUF quantisations from Q8_0 to Q2_K. The card is credited to "Pliny the Prompter".
+An abliterated **Qwen3.8-27B** from the **OBLITERATUS** organisation (created 2026-08-19, updated **2026-11-26** commit `d8ab3e2` rebuilding `Q2_K` / `IQ4_XS` GGUFs and fixing config/template metadata, Apache-2.0). Safetensors (about 54 GB, 29 shards) plus GGUF quantisations from Q8_0 to Q2_K. The card is credited to "Pliny the Prompter".
 
 ## Metadata
 
@@ -28,16 +28,16 @@ An abliterated **Qwen3.8-27B** from the **OBLITERATUS** organisation (created 20
 | Author | OBLITERATUS |
 | Base | `Qwen/Qwen3.8-27B` |
 | Downloads | 632,256 (API, 2026-11-26) |
-| Likes | 1,749 |
+| Likes | 1,757 (checked 2026-11-27) |
 | License | Apache-2.0 |
-| GGUF | Q8_0 about 27 GB down to Q2_K about 11 GB, IQ4_XS about 14 GB |
+| GGUF | Q8_0 about 27 GB down to Q2_K about 11 GB, IQ4_XS about 15.4 GB |
 
 ## Generations (from the card)
 
 | Version | Method | MMLU (0-shot, 5,700 q) | Notes |
 |---|---|---:|---|
 | Stock | n/a | 84.46% | refuses |
-| V1 | 5 rounds iterative SVD, 5 directions | 81.4% | hard refusals removed, -6.0 pp |
+| V1 | 5 rounds iterative SVD, 5 directions | 81.4% | hard refusals removed (card prints `-6.0 pp` carryover vs `n=285`; actual delta vs `84.46%` is `-3.06 pp`) |
 | V2 | SVD plus LEACE, 60/40 blend | 84.32% | soft deflections remain, thinking mode refused |
 | V3 | iterative refinement plus targeted surgery plus blend | 82.33% | no hard refusal, no deflection, -2.12 pp |
 
@@ -49,7 +49,7 @@ STEM lost the most (-3.3 pp); philosophy and European history rose 4 to 6 points
 - For agent use, advises summarising history after about 10 turns because context "fills up with repeated actions".
 - Advises an empty system prompt, since "system prompts can reintroduce refusals".
 - The GGUF template prefills an empty thinking block, so behaviour depends on using the bundled template.
-- On the card's 8-task advanced suite, stock and V3 both score 7/8 and fail the same multi-tool-chain task.
+- **Internal card contradiction (checked 27 Nov 2026):** Alongside the V1 `-6.0 pp` vs `-3.06 pp` arithmetic carryover, the card's top summary table lists Stock at **5/8** on the advanced real-world suite while its detailed checklist below marks Stock at **7/8** (tying V3, both failing the multi-tool-chain task).
 
 ## Why It Matters
 

@@ -2,7 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Markdown } from "@/components/markdown";
-import { formatDate, getPostBySlug, getResearchPosts } from "@/lib/content";
+import {
+  formatDate,
+  getResearchPostBySlug,
+  getResearchPosts,
+} from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateStaticParams() {
   return getResearchPosts().map((p) => ({ slug: p.slug }));
@@ -14,8 +19,8 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post || post.type !== "research") notFound();
+  const post = getResearchPostBySlug(slug);
+  if (!post) notFound();
 
   return (
     <article className="min-w-0 overflow-x-clip">
@@ -66,6 +71,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const post = getPostBySlug((await params).slug);
-  return post ? { title: post.title, description: post.excerpt } : {};
+  const post = getResearchPostBySlug((await params).slug);
+  return post
+    ? buildPageMetadata({
+        title: post.title,
+        description: post.excerpt,
+        path: `/research/${post.slug}`,
+        type: "article",
+        publishedTime: post.date,
+      })
+    : {};
 }

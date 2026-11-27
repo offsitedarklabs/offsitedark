@@ -128,22 +128,6 @@ export function getToolBySlug(slug: string): RegistryTool | undefined {
   };
 }
 
-export function getToolCount(): number {
-  return getRegistry().size;
-}
-
-export function getPopularTools(): RegistryTool[] {
-  return POPULAR_TOOLS.map(
-    (tool) => getToolBySlug(slugifyToolName(tool.name))!,
-  );
-}
-
-export function getExternalLinkTools(): RegistryTool[] {
-  return EXTERNAL_LINKS.map(
-    (tool) => getToolBySlug(slugifyToolName(tool.name))!,
-  );
-}
-
 /** Lightweight listing shape for client-side index views (no enrichment payload). */
 export type ToolListItem = Pick<
   RegistryTool,

@@ -9,6 +9,7 @@ import {
   getNewsPostBySlug,
   getNewsPosts,
 } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 import { recordFacets } from "@/lib/record-facets";
 
 export async function generateStaticParams() {
@@ -57,7 +58,7 @@ export default async function SignalsPostPage({
           </p>
         </div>
         <div className="cell min-w-0 border-r-0 border-t-0 p-6 md:py-14 md:px-10 lg:px-16 xl:px-20">
-          <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div className="mb-8 flex flex-col items-start gap-4 md:flex-row md:flex-wrap md:justify-between">
             <h1 className="article-title min-w-0 flex-1">{post.title}</h1>
             <SeverityMark facets={facets} />
           </div>
@@ -126,5 +127,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const post = getNewsPostBySlug((await params).slug);
-  return post ? { title: post.title, description: post.excerpt } : {};
+  return post
+    ? buildPageMetadata({
+        title: post.title,
+        description: post.excerpt,
+        path: `/signals/${post.slug}`,
+        type: "article",
+        publishedTime: post.date,
+      })
+    : {};
 }

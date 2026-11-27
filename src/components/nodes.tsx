@@ -34,12 +34,12 @@ export function Nodes() {
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="min-w-0">
               <p className="meta mb-4">Nodes</p>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1 md:gap-2">
                 {NODES.map((node) => (
                   <Link
                     key={node.label}
                     href={node.href}
-                    className="font-mono text-sm hover:text-red"
+                    className="inline-flex min-h-[36px] items-center font-mono text-sm hover:text-red md:min-h-0"
                   >
                     → {node.label}
                   </Link>

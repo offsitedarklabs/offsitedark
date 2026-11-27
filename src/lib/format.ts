@@ -18,13 +18,15 @@ export function formatDate(dateStr: string | Date) {
         year: "numeric",
         month: "short",
         day: "numeric",
+        timeZone: "UTC",
       });
     }
   }
 
-  return new Date(year, month, day).toLocaleDateString("en-US", {
+  return new Date(Date.UTC(year, month, day)).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: "UTC",
   });
 }

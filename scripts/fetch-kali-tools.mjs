@@ -21,13 +21,6 @@ function fetch(url) {
   });
 }
 
-function stripHtml(html) {
-  return html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function parseAllToolsPage(html) {
   const categories = [];
   const cardRe = /<div class=card><h3>([^<]+)<\/h3>([\s\S]*?)<\/div>/g;

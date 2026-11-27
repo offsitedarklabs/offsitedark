@@ -75,12 +75,12 @@ The paper is also a reminder that KL on harmless prompts and refusal count on a 
 
 ### Qwen3.8-27B (OBLITERATUS): the volume leader
 
-[`OBLITERATUS/Qwen3.8-27B-OBLITERATED`](https://huggingface.co/OBLITERATUS/Qwen3.8-27B-OBLITERATED) (created 2026-08-19, Apache-2.0, **632,256 downloads, 1,749 likes**) is the most-downloaded model in this survey. Its card documents three generations:
+[`OBLITERATUS/Qwen3.8-27B-OBLITERATED`](https://huggingface.co/OBLITERATUS/Qwen3.8-27B-OBLITERATED) (created 2026-08-19, updated 2026-11-26 `d8ab3e2` rebuilding `Q2_K` / `IQ4_XS` GGUFs, Apache-2.0, **632,256 downloads, 1,757 likes**) is the most-downloaded model in this survey. Its card documents three generations:
 
 | Version | Method (per the card) | MMLU (0-shot, 5,700 q) | Behaviour reported |
 |---|---|---:|---|
 | Stock Qwen3.8-27B | n/a | 84.46% | refuses |
-| V1 | 5 rounds of iterative SVD abliteration, 5 directions | 81.4% (-6.0 pp) | hard refusals removed; "noticeably dumber" |
+| V1 | 5 rounds of iterative SVD abliteration, 5 directions | 81.4% (-3.06 pp; card prints `-6.0 pp` from earlier `n=285` row) | hard refusals removed; "noticeably dumber" |
 | V2 | SVD blended with LEACE, 60/40 weight-space interpolation | 84.32% (-0.28 pp) | hard refusals removed; soft safety-lecture deflections remain; thinking mode refused |
 | V3 | gentle iterative refinement plus targeted surgery plus blend | 82.33% (-2.12 pp) | no hard refusal, no deflection; thinking works |
 
@@ -90,7 +90,7 @@ Details worth reading critically:
 - The card's own tuning advice is a warning label: it recommends greedy decoding with a repetition penalty of 1.15 because without it, "greedy decoding loops on imports/boilerplate", and tells agent builders to summarise history after about 10 turns "because context fills up with repeated actions."
 - It advises an *empty* system prompt, since system prompts "can reintroduce refusals". That is the card admitting residual safety behaviour is still in the weights.
 - The ship-it template prefills an empty thinking block. A user who loads the GGUF with a different template gets different behaviour from the same weights.
-- The "advanced real-world" suite is 8 tasks. Stock and V3 both score 7/8, and both fail the same one (multi-tool chain). On that tiny suite the edit costs nothing, but 8 tasks cannot show much either way.
+- The "advanced real-world" suite is 8 tasks and illustrates how hastily cards are edited: the top summary table lists Stock at 5/8 and V3 at 7/8, whereas the detailed checklist below scores both Stock and V3 at 7/8 failing the same multi-tool-chain task. Even taken at face value, 8 tasks cannot show much either way.
 
 ### Gemma-4-E4B-it (OBLITERATUS): the instructive failure log
 

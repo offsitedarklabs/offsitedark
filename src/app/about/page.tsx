@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { AsciiBlock } from "@/components/ascii-block";
 import { SITE } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export default function AboutPage() {
   return (
@@ -54,4 +55,9 @@ export default function AboutPage() {
   );
 }
 
-export const metadata = { title: "About" };
+export const metadata = buildPageMetadata({
+  title: "About",
+  description:
+    "About OFFSITE.DARK — an open source security research lab publishing malware analysis, reversing techniques, and tooling.",
+  path: "/about",
+});

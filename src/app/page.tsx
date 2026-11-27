@@ -6,10 +6,16 @@ import { FeaturedSignal } from "@/components/featured-signal";
 import { RecordLedger } from "@/components/record-ledger";
 import { SectionBlock } from "@/components/section-block";
 import { SiteSearch } from "@/components/site-search";
-import { PROJECTS } from "@/lib/constants";
+import { PROJECTS, SITE } from "@/lib/constants";
 import { getLatestNews, getLatestResearch } from "@/lib/content";
 import { getFeaturedNewsSignal } from "@/lib/featured-signal";
 import { buildSearchIndex } from "@/lib/build-search-index";
+import { buildPageMetadata } from "@/lib/metadata";
+
+export const metadata = buildPageMetadata({
+  description: SITE.description,
+  path: "/",
+});
 
 export default function HomePage() {
   const research = getLatestResearch(4);
@@ -106,11 +112,11 @@ export default function HomePage() {
             ))}
             <Link
               href="/research"
-              className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-red hover:text-white"
+              className="mt-4 inline-flex min-h-[36px] items-center font-mono text-xs uppercase tracking-widest text-red hover:text-white md:min-h-0"
             >
               → All research
             </Link>
-            <p className="mt-10 -mr-2 max-w-sm font-serif text-lg italic leading-relaxed text-white/70 md:ml-8 md:text-xl">
+            <p className="mt-10 max-w-sm font-serif text-lg italic leading-relaxed text-white/70 md:ml-8 md:text-xl">
               If you&apos;re not remembered, then you never existed
             </p>
             <p className="meta mt-8 text-white/40">
@@ -134,11 +140,17 @@ export default function HomePage() {
               We publish malware analysis, reversing techniques, and tooling —
               supporting unrestricted availability and use for education and defense.
             </p>
-            <div className="mt-6 flex flex-wrap gap-6">
-              <Link href="/research?category=ai" className="meta hover:text-white">
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+              <Link
+                href="/research?category=ai"
+                className="meta inline-flex min-h-[36px] items-center hover:text-white md:min-h-0"
+              >
                 → AI research
               </Link>
-              <Link href="/greps" className="meta hover:text-white">
+              <Link
+                href="/greps"
+                className="meta inline-flex min-h-[36px] items-center hover:text-white md:min-h-0"
+              >
                 → Model greps
               </Link>
             </div>
@@ -195,7 +207,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <p className="connected-banner cell border-x-0 bg-red px-6 py-4 text-center font-mono text-[0.7rem] uppercase tracking-[0.2em] text-black md:px-10">
+      <p className="connected-banner cell border-x-0 bg-red font-mono uppercase">
         no matter where you are, every one is always CONNECTED
       </p>
 

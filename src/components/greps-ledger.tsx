@@ -36,7 +36,7 @@ function GrepRow({
   const content = (
     <>
       <span className="meta shrink-0">{formatDate(post.date)}</span>
-      <span className="flex-1 font-serif text-lg md:text-xl">{post.title}</span>
+      <span className="min-w-0 flex-1 font-serif text-lg md:text-xl">{post.title}</span>
       <span className="meta hidden shrink-0 sm:inline">{post.author}</span>
     </>
   );
@@ -64,7 +64,6 @@ function GrepRow({
 export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<GrepFilter>("all");
-  const skipScrollRef = useRef(true);
 
   const postSlugs = useMemo(
     () => new Set(posts.map((post) => post.slug)),
@@ -91,6 +90,8 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
     return filteredPosts[0]?.slug ?? "";
   }, [filteredPosts, hashSlug, posts]);
 
+  const prevActiveSlugRef = useRef(activeSlug);
+
   const hasActiveFilters =
     categoryFilter !== "all" || searchQuery.trim().length > 0;
 
@@ -100,13 +101,15 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
   }, [activeSlug, hashSlug]);
 
   useEffect(() => {
-    if (skipScrollRef.current) {
-      skipScrollRef.current = false;
-      return;
-    }
+    if (prevActiveSlugRef.current === activeSlug) return;
+    prevActiveSlugRef.current = activeSlug;
+    if (!activeSlug) return;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
     document
       .getElementById(activeSlug)
-      ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      ?.scrollIntoView({ behavior, block: "nearest" });
   }, [activeSlug]);
 
   const selectPost = (slug: string) => {
@@ -114,8 +117,8 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
   };
 
   return (
-    <div className="grid lg:grid-cols-2">
-      <div className="cell border-l-0 border-t-0">
+    <div className="grid min-w-0 lg:grid-cols-2">
+      <div className="cell min-w-0 border-l-0 border-t-0">
         <SlashMark rows={3} className="p-4" />
 
         <div className="ledger-controls border-b border-red px-4 py-4 md:px-8">
@@ -171,7 +174,7 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
           <p className="meta px-4 py-8 md:px-8">No greps match filters.</p>
         )}
       </div>
-      <div className="cell border-r-0 border-t-0">
+      <div className="cell min-w-0 border-r-0 border-t-0">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => {
             const isActive = post.slug === activeSlug;
@@ -179,7 +182,7 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
               <article
                 key={post.slug}
                 id={post.slug}
-                className={`signal-preview scroll-mt-20 relative border-b border-red py-8 pr-8 pl-10 md:py-12 md:pr-12 md:pl-14${
+                className={`signal-preview scroll-mt-20 relative border-b border-red py-8 pr-6 pl-12 md:py-12 md:pr-12 md:pl-14${
                   isActive ? " signal-preview-active" : ""
                 }`}
                 aria-current={isActive ? "true" : undefined}
@@ -190,14 +193,14 @@ export function GrepsLedger({ posts }: { posts: GrepPreview[] }) {
                 <p className="meta mb-4">
                   {formatDate(post.date)} · Uploaded by {post.author}
                 </p>
-                <h2 className="font-display mb-4 text-4xl">{post.title}</h2>
+                <h2 className="mb-4 break-words font-display text-3xl leading-[0.95] sm:text-4xl">{post.title}</h2>
                 <p className="signal-preview-excerpt mb-6 max-w-prose font-serif text-lg leading-relaxed">
                   {post.excerpt}
                 </p>
                 <dl className="mb-6 grid gap-2 font-mono text-[0.65rem] uppercase tracking-widest text-gray">
-                  <div>
+                  <div className="min-w-0">
                     <dt className="inline text-white/40">Model </dt>
-                    <dd className="inline">{post.hfModelId}</dd>
+                    <dd className="inline break-all">{post.hfModelId}</dd>
                   </div>
                   {post.pipelineTag && (
                     <div>

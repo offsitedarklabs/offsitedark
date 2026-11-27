@@ -18,7 +18,7 @@
       "wing": 1,
       "t": 0.0,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -27,8 +27,8 @@
       "wing": 2,
       "t": 0.0,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b1w0.txt",
@@ -45,7 +45,7 @@
       "wing": 1,
       "t": 0.125,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -54,8 +54,8 @@
       "wing": 2,
       "t": 0.125,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b2w0.txt",
@@ -72,7 +72,7 @@
       "wing": 1,
       "t": 0.25,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -81,8 +81,8 @@
       "wing": 2,
       "t": 0.25,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b3w0.txt",
@@ -99,7 +99,7 @@
       "wing": 1,
       "t": 0.375,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -108,8 +108,8 @@
       "wing": 2,
       "t": 0.375,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b4w0.txt",
@@ -126,7 +126,7 @@
       "wing": 1,
       "t": 0.5,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -135,8 +135,8 @@
       "wing": 2,
       "t": 0.5,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b5w0.txt",
@@ -153,7 +153,7 @@
       "wing": 1,
       "t": 0.625,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -162,8 +162,8 @@
       "wing": 2,
       "t": 0.625,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b6w0.txt",
@@ -180,7 +180,7 @@
       "wing": 1,
       "t": 0.75,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -189,8 +189,8 @@
       "wing": 2,
       "t": 0.75,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b7w0.txt",
@@ -207,7 +207,7 @@
       "wing": 1,
       "t": 0.875,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -216,8 +216,8 @@
       "wing": 2,
       "t": 0.875,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     },
     {
       "file": "b8w0.txt",
@@ -234,7 +234,7 @@
       "wing": 1,
       "t": 1.0,
       "body": 1,
-      "splay": 1,
+      "splay": 0,
       "lift": 1
     },
     {
@@ -243,8 +243,8 @@
       "wing": 2,
       "t": 1.0,
       "body": 2,
-      "splay": 1,
-      "lift": 1
+      "splay": 0,
+      "lift": 2
     }
   ]
 }

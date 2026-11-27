@@ -15,11 +15,11 @@ export function FeaturedSignal({ post }: { post: Post }) {
   return (
     <section aria-labelledby="featured-signal-title" className="featured-signal">
       <div className="grid items-stretch md:grid-cols-[1.2fr_1fr]">
-        <div className="featured-signal-lead cell relative overflow-hidden border-l-0 border-t-0 p-6 md:p-10 md:pl-14">
+        <div className="featured-signal-lead cell relative min-w-0 overflow-hidden border-l-0 border-t-0 p-6 pl-12 md:p-10 md:pl-14">
           <p className="vertical-label absolute left-2 top-6 text-red md:left-4 md:top-10">
             Featured
           </p>
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <p className="meta">
               {formatDate(post.date)}
               {facets.org ? ` · ${facets.org}` : post.source ? ` · ${post.source}` : ""}
@@ -29,7 +29,7 @@ export function FeaturedSignal({ post }: { post: Post }) {
           </div>
           <h2
             id="featured-signal-title"
-            className="font-display text-[clamp(2.25rem,6.2vw,5.25rem)] leading-[0.88] tracking-tight text-white"
+            className="break-words font-display text-[clamp(2.25rem,6.2vw,5.25rem)] leading-[0.88] tracking-tight text-white"
           >
             <Link href={href} className="hover:text-red">
               {post.title}

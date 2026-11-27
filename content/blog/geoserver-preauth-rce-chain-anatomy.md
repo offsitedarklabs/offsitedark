@@ -61,7 +61,7 @@ Once authenticated as administrator, both researchers bypassed GeoServer's Java 
 
 ## Why WatchTowr Telemetry Matters Now
 
-Within 48 hours of advisory publication, watchTowr Principal Threat Intelligence Specialist Yordan Ganchev documented automated multi-IP scanners testing exposed GeoServer instances on **25 November** by creating and immediately deleting WFS stored queries (`CVE-2026-120705` / `CVE-2026-129244`). Because both `CVE-2026-129245` cookie forgery and follow-on JDBC RCE require **zero user interaction** and a full public chain repository already exists, automated exploitation waves typically transition rapidly from stored-query validation probes to credential harvesting and shell deployment—mirroring historical waves against GeoServer `CVE-2024-36401`.
+Within 48 hours of advisory publication, watchTowr documented automated multi-IP scanners testing exposed GeoServer instances on **25 November** by creating and immediately deleting WFS stored queries (`CVE-2026-120705` alongside `CVE-2026-129243` `x/WFS` service bypasses, with follow-up commentary also noting `CVE-2026-129244`). Because both `CVE-2026-129245` cookie forgery and follow-on JDBC RCE require **zero user interaction** and a full public chain repository already exists, automated exploitation waves typically transition rapidly from stored-query validation probes to credential harvesting and shell deployment—mirroring historical waves against GeoServer `CVE-2024-36401`.
 
 ## Hardening & Remediation Beyond Version Bumps
 

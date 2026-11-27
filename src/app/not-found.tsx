@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -38,7 +39,13 @@ export default function NotFound() {
       </div>
 
       <div className="cell flex items-center justify-center border-r-0 border-t-0 p-6 md:p-10">
-        <img src="/images/not-found.png" alt="" className="max-w-full h-auto" />
+        <Image
+          src="/images/not-found.png"
+          alt=""
+          width={500}
+          height={500}
+          className="h-auto max-w-full"
+        />
       </div>
       </div>
 

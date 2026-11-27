@@ -25,6 +25,13 @@ orig_lens = [len(line) for line in lines]
 G = [list(line) for line in lines]
 H = len(G)
 
+# Rows above WING_TOP are the barcode band and its towers. The wing starts
+# on WING_TOP. On the right, rows WING_TOP..RULE_ROWS_END-1 also carry a dotted
+# rule that runs up to RULE_END_COL, where the wing's tower begins.
+WING_TOP = 7
+RULE_ROWS_END = 10
+RULE_END_COL = 140
+
 # Solid barcode rails sitting left of the wing. Not the wing itself.
 LEFT_BARCODE_ROWS = (22, 23, 24, 25, 27, 28, 29, 30, 34, 35, 36, 37, 38, 39, 45)
 for r in LEFT_BARCODE_ROWS:
@@ -217,16 +224,23 @@ def _wing_spans(row: list[str], r: int) -> list[tuple[str, list[int]]]:
     right: list[int] = []
     # Beside the eye, the lashes and the marks under it stay put. The lower
     # half has no eye, so the inner feathers there move with the wing.
+    if r < WING_TOP:
+        # Rows 0-6 are the barcode band and its towers. They never move.
+        return []
     if r <= 40:
         left_max, right_min = 64, 118
     else:
         left_max, right_min = 92, 96
+    if r < RULE_ROWS_END:
+        # Rows 7-9 on the right: the dotted rule left of the tower is
+        # barcode furniture. Only the wing glyphs from the tower out move.
+        right_min = RULE_END_COL
     for c, ch in enumerate(row):
         if ch == " " or in_eye(r, c) or _under_eye(r, c):
             continue
         if 12 <= c < left_max:
             left.append(c)
-        elif c >= right_min and r >= 10:
+        elif c >= right_min:
             right.append(c)
     spans = []
     if left:
@@ -254,7 +268,9 @@ def _outer_glyphs(cols: list[int], side: str, depth: int = 14) -> tuple[list[int
 def _can_write(r: int, c: int, side: str) -> bool:
     if not (0 <= r < H) or not (0 <= c < orig_lens[r]):
         return False
-    if side == "R" and r < 10:
+    if r < WING_TOP:
+        return False
+    if side == "R" and r < RULE_ROWS_END and c < RULE_END_COL:
         return False
     if in_eye(r, c):
         return False
@@ -315,11 +331,13 @@ def splay_wings(grid: list[list[str]], body: int, splay: int, lift: int) -> list
     # (row, col, dest_col, glyph, side, shift)
     moves: list[tuple[int, int, int, str, str, int]] = []
 
-    for r in range(8, min(64, H)):
+    for r in range(WING_TOP, min(64, H)):
         for side, cols in _wing_spans(grid[r], r):
             if not cols:
                 continue
-            shift = body + splay if r >= 50 else body
+            # One shift for every row. A larger shift on the lower rows tore
+            # the tips away from the wing body between frames.
+            shift = body
             if shift <= 0:
                 continue
             for c in cols:
@@ -367,7 +385,7 @@ def splay_wings(grid: list[list[str]], body: int, splay: int, lift: int) -> list
             for side, cols in _wing_spans(grid[r], r):
                 if not cols:
                     continue
-                extra = body + max(splay, 1)
+                extra = body + splay
                 up = max(lift, 1)
                 if (side == "L" and 8 <= r <= 14) or (side == "R" and 11 <= r <= 16):
                     _raise_into_blank(out, grid, r, cols, side, extra, up, 12)
@@ -410,8 +428,10 @@ def main() -> None:
     # ascii-block.tsx BLINK_COUNT must stay equal to blink_steps + 1.
     blink_steps = 8
     blink_ts = [i / blink_steps for i in range(blink_steps + 1)]
-    # (body shift, extra corner splay, corner lift in rows)
-    wing_levels = [(0, 0, 0), (1, 1, 1), (2, 1, 1)]
+    # (body shift, extra corner splay, corner lift in rows). The tips use the
+    # same shift as the body and the lift grows with it, so every step moves
+    # the whole wing by the same amount.
+    wing_levels = [(0, 0, 0), (1, 0, 1), (2, 0, 2)]
 
     manifest = []
     blink_grids = [blink_frame(t) for t in blink_ts]
@@ -452,7 +472,20 @@ def main() -> None:
     splay_l = (OUT / "b0w2.txt").read_text(encoding="utf-8").splitlines()
     assert open_l == cleaned.splitlines(), "b0w0 drifted from hero.txt"
     assert region_delta(open_l, splay_l, 18, 35, 68, 115) == 0, "wings moved the eye"
-    assert region_delta(open_l, splay_l, 0, 9, 120, 175) == 0, "wings moved the top barcode"
+    # The barcode band and its towers (rows 0-6) and the dotted rule beside
+    # the right tower (rows 7-9) are identical in every wing frame.
+    for wi in range(len(wing_levels)):
+        frame = (OUT / f"b0w{wi}.txt").read_text(encoding="utf-8").splitlines()
+        assert region_delta(open_l, frame, 0, WING_TOP - 1, 0, 175) == 0, f"barcode moved in w{wi}"
+        assert (
+            region_delta(open_l, frame, WING_TOP, RULE_ROWS_END - 1, 60, RULE_END_COL) == 0
+        ), f"barcode rule moved in w{wi}"
+    # The top wing tips (rows 7-14) do move, left and right.
+    for a, b in ((0, 1), (1, 2)):
+        fa = (OUT / f"b0w{a}.txt").read_text(encoding="utf-8").splitlines()
+        fb = (OUT / f"b0w{b}.txt").read_text(encoding="utf-8").splitlines()
+        assert region_delta(fa, fb, WING_TOP, 14, 0, 60) > 0, "top-left tips did not move"
+        assert region_delta(fa, fb, WING_TOP, 14, RULE_END_COL, 175) > 0, "top-right tips did not move"
     assert all(not open_l[r][:20].strip() for r in LEFT_BARCODE_ROWS), "left barcode remains"
     # The lower tips have to leave their rest position.
     assert region_delta(open_l, splay_l, 50, 63, 12, 70) > 0, "left tips did not splay"

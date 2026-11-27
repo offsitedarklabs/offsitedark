@@ -1,5 +1,6 @@
 import { ToolsIndex } from "@/components/tools-index";
 import { getKaliTools } from "@/lib/kali-tools";
+import { buildPageMetadata } from "@/lib/metadata";
 import { METASPLOIT_SECTION } from "@/lib/tools-data";
 import {
   getExternalToolListItems,
@@ -39,8 +40,9 @@ export default function ToolsPage() {
   );
 }
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Tools",
   description:
     "Cybersecurity tools reference: popular market tools, Metasploit internals, research archives, and curated Kali Linux essentials.",
-};
+  path: "/tools",
+});

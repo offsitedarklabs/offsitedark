@@ -1,16 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { AsciiScaler } from "./ascii-scaler";
+
+const REDUCE_MOTION_MQ = "(prefers-reduced-motion: reduce)";
+
+function subscribeReduceMotion(onChange: () => void): () => void {
+  const mq = window.matchMedia(REDUCE_MOTION_MQ);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
+const getReduceMotionSnapshot = () =>
+  window.matchMedia(REDUCE_MOTION_MQ).matches;
+const getReduceMotionServerSnapshot = () => false;
 
 /** Slow mysterious blink — times in ms. Close and reopen share one duration. */
 const OPEN_HOLD_MS = [4200, 7600] as const;
 const LID_MOVE_MS = [640, 1040] as const;
 const CLOSED_HOLD_MS = [240, 480] as const;
 
-/** Wing tips ease out, then back. One step of the splay sequence. */
-const WING_STEP_MS = 780;
+/**
+ * Wing tips ease out, then back, forever. One step of the splay sequence.
+ * Kept short so each frame is replaced before it reads as a held pose.
+ */
+const WING_STEP_MS = 240;
 
 function randBetween(min: number, max: number): number {
   return min + Math.random() * (max - min);
@@ -34,23 +49,14 @@ export function AsciiBlink({
 }) {
   const [blink, setBlink] = useState(0);
   const [wing, setWing] = useState(0);
-  const [reduceMotion, setReduceMotion] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotionSnapshot,
+    getReduceMotionServerSnapshot,
   );
 
   useEffect(() => {
-    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(motionMq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    motionMq.addEventListener("change", onChange);
-    return () => motionMq.removeEventListener("change", onChange);
-  }, []);
-
-  useEffect(() => {
     if (reduceMotion || blinkCount < 2) {
-      setBlink(0);
       return;
     }
 
@@ -116,7 +122,6 @@ export function AsciiBlink({
 
   useEffect(() => {
     if (reduceMotion || wingCount < 2) {
-      setWing(0);
       return;
     }
 
@@ -134,7 +139,9 @@ export function AsciiBlink({
     return () => window.clearInterval(id);
   }, [reduceMotion, wingCount]);
 
-  const index = blink * wingCount + wing;
+  const activeBlink = reduceMotion || blinkCount < 2 ? 0 : blink;
+  const activeWing = reduceMotion || wingCount < 2 ? 0 : wing;
+  const index = activeBlink * wingCount + activeWing;
   const content = frames[index] ?? frames[0] ?? "";
 
   return <AsciiScaler content={content} sizeToContent={sizeToContent} />;

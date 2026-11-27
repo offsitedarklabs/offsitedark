@@ -36,14 +36,14 @@ export function SiteSearch({
   useEffect(() => {
     if (!showResults) return;
 
-    function handlePointerDown(event: MouseEvent) {
+    function handlePointerDown(event: PointerEvent) {
       if (!containerRef.current?.contains(event.target as Node)) {
         setOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handlePointerDown);
-    return () => document.removeEventListener("mousedown", handlePointerDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, [showResults]);
 
   const navigateTo = (href: string) => {
@@ -90,6 +90,11 @@ export function SiteSearch({
       ref={containerRef}
       className={`site-search${className ? ` ${className}` : ""}`}
       role="search"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setOpen(false);
+        }
+      }}
     >
       <label className="sr-only" htmlFor={inputId}>
         Search the site

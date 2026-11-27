@@ -16,6 +16,7 @@ import type { SignalPreview } from "@/lib/post";
 import type { RecordFacets } from "@/lib/record-facets";
 import { SeverityMark } from "@/components/severity-mark";
 import {
+  collectGroupKeys,
   collectPostsInGroup,
   groupSignalsByDate,
   type LedgerGroup,
@@ -167,24 +168,16 @@ function LedgerGroups({
   );
 }
 
-function collectGroupKeys(groups: LedgerGroup[]): Record<string, boolean> {
-  const keys: Record<string, boolean> = {};
-  for (const group of groups) {
-    if (group.kind === "month" || group.kind === "year") {
-      keys[group.key] = true;
-    }
-    if (group.kind === "year") {
-      for (const month of group.months) keys[month.key] = true;
-    }
-  }
-  return keys;
-}
-
-export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
+export function SignalsLedger({
+  posts,
+  referenceDate,
+}: {
+  posts: SignalPreview[];
+  referenceDate?: string;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [vulnFilter, setVulnFilter] = useState<VulnFilter>("all");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const skipScrollRef = useRef(true);
 
   const postSlugs = useMemo(
     () => new Set(posts.map((post) => post.slug)),
@@ -211,8 +204,8 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
   }, [posts, vulnFilter, searchQuery]);
 
   const ledgerGroups = useMemo(
-    () => groupSignalsByDate(filteredPosts),
-    [filteredPosts],
+    () => groupSignalsByDate(filteredPosts, referenceDate),
+    [filteredPosts, referenceDate],
   );
 
   const activeSlug = useMemo(() => {
@@ -220,6 +213,8 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
     if (filteredPosts.some((post) => post.slug === preferred)) return preferred;
     return filteredPosts[0]?.slug ?? "";
   }, [filteredPosts, hashSlug, posts]);
+
+  const prevActiveSlugRef = useRef(activeSlug);
 
   const isFiltering =
     vulnFilter !== "all" || searchQuery.trim().length > 0;
@@ -239,13 +234,15 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
   }, [activeSlug, hashSlug]);
 
   useEffect(() => {
-    if (skipScrollRef.current) {
-      skipScrollRef.current = false;
-      return;
-    }
+    if (prevActiveSlugRef.current === activeSlug) return;
+    prevActiveSlugRef.current = activeSlug;
+    if (!activeSlug) return;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
     document
       .getElementById(activeSlug)
-      ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      ?.scrollIntoView({ behavior, block: "nearest" });
   }, [activeSlug]);
 
   const selectPost = (slug: string) => {
@@ -257,8 +254,8 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
   };
 
   return (
-    <div className="grid lg:grid-cols-2">
-      <div className="cell border-l-0 border-t-0">
+    <div className="grid min-w-0 lg:grid-cols-2">
+      <div className="cell min-w-0 border-l-0 border-t-0">
         <SlashMark rows={3} className="p-4" />
 
         <div className="ledger-controls border-b border-red px-4 py-4 md:px-8">
@@ -315,15 +312,16 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
         )}
       </div>
 
-      <div className="cell border-r-0 border-t-0">
+      <div className="cell min-w-0 border-r-0 border-t-0">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => {
             const isActive = post.slug === activeSlug;
+            const facets = facetsBySlug.get(post.slug);
             return (
               <article
                 key={post.slug}
                 id={post.slug}
-                className={`signal-preview scroll-mt-20 relative border-b border-red py-8 pr-8 pl-10 md:py-12 md:pr-12 md:pl-14${
+                className={`signal-preview scroll-mt-20 relative border-b border-red py-8 pr-6 pl-12 md:py-12 md:pr-12 md:pl-14${
                   isActive ? " signal-preview-active" : ""
                 }`}
                 aria-current={isActive ? "true" : undefined}
@@ -331,16 +329,14 @@ export function SignalsLedger({ posts }: { posts: SignalPreview[] }) {
                 <p className="vertical-label absolute left-2 top-8 text-red md:left-4 md:top-12">
                   {post.category}
                 </p>
-                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div className="mb-4 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                   <p className="meta">
                     {formatDate(post.date)}
                     {post.source ? ` · ${post.source}` : ""}
                   </p>
-                  {facetsBySlug.get(post.slug) && (
-                    <SeverityMark facets={facetsBySlug.get(post.slug)!} />
-                  )}
+                  {facets && <SeverityMark facets={facets} />}
                 </div>
-                <h2 className="font-display mb-4 text-4xl">{post.title}</h2>
+                <h2 className="mb-4 break-words font-display text-3xl leading-[0.95] sm:text-4xl">{post.title}</h2>
                 <p className="signal-preview-excerpt mb-6 max-w-prose font-serif text-lg leading-relaxed">
                   {post.excerpt}
                 </p>

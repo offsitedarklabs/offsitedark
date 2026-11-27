@@ -17,15 +17,18 @@ function getClientMeta(): { output: number; seed: number } {
   return clientMeta;
 }
 
+const subscribe = () => () => {};
+const getServerSnapshot = () => null;
+
 export function OutputSeedMeta({ className = "meta mt-8" }: { className?: string }) {
   const meta = useSyncExternalStore(
-    () => () => {},
+    subscribe,
     getClientMeta,
-    () => null,
+    getServerSnapshot,
   );
 
   return (
-    <p className={className} suppressHydrationWarning>
+    <p className={className}>
       {meta ? `OUTPUT ${meta.output} · SEED: ${meta.seed}` : "\u00A0"}
     </p>
   );

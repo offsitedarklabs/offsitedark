@@ -2,19 +2,31 @@ export function MarkKey({ variant = "stack" }: { variant?: "stack" | "strip" }) 
   if (variant === "strip") {
     return (
       <div className="mark-key mark-key--strip" aria-label="How to read the marks">
-        <span className="sev sev-critical">9.0+</span>
-        <span className="mark-key-text">Critical</span>
-        <span className="sev sev-high">7.0</span>
-        <span className="mark-key-text">High</span>
-        <span className="sev sev-medium">4.0</span>
-        <span className="mark-key-text">Medium</span>
-        <span className="sev sev-low">&lt;4</span>
-        <span className="mark-key-text">Low</span>
+        <span className="mark-key-item">
+          <span className="sev sev-critical">9.0+</span>
+          <span className="mark-key-text">Critical</span>
+        </span>
+        <span className="mark-key-item">
+          <span className="sev sev-high">7.0</span>
+          <span className="mark-key-text">High</span>
+        </span>
+        <span className="mark-key-item">
+          <span className="sev sev-medium">4.0</span>
+          <span className="mark-key-text">Medium</span>
+        </span>
+        <span className="mark-key-item">
+          <span className="sev sev-low">&lt;4</span>
+          <span className="mark-key-text">Low</span>
+        </span>
         <span className="mark-key-break" aria-hidden />
-        <span className="status-kev">KEV</span>
-        <span className="mark-key-text">On the CISA catalog</span>
-        <span className="status-open">Not KEV</span>
-        <span className="mark-key-text">Checked, not listed</span>
+        <span className="mark-key-item">
+          <span className="status-kev">KEV</span>
+          <span className="mark-key-text">On the CISA catalog</span>
+        </span>
+        <span className="mark-key-item">
+          <span className="status-open">Not KEV</span>
+          <span className="mark-key-text">Checked, not listed</span>
+        </span>
       </div>
     );
   }

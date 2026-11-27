@@ -6,6 +6,7 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 
 const REF_FONT_SIZE = 10;
@@ -28,7 +29,6 @@ interface Layout {
   cols: number;
   rows: number;
   fontSize: number;
-  text: string;
   width: number;
   height: number;
 }
@@ -102,7 +102,6 @@ function computeLayoutFill(
   cw: number,
   ch: number,
   metrics: CharMetrics,
-  source: string[][],
 ): Layout | null {
   if (cw <= 0 || ch <= 0) return null;
 
@@ -167,22 +166,36 @@ function computeLayoutFill(
     fitFontSize(cw, ch, cols, rows, unitWidth, unitHeight),
   );
 
-  const resampled = resampleGrid(source, cols, rows);
   return {
     cols,
     rows,
     fontSize,
-    text: gridToString(resampled),
     width: cols * fontSize * unitWidth,
     height: rows * fontSize * unitHeight,
   };
 }
 
 const NARROW_MQ = "(max-width: 767px)";
+const REDUCE_MOTION_MQ = "(prefers-reduced-motion: reduce)";
 
 function isNarrowViewport(): boolean {
   return window.matchMedia(NARROW_MQ).matches;
 }
+
+function subscribeMediaQuery(query: string, onChange: () => void): () => void {
+  const mq = window.matchMedia(query);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
+const subscribeNarrow = (onChange: () => void) =>
+  subscribeMediaQuery(NARROW_MQ, onChange);
+const getNarrowSnapshot = () => isNarrowViewport();
+const subscribeReduceMotion = (onChange: () => void) =>
+  subscribeMediaQuery(REDUCE_MOTION_MQ, onChange);
+const getReduceMotionSnapshot = () =>
+  window.matchMedia(REDUCE_MOTION_MQ).matches;
+const getFalseServerSnapshot = () => false;
 
 function computeLayoutContainWidthBound(
   cw: number,
@@ -241,12 +254,10 @@ function computeLayoutContainWidthBound(
     fitFontSize(cw, Number.POSITIVE_INFINITY, cols, rows, unitWidth, unitHeight),
   );
 
-  const resampled = resampleGrid(source, cols, rows);
   return {
     cols,
     rows,
     fontSize,
-    text: gridToString(resampled),
     width: cols * fontSize * unitWidth,
     height: rows * fontSize * unitHeight,
   };
@@ -309,12 +320,10 @@ function computeLayoutContainHeightBound(
     fitFontSize(Number.POSITIVE_INFINITY, ch, cols, rows, unitWidth, unitHeight),
   );
 
-  const resampled = resampleGrid(source, cols, rows);
   return {
     cols,
     rows,
     fontSize,
-    text: gridToString(resampled),
     width: cols * fontSize * unitWidth,
     height: rows * fontSize * unitHeight,
   };
@@ -347,18 +356,35 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
   const shapeKeyRef = useRef<string | null>(null);
 
   const [layout, setLayout] = useState<Layout | null>(null);
-  const [animateResize, setAnimateResize] = useState(false);
-  const [resizeTransition, setResizeTransition] = useState(false);
-  const [isNarrow, setIsNarrow] = useState(
-    () => typeof window !== "undefined" && isNarrowViewport(),
+  const [transitionState, setTransitionState] = useState<{
+    active: boolean;
+    mode: boolean;
+  }>({ active: false, mode: sizeToContent });
+  const isNarrow = useSyncExternalStore(
+    subscribeNarrow,
+    getNarrowSnapshot,
+    getFalseServerSnapshot,
   );
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotionSnapshot,
+    getFalseServerSnapshot,
+  );
+  const animateResize = !reduceMotion;
+  const resizeTransition =
+    transitionState.mode === sizeToContent && transitionState.active;
 
   const sourceGrid = useMemo(() => parseAsciiGrid(content), [content]);
   const fallbackText = useMemo(() => gridToString(sourceGrid), [sourceGrid]);
   const shapeKey = sourceShapeKey(sourceGrid);
 
-  sourceGridRef.current = sourceGrid;
-  if (shapeKeyRef.current === null) shapeKeyRef.current = shapeKey;
+  const displayText = useMemo(
+    () =>
+      layout
+        ? gridToString(resampleGrid(sourceGrid, layout.cols, layout.rows))
+        : fallbackText,
+    [layout, sourceGrid, fallbackText],
+  );
 
   const refit = useCallback(() => {
     const container = containerRef.current;
@@ -392,7 +418,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
       const cw = container.clientWidth;
       const ch = container.clientHeight;
       if (cw === 0 || ch === 0) return;
-      next = computeLayoutFill(cw, ch, metrics, source);
+      next = computeLayoutFill(cw, ch, metrics);
     }
 
     if (!next) return;
@@ -404,8 +430,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
         prev.rows === next.rows &&
         Math.abs(prev.fontSize - next.fontSize) < 0.05 &&
         Math.abs(prev.width - next.width) < 0.5 &&
-        Math.abs(prev.height - next.height) < 0.5 &&
-        prev.text === next.text
+        Math.abs(prev.height - next.height) < 0.5
       ) {
         return prev;
       }
@@ -423,45 +448,27 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
     });
   }, [refit]);
 
-  // Same source geometry: swap resampled glyphs only — never remount observers / refit size.
+  // Same source geometry: derived displayText updates without remounting observers.
   useLayoutEffect(() => {
+    sourceGridRef.current = sourceGrid;
+    if (shapeKeyRef.current === null) {
+      shapeKeyRef.current = shapeKey;
+      return;
+    }
     if (shapeKeyRef.current !== shapeKey) {
       shapeKeyRef.current = shapeKey;
       scheduleRefit();
-      return;
     }
-
-    setLayout((prev) => {
-      if (!prev) {
-        scheduleRefit();
-        return prev;
-      }
-      const text = gridToString(
-        resampleGrid(sourceGrid, prev.cols, prev.rows),
-      );
-      if (text === prev.text) return prev;
-      return { ...prev, text };
-    });
   }, [sourceGrid, shapeKey, scheduleRefit]);
 
   useLayoutEffect(() => {
+    let cancelled = false;
     metricsRef.current = null;
-    setResizeTransition(false);
     skipResizeTransitionRef.current = true;
 
-    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setAnimateResize(!motionMq.matches);
-
-    const onMotionChange = (e: MediaQueryListEvent) => {
-      setAnimateResize(!e.matches);
-    };
-    motionMq.addEventListener("change", onMotionChange);
-
     const narrowMq = window.matchMedia(NARROW_MQ);
-    setIsNarrow(narrowMq.matches);
-    const onNarrowChange = (e: MediaQueryListEvent) => {
-      setIsNarrow(e.matches);
-      setResizeTransition(true);
+    const onNarrowChange = () => {
+      setTransitionState({ active: true, mode: sizeToContent });
       scheduleRefit();
     };
     narrowMq.addEventListener("change", onNarrowChange);
@@ -471,7 +478,6 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
 
     const container = containerRef.current;
     if (!container) {
-      motionMq.removeEventListener("change", onMotionChange);
       narrowMq.removeEventListener("change", onNarrowChange);
       return;
     }
@@ -487,7 +493,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
         scheduleRefit();
         return;
       }
-      setResizeTransition(true);
+      setTransitionState({ active: true, mode: sizeToContent });
       scheduleRefit();
     };
 
@@ -496,16 +502,17 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
 
     window.addEventListener("resize", onResize);
 
-    void document.fonts.ready.then(() => {
+    void document.fonts?.ready.then(() => {
+      if (cancelled) return;
       metricsRef.current = null;
-      setResizeTransition(false);
+      setTransitionState({ active: false, mode: sizeToContent });
       refit();
     });
 
     return () => {
+      cancelled = true;
       ro.disconnect();
       window.removeEventListener("resize", onResize);
-      motionMq.removeEventListener("change", onMotionChange);
       narrowMq.removeEventListener("change", onNarrowChange);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
@@ -551,7 +558,7 @@ export function AsciiScaler({ content, sizeToContent = false }: AsciiScalerProps
               : undefined,
         }}
       >
-        {layout?.text ?? fallbackText}
+        {displayText}
       </pre>
     </div>
   );

@@ -23,15 +23,4 @@ export function getContentTier(slug: string): ToolContentTier {
   return "baseline";
 }
 
-export function getContentStats(): {
-  rich: number;
-  enhanced: number;
-  baseline: number;
-  total: number;
-} {
-  const rich = RICH_SLUGS.size;
-  const enhanced = ENHANCED_SLUGS.size;
-  return { rich, enhanced, baseline: 0, total: 0 };
-}
-
 export { ENHANCED_MERGED as ENHANCED_CONTENT, RICH_CONTENT };

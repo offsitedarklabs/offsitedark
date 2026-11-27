@@ -19,8 +19,9 @@ Separately on **24 November 2026**, FinCEN issued exceptive-relief **Order `FIN-
 
 ## Confirmed scope vs. unconfirmed details
 
-- **Confirmed operational impact:** FinCEN stated the **BSA E-Filing website remains operational**, though certain sub-services (including SDTM) remain temporarily unavailable during isolation. The **Financial Institutions Hotline (`1-866-556-3974`)** was unaffected and remains active for expedited suspicious activity reporting.
-- **Unconfirmed details:** FinCEN has not publicly disclosed the initial entry vector, affected software/CVE, intrusion start timestamp, threat actor attribution, or whether any BSA, SAR, or BOI data was accessed or exfiltrated.
+- **Confirmed operational impact:** FinCEN stated the **BSA E-Filing website remains operational**, though certain sub-services (including SDTM) remain temporarily unavailable during isolation. The **Financial Institutions Hotline (`1-866-556-3974`)** was unaffected and remains active for expedited suspicious activity reporting. Credit-union technology vendor **CU*SOUTH** reported batch-filing rejections starting as early as **20 November**.
+- **25–26 November investigative updates (Reuters / CyberScoop):** A FinCEN official told Reuters that Treasury is investigating scope alongside the **FBI, CISA, and third-party forensic examiners**. Separately, a person familiar with the review told Reuters and CyberScoop that—while forensics are still underway—investigators had found **no evidence of a breach of the Bank Secrecy Act (BSA) or beneficial-ownership (BOI) databases**.
+- **Unconfirmed details:** FinCEN has not publicly disclosed the initial entry vector, affected software/CVE, intrusion start timestamp, threat actor attribution, or final impact across isolated systems.
 
 ## Operator actions
 

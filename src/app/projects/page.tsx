@@ -1,5 +1,6 @@
 import { SlashMark } from "@/components/slash-mark";
 import { PROJECTS, SITE } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export default function ProjectsPage() {
   return (
@@ -61,4 +62,9 @@ export default function ProjectsPage() {
   );
 }
 
-export const metadata = { title: "Projects" };
+export const metadata = buildPageMetadata({
+  title: "Projects",
+  description:
+    "Active engineering projects at OFFSITE.DARK: OFFSITE.FIREWALL, OFFSITE.WORLD, and OFFSITE.AI.",
+  path: "/projects",
+});
