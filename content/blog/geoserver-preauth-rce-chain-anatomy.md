@@ -16,6 +16,8 @@ See the Signal summary in [GeoServer Pre-Auth RCE Chain Exploited in Probing](/s
 
 ## Two Converging Exploitation Paths
 
+> **Verification note (27 November 2026):** When checked, NVD had no record yet for CVE-2026-120704, -120705, -129242, -129243, -129244 or -129245. The 9.2 score for CVE-2026-129245 matches GitHub's advisory `GHSA-hgm3-wq4h-8vvq`. The other scores in this essay are as stated in the sources below and have not been checked against NVD.
+
 ```text
 Unauthenticated HTTP Request
   |
