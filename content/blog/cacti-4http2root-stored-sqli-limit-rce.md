@@ -14,6 +14,8 @@ wip: false
 
 For urgent mitigations, guest-user disablement, and IOC queries, see our tracking card: [Cacti 4HTTP2ROOT Unpatched Zero-Day Enables 4-Request Guest RCE](/signals/cacti-4http2root-unpatched-sqli-rce-zero-day).
 
+**Update, 27 November 2026 (6:24 PM CST / 00:24 UTC 28 November):** a backport fix, [Cacti PR #9013](https://github.com/Cacti/cacti/pull/9013), was merged into the `1.2.31` branch. No tagged release or CVE had been published when this was checked. The root-cause analysis below still applies to the unpatched 1.2.31 release.
+
 ## The Trust Boundary Collapse Across Four Requests
 
 ```text

@@ -5,7 +5,7 @@ date: 2026-11-27
 type: news
 category: news
 tags: [cacti, zero-day, sqli, rce, php, popen, monitoring]
-excerpt: "An unpatched Cacti Core 1.2.31 zero-day (4HTTP2ROOT / 4HTTP2SHELL) lets unauthenticated visitors chain stored SQL injection in preview_graphs_per_page and poller_item.arg1 into popen() shell execution when guest access is enabled. No CVE or vendor fix exists yet; not in CISA KEV."
+excerpt: "An unpatched Cacti Core 1.2.31 zero-day (4HTTP2ROOT / 4HTTP2SHELL) lets unauthenticated visitors chain stored SQL injection in preview_graphs_per_page and poller_item.arg1 into popen() shell execution when guest access is enabled. No CVE yet. PR #9013 is merged on the 1.2.31 branch, with no tagged release; not in CISA KEV."
 source: "Church of Malware / watchTowr"
 sourceUrl: "https://watchtowr.com/intelligence/4http2root-cacti-zero-day-faq/"
 draft: false
@@ -15,7 +15,9 @@ draft: false
 
 On **26 November 2026**, researcher `ek0ms savi0r` (Church of Malware) published **4HTTP2SHELL** (also tracked as **4HTTP2ROOT** and `cve.now` early warning **`SZB-2d2e53b206`**), an unpatched zero-day vulnerability chain affecting the latest stable release **Cacti Core 1.2.31** (full earlier affected range not yet established). When Cacti's optional **guest user** is enabled, an unauthenticated visitor can execute arbitrary OS commands as the Cacti web/poller user (`www-data`, `apache`, or `root` in misconfigured containers) across **four plain HTTP requests**.
 
-Both **watchTowr** and **Previdian** (`VULN-2026-0010`) independently analyzed and verified the exploit sequence within hours of release. No CVE identifier or official severity metric has been assigned yet, **no vendor patch exists as of 27 November 2026**, and no in-the-wild exploitation has been confirmed; not in CISA KEV catalog `2026.11.25`.
+Both **watchTowr** and **Previdian** (`VULN-2026-0010`) independently analyzed and verified the exploit sequence within hours of release. No CVE identifier or official severity metric has been assigned yet, **no tagged release contains the branch fix merged on 27 November 2026**, and no in-the-wild exploitation has been confirmed; not in CISA KEV catalog `2026.11.25`.
+
+**Update, 27 November 2026 (6:24 PM CST / 00:24 UTC 28 November):** a backport fix, [Cacti PR #9013](https://github.com/Cacti/cacti/pull/9013) (`fix(security): protect profile changes and graph pagination on 1.2.31`), was merged into the `1.2.31` branch. No tagged release, CVE, or GHSA had been published when this was checked, so treat the release as still pending and keep the guest-user mitigation in place.
 
 ## Why stored defaults bypass validation (4-request chain)
 
